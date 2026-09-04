@@ -1,0 +1,46 @@
+[
+  {
+    "command": [
+      "make",
+      "clean"
+    ],
+    "exit_code": 0,
+    "seconds": 0.003
+  },
+  {
+    "command": [
+      "make",
+      "-j9"
+    ],
+    "exit_code": 0,
+    "seconds": 0.439
+  },
+  {
+    "command": [
+      "make",
+      "validate",
+      "control",
+      "equiv",
+      "frontier-audit",
+      "prototypes"
+    ],
+    "exit_code": 0,
+    "seconds": 13.369
+  },
+  {
+    "command": [
+      "make",
+      "differential"
+    ],
+    "exit_code": 0,
+    "seconds": 137.937
+  },
+  {
+    "command": [
+      "make",
+      "direct-checks"
+    ],
+    "exit_code": 0,
+    "seconds": 1.76
+  }
+]

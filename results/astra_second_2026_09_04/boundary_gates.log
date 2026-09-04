@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "exact_symbolic_identities": "PASS",
+  "formal_fraction_type_guards": "PASS",
+  "formal_jet_orders": [
+    72,
+    30
+  ],
+  "linear_lift_controls": 24,
+  "independent_implementations": [
+    "Python",
+    "C++17"
+  ],
+  "prefix_checks_per_implementation": 59293,
+  "obstruction_modulus": 729,
+  "retained_certificate_match": true
+}

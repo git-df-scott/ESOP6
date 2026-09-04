@@ -1,5 +1,32 @@
 # Astra handoff — after the September 4 direct strike
 
+## Second-strike update — the previous next construction is now closed
+
+The normalized degree-six boundary-contact polynomial ansatz below has been
+proved impossible over Q. Read the new work first:
+
+```text
+ASTRA_SECOND_STRIKE.md
+BOUNDARY_CONTACT_6.md
+FORMAL_BRANCH.md
+RATIONAL_CURVE_ATTEMPT.md
+results/astra_second_2026_09_04/manifest.json
+```
+
+The proof includes all rational coefficient denominators and independent
+asymmetric A,B. The finite obstruction modulo 729 is independently reproduced
+in Python and C++; run `make boundary-checks`. The Q[[t]] formal branch
+survives, but no rational curve, rational surface point, sextuple, or elliptic
+residual was found. Stop condition D applies.
+
+The single next strike is the positive quadratic-denominator degree-eight
+family in RATIONAL_CURVE_ATTEMPT.md. Its exact residual equation and the
+normalization of the quadratic are specified there. General boundary curves
+and unequal leading tangent directions have not been closed.
+
+All inherited gates passed. No first-strike integer search was repeated or
+extended. The complete previous handoff follows as historical context.
+
 ## Binding current state
 
 - No positive ESOP6 solution was found in the direct strike.

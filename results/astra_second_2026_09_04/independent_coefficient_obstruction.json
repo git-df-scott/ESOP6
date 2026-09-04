@@ -1,0 +1,35 @@
+{
+  "implementation": "C++17 explicit midpoint coefficients",
+  "levels": [
+    {
+      "modulus": 27,
+      "prefixes": 1,
+      "liftable": 1,
+      "children": 243,
+      "prefix_fnv1a64": "589f8309c8dbea22"
+    },
+    {
+      "modulus": 81,
+      "prefixes": 243,
+      "liftable": 81,
+      "children": 19683,
+      "prefix_fnv1a64": "b29d879d96d1a091"
+    },
+    {
+      "modulus": 243,
+      "prefixes": 19683,
+      "liftable": 162,
+      "children": 39366,
+      "prefix_fnv1a64": "78520617a3bf543e"
+    },
+    {
+      "modulus": 729,
+      "prefixes": 39366,
+      "liftable": 0,
+      "children": 0,
+      "prefix_fnv1a64": "acccb79f4b3544a9"
+    }
+  ],
+  "result": "NO NORMALIZED LIFT MODULO 729",
+  "seconds": 0.427006
+}

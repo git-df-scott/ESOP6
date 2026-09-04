@@ -1,5 +1,24 @@
 # ESOP6 status — 2026-09-04
 
+## Latest: second strike after 80a2d9f
+
+No ESOP6 solution or positive rational surface point was found. The complete
+normalized degree-six boundary-contact polynomial ansatz is impossible over
+Q, including asymmetric A,B and arbitrary rational coefficient denominators.
+A 3-adic reduction and independent Python/C++ coefficient certificates give
+the obstruction modulo 729. The formal branch in Q[[t]] exists, but is not
+an exact rational-function curve. No elliptic residual was obtained.
+
+All inherited gates passed; the new `make boundary-checks` gate verifies the
+symbolic calculations and both finite certificates. No integer search was
+repeated or extended. The historical frontier qualification is unchanged.
+
+Read [ASTRA_SECOND_STRIKE.md](ASTRA_SECOND_STRIKE.md) and
+[BOUNDARY_CONTACT_6.md](BOUNDARY_CONTACT_6.md). The single next construction
+is the degree-eight extension with a positive quadratic denominator in
+[RATIONAL_CURVE_ATTEMPT.md](RATIONAL_CURVE_ATTEMPT.md). This closes only the
+specified equal-slope degree-six family, not all rational boundary curves.
+
 ## Latest: direct solution strike after 485390a
 
 No solution, positive rational surface point, or rational curve on the

@@ -1,0 +1,139 @@
+{
+  "repository": "https://github.com/git-df-scott/ESOP6",
+  "branch": "main",
+  "base_commit": "80a2d9f5bef3c7ee4b622a8ec96254ac05c9bd0f",
+  "created_utc": "2026-09-04T21:37:53.788133+00:00",
+  "status": {
+    "esop6_solution_found": false,
+    "positive_rational_surface_point": false,
+    "exact_boundary_contact_curve": false,
+    "formal_branch_in_Q_power_series": true,
+    "polynomial_ansatz": "IMPOSSIBLE over Q in the specified equal-leading-slope family",
+    "rational_function_relaxation": "LIVE: positive quadratic denominator, reduced degree eight",
+    "elliptic_residual": false,
+    "new_targeted_integer_search_run": false
+  },
+  "stop_condition": "D: polynomial impossibility plus precise minimal rational relaxation",
+  "proof": {
+    "denominators": "all rational coefficients covered by the 3-adic Gauss/Newton reduction",
+    "required_congruence_modulus_at_least": 19683,
+    "contradiction_modulus": 729,
+    "prefix_checks_including_initial": 59293,
+    "implementations": [
+      "Python arbitrary-precision integers",
+      "C++17 exact bounded integers"
+    ],
+    "scope_exclusions": [
+      "unequal leading tangent slopes",
+      "higher reduced degrees",
+      "curves avoiding the boundary point",
+      "nonexistence of rational points on the surface"
+    ]
+  },
+  "first_strike_preservation": {
+    "manifest_entries_verified_before_work": 33,
+    "all_33_original_entries_still_verified_at_base_commit": true,
+    "current_files_updated_for_handoff_or_testing": [
+      "ASTRA_HANDOFF.md",
+      "Makefile",
+      "STATUS.md"
+    ],
+    "remaining_30_entries_unchanged": true
+  },
+  "commands": [
+    "make clean",
+    "make -j9",
+    "make validate control equiv frontier-audit prototypes",
+    "make differential",
+    "make direct-checks",
+    "python3 tools/boundary_contact.py --output results/astra_second_2026_09_04/coefficient_obstruction.json",
+    "g++ -O2 -std=c++17 -Wall -Wextra tools/verify_boundary_contact.cpp -o bin/boundary_contact_verify",
+    "bin/boundary_contact_verify",
+    "python3 tools/boundary_symbolics.py --output results/astra_second_2026_09_04/symbolic_checks.json",
+    "make boundary-checks"
+  ],
+  "environment": {
+    "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "sympy": "1.14.0",
+    "cxx": "g++ (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0"
+  },
+  "files": {
+    ".gitignore": {
+      "bytes": 38,
+      "sha256": "7f20644e59ba6144869c1cee7ce387c78358d8620ef562f1c0173499881ef6d2"
+    },
+    "ASTRA_HANDOFF.md": {
+      "bytes": 4887,
+      "sha256": "d702b7d4b94eef8ca2cb7f97df327296ca5c303e8a0b09eb47edd45c486daf9a"
+    },
+    "ASTRA_SECOND_STRIKE.md": {
+      "bytes": 4786,
+      "sha256": "0f333ede2511279cbec4beea22cab6855978adfece7cf066930972a7830e3897"
+    },
+    "BOUNDARY_CONTACT_6.md": {
+      "bytes": 12529,
+      "sha256": "9d95f82f16d9a0a77e3d95fd064480e3bc848ebced8928e2d9efb13484f69e59"
+    },
+    "FORMAL_BRANCH.md": {
+      "bytes": 5577,
+      "sha256": "34cbbbeb9fa4e2af99e47f8096cee92b89228d6f3026cbf5dd4e360d65266316"
+    },
+    "Makefile": {
+      "bytes": 1935,
+      "sha256": "c0614d889db9f70d221ff3f8565b5fe11e2e7826b53a4e52fd39f095108561ec"
+    },
+    "RATIONAL_CURVE_ATTEMPT.md": {
+      "bytes": 6386,
+      "sha256": "cc942b20151346047d52f965d1cf483c309a4bb86684ff82f06c4502453951fe"
+    },
+    "STATUS.md": {
+      "bytes": 5262,
+      "sha256": "29a5822976d23b36d4e4213e8c414b8a018b74a50b242ac033e6fe45d27daefe"
+    },
+    "results/astra_second_2026_09_04/boundary_gates.json": {
+      "bytes": 95,
+      "sha256": "6bed1b49fd66e4d1d115ba58cff8243a84a0176eac34a7d4f0dfb7d9e4be3706"
+    },
+    "results/astra_second_2026_09_04/boundary_gates.log": {
+      "bytes": 357,
+      "sha256": "cb8cef8338e9513fc98d1da08514188954aedfe48dcbd265c015e5eb07f56ee1"
+    },
+    "results/astra_second_2026_09_04/coefficient_obstruction.json": {
+      "bytes": 4416,
+      "sha256": "86f146dd7b1136976d1a98e4e97be0be269fddc6fe776421d4c641bbaf8bb0a9"
+    },
+    "results/astra_second_2026_09_04/independent_coefficient_obstruction.json": {
+      "bytes": 734,
+      "sha256": "4fb833f525b69a85e49f4b7e3c0ea8e7b85645e9b6d7ea2a6252178350006564"
+    },
+    "results/astra_second_2026_09_04/inherited_gates.json": {
+      "bytes": 607,
+      "sha256": "746a999a759ea16680a7d4a6a0ac73dddf3fd6f9c4c544f09e34b21b16f591c9"
+    },
+    "results/astra_second_2026_09_04/inherited_gates.log": {
+      "bytes": 4335,
+      "sha256": "12341c650829d08080877012ea775b19c87c4640d8b4358e0775dc1752625c59"
+    },
+    "results/astra_second_2026_09_04/symbolic_checks.json": {
+      "bytes": 4079,
+      "sha256": "02cd08dc47ede654352a384fe244a582cffca8e6d8adf8bdc6229b7bbfc158fe"
+    },
+    "tests/boundary_contact.py": {
+      "bytes": 2260,
+      "sha256": "e4358b1ca464aaaba9d1b4c9a421664889782696942add8858adbe0c3d491902"
+    },
+    "tools/boundary_contact.py": {
+      "bytes": 7266,
+      "sha256": "6be5a56923959919083682aaada3f36bdaf6a10ad4c7454ff3fa3f453080a9cc"
+    },
+    "tools/boundary_symbolics.py": {
+      "bytes": 4683,
+      "sha256": "93340c4f3f10c9ddd92dfb040602946155c4066ed045db199ea946295c23e7f8"
+    },
+    "tools/verify_boundary_contact.cpp": {
+      "bytes": 6999,
+      "sha256": "7247e8bad478117df8954690991a37c32af0276a2cf141e909582c2a1e11da39"
+    }
+  }
+}

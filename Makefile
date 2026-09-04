@@ -49,7 +49,13 @@ direct-checks:
 	@python3 tests/direct_verifiers.py
 	@python3 tools/replay_surface_divisor.py results/astra_direct_2026_09_04
 
+$(BIN)/boundary_contact_verify: tools/verify_boundary_contact.cpp | $(BIN)
+	$(CXX) -O2 -std=c++17 -Wall -Wextra -o $@ $<
+
+boundary-checks: $(BIN)/boundary_contact_verify
+	@python3 tests/boundary_contact.py
+
 clean:
 	rm -rf $(BIN)
 
-.PHONY: all validate control equiv differential prototypes frontier-audit direct-checks clean
+.PHONY: all validate control equiv differential prototypes frontier-audit direct-checks boundary-checks clean
