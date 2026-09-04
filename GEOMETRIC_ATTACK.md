@@ -1,5 +1,14 @@
 # Geometric / Elkies-style attack
 
+> **Direct-strike update:** this file is the preparation proposal. The
+> executed attack and exact scope are in [GEOMETRIC_STRIKE.md](GEOMETRIC_STRIKE.md).
+> The proposed global genus-one fibration on the smooth sextic surface is
+> obstructed by its ample canonical bundle; quotient curves must be lifted.
+> The natural conic pencil gives genus 9. Degrees 1–3 are excluded, while
+> general degree 4 is still unclassified here. The next degree-six ansatz
+> advances only the boundary-contact branch, which is proved empty through
+> degree five; it does not assert that all degree-four curves were excluded.
+
 ## The variety
 
 The projective solution variety is

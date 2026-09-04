@@ -1,0 +1,188 @@
+{
+  "base_commit": "485390a17a1ae618f7f00cc547c94fa154144ebd",
+  "branch": "main",
+  "commands": [
+    "make clean",
+    "make -j\"$(nproc)\"",
+    "make validate control equiv frontier-audit prototypes",
+    "make differential",
+    "python3 tools/astra_geometry.py",
+    "python3 tools/surface_lift_search.py --height 2000",
+    "python3 tools/discover_conic_seeds.py (original equivalent inline seed-discovery run)",
+    "python3 tools/admissible_conic_strike.py --height 2000",
+    "PYTHONPATH=/workspace/scratch/1c585d536e74/mathdeps python3 -u tools/surface_divisor_strike.py --per-band 16 --output results/astra_direct_2026_09_04",
+    "python3 tools/replay_surface_divisor.py results/astra_direct_2026_09_04",
+    "python3 tests/direct_verifiers.py",
+    "make direct-checks"
+  ],
+  "compiled_controls": {
+    "bin/audit": "499bc5b11191bb55bb78d913fbab22e3e7376ecc61037d86d2ee76979cbb2007",
+    "bin/caseA": "2785ea183535f6a6af118f38c6cf153be54619650b424360b47bb52c308daad7",
+    "bin/caseA2": "0b7c3bc39f80364aaeae86af8d25c18ecbea8e233715facc523869b3c3a13a5a",
+    "bin/caseA3": "8019d884a8bc3920c917a79bee12e0834fa70223ffc999c26867f8970a47c317",
+    "bin/frontier_audit": "d397bc8b0e275377aef49987eed5830073f08f93050c04b80c84877f62213ec1",
+    "bin/mmap_bloom": "99028954f15d25e30fed5ac0f22d498b422e09ebe6df364e01d4b853723d7980",
+    "bin/routed_join": "d2c9cc8d4802ab4bc5ab9d7e07c9b16770ea887d23109a6d170ff8565d939341",
+    "bin/search": "3bd59f02c242011212944cb299454d6a40e6e3fb3b6cec59fc7e949dcf68796e"
+  },
+  "coverage_limitations": [
+    "sparse targets only; no continuous height frontier",
+    "four conic parameter boxes; no global closure of those curves",
+    "general rational quartics not classified",
+    "historical 4.3M decomposition run not independently repeated"
+  ],
+  "created_utc": "2026-09-04T20:43:11.240707+00:00",
+  "environment": {
+    "compiler": "cc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+    "flint_loaded_from": "/workspace/scratch/1c585d536e74/mathdeps",
+    "logical_cpu_count": 9,
+    "node": "v24.19.0",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+    "python_flint": "0.9.0",
+    "sympy": "1.14.0"
+  },
+  "files": {
+    "ASTRA_DIRECT_STRIKE.md": {
+      "bytes": 7961,
+      "sha256": "d4e20f9f6926031a8f833d37dc02c612d9ffe1621f043b88091622a9389cbe3b"
+    },
+    "ASTRA_HANDOFF.md": {
+      "bytes": 3757,
+      "sha256": "0d8deb032ffdc5641997afe2084870b32dc00a491195f87c743d9b6d27c7fe2e"
+    },
+    "ATTACK_MATRIX.md": {
+      "bytes": 2874,
+      "sha256": "2b58f5b5181d70dfceda1caed77152074d4569b331983dc02f878d3d7f695571"
+    },
+    "CANONICAL_FRONTIER.md": {
+      "bytes": 4585,
+      "sha256": "8d75fecf06cdbe9e9847c658e5057193d1d0800beece4d0b30ec25f222956e25"
+    },
+    "GEOMETRIC_ATTACK.md": {
+      "bytes": 4902,
+      "sha256": "a03fd5dad4c14fc9701a1f03f44d8aa82d3e2e4993b711d9c675d8ee4228f682"
+    },
+    "GEOMETRIC_STRIKE.md": {
+      "bytes": 10947,
+      "sha256": "d3a8d5352ffd75fedc1310a01f8ef1bb4c702ba34bb25e2d5b427e2809836702"
+    },
+    "Makefile": {
+      "bytes": 1712,
+      "sha256": "12aa792d1247efa170fd89aea64a18f6081744de989375d485415d30c7e689d5"
+    },
+    "RATIONAL_POINT_LEDGER.md": {
+      "bytes": 3986,
+      "sha256": "de4722da93359363fc87e4eb959aea3e0ce4ca44fb93d20c41603719ca16d04e"
+    },
+    "README.md": {
+      "bytes": 14653,
+      "sha256": "92ce29c022e3fcfacd8b85348d5a120b7ac429a8363ce8d234a7807b241b42fb"
+    },
+    "STATUS.md": {
+      "bytes": 4186,
+      "sha256": "40cb551f82246a03184edc6a2e28886e90352beca5e61e7e7e21efda87bce746"
+    },
+    "STRUCTURAL_ARITHMETIC.md": {
+      "bytes": 3888,
+      "sha256": "c5f4684724974af817fde3a932e28f4fd5f7c26ea1d06169554aad9fae616e14"
+    },
+    "results/astra_direct_2026_09_04/admissible_conic_progress.log": {
+      "bytes": 7421,
+      "sha256": "b45f4ba65c0337e19362b405f0d28d01afc6e24718eb35e5442587df2fe5c87c"
+    },
+    "results/astra_direct_2026_09_04/admissible_conic_search.json": {
+      "bytes": 10972,
+      "sha256": "65d5355e29cee7b87919e0138be32169964fdffb563e19646b8adaa320f80da2"
+    },
+    "results/astra_direct_2026_09_04/admissible_conic_seeds.json": {
+      "bytes": 1381,
+      "sha256": "f384a81ebd5346997648e8d76acd9bc599884dc1954adfda711dc272cc10a98c"
+    },
+    "results/astra_direct_2026_09_04/conic_lift_search.json": {
+      "bytes": 383,
+      "sha256": "34203268eb1151116d239e507f1a41020979a1887daab75ee9b4ae0721ae43c5"
+    },
+    "results/astra_direct_2026_09_04/control_gates.log": {
+      "bytes": 2722,
+      "sha256": "8e692b1225048b4abbbcc63f38fba2e87469d16566f82c16d455eafc4fdbb594"
+    },
+    "results/astra_direct_2026_09_04/divisor_domain.json": {
+      "bytes": 4369,
+      "sha256": "c13225cf0025aad5d5e18ab520bfa069fa372055ff747ad1455259d7ef16d7d8"
+    },
+    "results/astra_direct_2026_09_04/divisor_independent_replay.json": {
+      "bytes": 368,
+      "sha256": "eede80eeaba0acbaf87a6c5b21f782985fc98755429d4023e0f808fd05c1230e"
+    },
+    "results/astra_direct_2026_09_04/divisor_progress.log": {
+      "bytes": 5577,
+      "sha256": "1509223160ba40b1a87aa84c23dfcf6f69f085b1b5e451a7f7e97194b05aec69"
+    },
+    "results/astra_direct_2026_09_04/divisor_summary.json": {
+      "bytes": 5393,
+      "sha256": "edcfa0a4baa8ba8242b62aac872a231d7b5e73407d988fadade35e8e0edfa1a9"
+    },
+    "results/astra_direct_2026_09_04/divisor_targets.jsonl": {
+      "bytes": 1628290,
+      "sha256": "302dd9cc4f5a2967290fd90336b9f4997c160aa65d4c715a34c79870c18dcc75"
+    },
+    "results/astra_direct_2026_09_04/geometry_checks.json": {
+      "bytes": 970,
+      "sha256": "0efe2ee9148b216a681df31587c3ebdc3e1873bb10d08d0afd2951761f79d88b"
+    },
+    "results/astra_direct_2026_09_04/prime_certificates.json": {
+      "bytes": 856396,
+      "sha256": "fedbfe08f35b5f18966fa4abdad5be484740526d400aa6b39d47f0ca763f5d9d"
+    },
+    "results/astra_direct_2026_09_04/standalone_verifier_checks.json": {
+      "bytes": 154,
+      "sha256": "f1ec6f1b5435b49c32f18b27cb2239fd00070fd94143c742c822c80a9e0dc7ad"
+    },
+    "tests/direct_verifiers.py": {
+      "bytes": 1574,
+      "sha256": "5d424917a042997c9ce68ae72e3fa7ed1605f8076b858a03e90d3b6f56fb9c6b"
+    },
+    "tools/admissible_conic_strike.py": {
+      "bytes": 6436,
+      "sha256": "041c68144a2b4cb7c8cd36fbff3dbc42e5c8adb080440954f4d45aa915e96efb"
+    },
+    "tools/astra_geometry.py": {
+      "bytes": 3624,
+      "sha256": "b68276e4ba9dd186edec95428072442f8e7f17b9f94ab0105a49ab6d65c82513"
+    },
+    "tools/discover_conic_seeds.py": {
+      "bytes": 998,
+      "sha256": "b2d1ff56f2a29df4489773bab489abbec8008494fe09445cd6f966c42b0266f9"
+    },
+    "tools/replay_surface_divisor.py": {
+      "bytes": 5420,
+      "sha256": "07141bbf9c9223dacc31dbbf2d91501e3599c7165d1002218dab398cc70c7a59"
+    },
+    "tools/surface_divisor_strike.py": {
+      "bytes": 9980,
+      "sha256": "13de4f050c3835465ab52092730ee4145c26096f726a402c2f1ee93431c325cf"
+    },
+    "tools/surface_lift_search.py": {
+      "bytes": 2147,
+      "sha256": "90442349ce9025fe83b9b77920d466a089bdcace0339ce8c8238493e12faa6c5"
+    },
+    "tools/verify_esop6.mjs": {
+      "bytes": 1256,
+      "sha256": "f37d0ead262b70bb6e78d4f191f1d8a9aabe21ed30f65b338ee69ad645d477d5"
+    },
+    "tools/verify_esop6.py": {
+      "bytes": 1236,
+      "sha256": "8e22dced76b7ede11b264f754154a61b1a0454bc1299b10adc49c544759838c2"
+    }
+  },
+  "repository": "https://github.com/git-df-scott/ESOP6",
+  "status": {
+    "new_positive_point_elliptic_attack": false,
+    "new_rational_curve_on_surface": false,
+    "positive_rational_surface_point": false,
+    "solution_found": false,
+    "targeted_integer_search_run": true
+  },
+  "stopping_condition": "E: new exact factor/divisor architecture for the repeated-coordinate surface; declared batches complete"
+}

@@ -1,5 +1,16 @@
 # Canonical frontier and provenance
 
+## Later direct strike: separate sparse domain
+
+The direct strike based on `485390a` completed 10,382 explicitly selected
+repeated-coordinate surface targets and retained a standard-library-only
+independent replay. Its selected heights reach about `9.66e11`, but this is
+**not** a continuous exclusion through that value. Four bounded conic
+parameter searches also completed without a square lift. Neither result
+extends the historical concentrated frontier or the all-class frontier.
+See [ASTRA_DIRECT_STRIKE.md](ASTRA_DIRECT_STRIKE.md) and
+[RATIONAL_POINT_LEDGER.md](RATIONAL_POINT_LEDGER.md).
+
 ## Evidence grades
 
 - **A:** independently reproduced exact result with a retained command/output.

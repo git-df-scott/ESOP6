@@ -1,0 +1,15 @@
+{
+  "result": "PASS",
+  "targets_replayed": 10382,
+  "primes_proved": 4090,
+  "counts": {
+    "valuation_reject": 5820,
+    "processed": 10382,
+    "residue_reject": 4278,
+    "inert_prime_reject": 283,
+    "divisors_in_window": 1,
+    "divisor_test": 1
+  },
+  "candidate_sha256": "5fa7e950eb948d8f48ecf2c9360e271c8d69c22f4c7bfb34180c85f3726a3e14",
+  "solutions": 0
+}

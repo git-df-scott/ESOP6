@@ -1,0 +1,21 @@
+{
+  "domain": {
+    "lambda": "1/2",
+    "u": [
+      1,
+      2000
+    ],
+    "v": [
+      1,
+      2000
+    ],
+    "gcd_uv": 1
+  },
+  "counts": {
+    "coprime_parameters": 2433175,
+    "positive_quotient_points": 1582669,
+    "square_lifts": 0
+  },
+  "positive_parameter_sha256": "9f218ecaae915f9609c5f4fc584efb5f8a2b0847d0abfb865fdb31287491d1ce",
+  "seconds": 3.772948701000132
+}

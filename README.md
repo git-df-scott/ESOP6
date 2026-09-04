@@ -1,5 +1,14 @@
 # ESOP6 — Euler's Sum of Powers, sixth-power case
 
+> **2026-09-04 direct strike:** no positive solution was found. The cubic
+> quotient pencil was derived exactly; its generic square lift has genus 9.
+> Coupled valuation conditions now guide parameter selection. Four selected
+> conics and 10,382 sparse integer targets were attacked, with retained data
+> and an independent replay of the integer search. The historical frontier
+> is unchanged. Start with [ASTRA_DIRECT_STRIKE.md](ASTRA_DIRECT_STRIKE.md),
+> [GEOMETRIC_STRIKE.md](GEOMETRIC_STRIKE.md), and the updated
+> [ASTRA_HANDOFF.md](ASTRA_HANDOFF.md).
+
 > **2026-09-04 audit:** the canonical verdict is **YELLOW**. The concentrated
 > candidate sets through 4.3M have been independently regenerated exactly,
 > caseA3 is proved and differentially tested, and two engineering bugs were

@@ -1,5 +1,16 @@
 # Structural arithmetic
 
+## Direct-strike addition: scope is exactly two sixth powers
+
+For the repeated-coordinate surface, primitive points have X=42x, Y=42y,
+so `(W^6-Z^6)/(2*42^6)=x^6+y^6`. Every prime p=3 mod 4 has exponent
+divisible by 6 in this two-term target. Factoring the four cyclotomic factors
+of `W^6-Z^6` and enumerating divisors `h=x^2+y^2` then gives a complete
+table-free oracle for each such target. This stronger rule does not apply
+to a general sum of four sixth powers. The exact proofs, coupled 2/3/7
+constraints on the conic parameter, and implementation are in
+[GEOMETRIC_STRIKE.md](GEOMETRIC_STRIKE.md).
+
 Let \(g=\gcd(f,t)\), \(f=gx\), and \(t=gy\), so \(\gcd(x,y)=1\).  Since
 `f` and `t` are units modulo 42, `x` and `y` are odd and coprime to 3 and 7.
 

@@ -44,7 +44,12 @@ prototypes: $(PROTOS)
 frontier-audit: $(BIN)/frontier_audit
 	@./$(BIN)/frontier_audit
 
+direct-checks:
+	@python3 tools/astra_geometry.py
+	@python3 tests/direct_verifiers.py
+	@python3 tools/replay_surface_divisor.py results/astra_direct_2026_09_04
+
 clean:
 	rm -rf $(BIN)
 
-.PHONY: all validate control equiv differential prototypes frontier-audit clean
+.PHONY: all validate control equiv differential prototypes frontier-audit direct-checks clean

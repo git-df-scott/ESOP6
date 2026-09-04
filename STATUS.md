@@ -1,5 +1,33 @@
 # ESOP6 status — 2026-09-04
 
+## Latest: direct solution strike after 485390a
+
+No solution, positive rational surface point, or rational curve on the
+surface was found. No elliptic curve with a rigorous positive lifting route
+was obtained. A bounded targeted integer search was completed.
+
+- The cubic quotient conic pencil lifts generically to genus 9; its rational
+  exceptional member at lambda=2 has no nonzero real lift.
+- Degrees 1,2,3 cannot furnish a rational parametrization. General degree 4
+  remains open here; degree <=5 is excluded through the two obvious boundary
+  points by order-six contact.
+- New coupled constraints on lambda: v2=4r2+1, v3=4r3-1, and
+  v7=4r7 or -2r7, with each r>=1.
+- Four valuation-selected conics: 19,465,408 parameter occurrences,
+  7,942,986 positive quotient images, no square lift in the specified boxes.
+- A new table-free factor/divisor oracle tested 10,382 sparse surface targets.
+  All targets and 4,090 prime certificates were independently replayed with
+  Python's standard library. This is not an unrestricted ESOP6 height bound.
+- Every requested inherited control gate passed; two new standalone integer
+  verifiers also agree on 18 controls.
+
+See [ASTRA_DIRECT_STRIKE.md](ASTRA_DIRECT_STRIKE.md) for exact domains,
+evidence, and the single next direct construction: independent degree-six
+forms with order-six contact at `[0:0:1:1]`. The historical 4.3M frontier
+and its evidence grade are unchanged.
+
+## September 4 preparation record
+
 ## Verdict: YELLOW
 
 Only bounded search and mathematically specified structural lanes are justified.

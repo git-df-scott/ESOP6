@@ -1,0 +1,82 @@
+[
+  {
+    "lambda": [
+      864,
+      833
+    ],
+    "solver_result": "no rational conic point reported; not an independent obstruction certificate",
+    "seconds": 0.002097728999615356
+  },
+  {
+    "lambda": [
+      864,
+      931
+    ],
+    "point": [
+      938448,
+      607860,
+      1084489
+    ],
+    "seconds": 0.00329401399994822
+  },
+  {
+    "lambda": [
+      864,
+      1127
+    ],
+    "solver_result": "no rational conic point reported; not an independent obstruction certificate",
+    "seconds": 0.0017655410001680139
+  },
+  {
+    "lambda": [
+      864,
+      1225
+    ],
+    "point": [
+      1543500,
+      373248,
+      1500625
+    ],
+    "seconds": 0.002368505000049481
+  },
+  {
+    "lambda": [
+      864,
+      1421
+    ],
+    "solver_result": "no rational conic point reported; not an independent obstruction certificate",
+    "seconds": 0.0016955949995463016
+  },
+  {
+    "lambda": [
+      864,
+      1519
+    ],
+    "point": [
+      109368,
+      13428,
+      115601
+    ],
+    "seconds": 0.002227171999948041
+  },
+  {
+    "lambda": [
+      864,
+      1813
+    ],
+    "point": [
+      456876,
+      257400,
+      744485
+    ],
+    "seconds": 0.002457178000440763
+  },
+  {
+    "lambda": [
+      864,
+      2009
+    ],
+    "solver_result": "no rational conic point reported; not an independent obstruction certificate",
+    "seconds": 0.0016342530007023015
+  }
+]

@@ -1,5 +1,15 @@
 # Astra attack matrix
 
+> **Post-strike priority:** this table records preparation judgments, not
+> new measured success probabilities. The direct surface attack has now
+> shown that the natural conic pencil lifts to genus 9 and has supplied
+> coupled valuation constraints and a sparse exact divisor search. The
+> single next construction is the independent degree-six boundary-contact
+> family in [ASTRA_DIRECT_STRIKE.md](ASTRA_DIRECT_STRIKE.md). General rational
+> quartics remain open here; a global elliptic fibration on the smooth sextic
+> surface is unavailable. Do not repeat the closed lambda=1/2 or lambda=2
+> members or enlarge the finished parameter boxes merely for height.
+
 Scores are 1–5. For leverage, asymptotic improvement, distance, informative
 failure, discovery probability, and certificate quality, higher is better.
 For CPU and RAM, 5 means cheaper. Probability scores are comparative

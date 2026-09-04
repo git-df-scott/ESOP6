@@ -1,0 +1,44 @@
+rm -rf bin
+mkdir -p bin
+cc -O3 -march=native -fopenmp -Wall -o bin/search src/search.c -lm
+cc -O3 -march=native -fopenmp -Wall -o bin/caseA2 src/caseA2.c -lm
+cc -O3 -march=native -fopenmp -Wall -o bin/caseA3 src/caseA3.c -lm
+cc -O3 -march=native -fopenmp -Wall -o bin/caseA src/caseA.c -lm
+cc -O2 -o bin/audit src/audit.c -lm
+cc -O3 -march=native -fopenmp -Wall -o bin/frontier_audit src/frontier_audit.c -lm
+== fifth-power validation (expect f=144 solution) ==
+SOLUTION k=5 f=144 : 133 110 84 27
+done: k=5 f in [2,150], solutions found: 1
+== candidate enumeration audit (expect all OK) ==
+nroots=144
+f=730001 brute=0 fast=0 OK
+f=800003 brute=1 fast=1 OK
+f=899999 brute=0 fast=0 OK
+f=999983 brute=0 fast=0 OK
+f=1299983 brute=0 fast=0 OK
+f=54321011 brute=2 fast=2 OK
+== control run 700k-730k (expect candidates=124 found=0) ==
+building bloom: Bmax=17381 pairs=151058271 lines=4720571 (0.3 GB)
+bloom built
+done: f in [700000,730000] candidates=124 processed=124 found=0
+== equivalence: monolithic vs 8 buckets (evaluated counts must match) ==
+j2_nodes=4139088 skipped=0 evaluated=4139088
+done: f in [700000,730000] candidates=124 processed=124 found=0
+j2_nodes=33112704 skipped=28973616 evaluated=4139088
+done: f in [700000,730000] candidates=124 processed=124 found=0
+[700000,730000] candidates=124 expected=124 xor=f3d2af1c8ee17283 sum=4e79e22fe6d29995 PASS
+[730000,1000000] candidates=1314 expected=1314 xor=db60584a67eb16a1 sum=d1eda2046563a691 PASS
+[1000000,1500000] candidates=3523 expected=3523 xor=15c415743bf94217 sum=9f8d51cd8c14e65f PASS
+[1500000,2000000] candidates=5129 expected=5129 xor=1c85a7f1beb1b106 sum=71771e92c9e4fc02 PASS
+[2000000,2500000] candidates=7222 expected=7222 xor=076b84a2a77bd61b sum=50000433d496e245 PASS
+[2500000,3200000] candidates=12443 expected=12443 xor=9952a747b0b87612 sum=1d60ddc1e0504258 PASS
+[3200000,4000000] candidates=18003 expected=18003 xor=a6bfc7c71a32dfe9 sum=6c92cdb8482c71f1 PASS
+[4000000,4300000] candidates=8050 expected=8050 xor=1824fcfe8195fe7b sum=b8507d887eab4ad5 PASS
+production_total=55684 expected=55684 PASS
+cc -O3 -march=native -fopenmp -Wall -o bin/routed_join src/routed_join.c -lm
+cc -O3 -march=native -fopenmp -Wall -o bin/mmap_bloom src/mmap_bloom.c -lm
+routed_join N=2000 buckets=8 pairs=2001000 pair_passes=1 queries=20000 query_passes=1 peak_bucket_entries=250862 disk_pair_bytes=32016000 hits=10001 mismatches=0
+mmap_bloom N=5000 pairs=12502500 pair_passes=1 queries=20000 query_passes=1 file_bytes=18753792 filter_positives=10046 false_positives=45 false_negatives=0
+PASS range=[720158,728071] candidates=35 buckets=1,2,3,4,7,8
+PASS range=[716593,723168] candidates=27 buckets=1,2,3,4,7,8
+PASS range=[706364,714454] candidates=31 buckets=1,2,3,4,7,8

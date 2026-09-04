@@ -1,0 +1,395 @@
+{
+  "local_control_vectors": 13058,
+  "conics": [
+    {
+      "lambda": [
+        864,
+        931
+      ],
+      "base_point": [
+        938448,
+        607860,
+        1084489
+      ],
+      "local_checks": [
+        {
+          "prime": 2,
+          "exponent": 8,
+          "projective_parameters": 384,
+          "allowed": 64,
+          "allowed_sha256": "917c959bde415fa2c304ccca97ce80c10ef536a8a95810f54517610a7d4458ac"
+        },
+        {
+          "prime": 2,
+          "exponent": 12,
+          "projective_parameters": 6144,
+          "allowed": 256,
+          "allowed_sha256": "f55761f222c14f01d7fe587a9a6a222c9fe28bcff12b09ada23eb061e7013c9e"
+        },
+        {
+          "prime": 3,
+          "exponent": 5,
+          "projective_parameters": 324,
+          "allowed": 54,
+          "allowed_sha256": "df0b7ac1d88a387de6644a7f82de3cb12a5b95ffa058176b37741bc67e758641"
+        },
+        {
+          "prime": 3,
+          "exponent": 7,
+          "projective_parameters": 2916,
+          "allowed": 297,
+          "allowed_sha256": "12be21284f997e75321c809fa7ea8d7e67f35be763c13f12d5c00163403be68b"
+        },
+        {
+          "prime": 7,
+          "exponent": 3,
+          "projective_parameters": 392,
+          "allowed": 49,
+          "allowed_sha256": "db673eb24c4f715ae2adfea90f317ad3b9cdb733dedede149ae299dea5f9888f"
+        },
+        {
+          "prime": 7,
+          "exponent": 4,
+          "projective_parameters": 2744,
+          "allowed": 343,
+          "allowed_sha256": "9012dd3609f89cf929dc107d8550db2425fb2161efc6fb7c6dbfa1d1775189e5"
+        },
+        {
+          "prime": 13,
+          "exponent": 2,
+          "projective_parameters": 182,
+          "allowed": 56,
+          "allowed_sha256": "edaec521dc2b2f565769ae61b214a6044c0f7ed60800eef3882e2cfacd466b39"
+        },
+        {
+          "prime": 19,
+          "exponent": 2,
+          "projective_parameters": 380,
+          "allowed": 38,
+          "allowed_sha256": "7a1c4220b06676bf810b1cc10a3dcd0245b85c386ca0ec35b1fb83276294d018"
+        },
+        {
+          "prime": 31,
+          "exponent": 2,
+          "projective_parameters": 992,
+          "allowed": 95,
+          "allowed_sha256": "444afabd3ca81857e230fa37ba4669642017ce57b0c3b14c1e3e4cacbbe175e5"
+        }
+      ],
+      "result": "NO LIFT IN PARAMETER BOX",
+      "domain": {
+        "u": [
+          -2000,
+          2000
+        ],
+        "v": [
+          1,
+          2000
+        ],
+        "gcd_uv": 1,
+        "also_infinity": [
+          1,
+          0
+        ]
+      },
+      "counts": {
+        "coprime_parameters": 4866352,
+        "positive_quotient_points": 715087
+      },
+      "positive_parameter_sha256": "9e1e03ebca5262ffc488ff993dd618965f0daba02f4ca2e18b8e5bcafa18c76e"
+    },
+    {
+      "lambda": [
+        864,
+        1225
+      ],
+      "base_point": [
+        1543500,
+        373248,
+        1500625
+      ],
+      "local_checks": [
+        {
+          "prime": 2,
+          "exponent": 8,
+          "projective_parameters": 384,
+          "allowed": 64,
+          "allowed_sha256": "917c959bde415fa2c304ccca97ce80c10ef536a8a95810f54517610a7d4458ac"
+        },
+        {
+          "prime": 2,
+          "exponent": 12,
+          "projective_parameters": 6144,
+          "allowed": 384,
+          "allowed_sha256": "bc24d201d713393c22e5ae27babda916fc75795c4a5e6a54a2f88f26d8ecf1a1"
+        },
+        {
+          "prime": 3,
+          "exponent": 5,
+          "projective_parameters": 324,
+          "allowed": 81,
+          "allowed_sha256": "017866e427499df382c7849e7b2dec39dba4ff7c5b3fdb9b96132aa2c65b59a2"
+        },
+        {
+          "prime": 3,
+          "exponent": 7,
+          "projective_parameters": 2916,
+          "allowed": 189,
+          "allowed_sha256": "0ad6b7d073a69da62321ec566e602e2a7a342bb2ef773b34d4dd04644485cfc0"
+        },
+        {
+          "prime": 7,
+          "exponent": 3,
+          "projective_parameters": 392,
+          "allowed": 49,
+          "allowed_sha256": "db673eb24c4f715ae2adfea90f317ad3b9cdb733dedede149ae299dea5f9888f"
+        },
+        {
+          "prime": 7,
+          "exponent": 4,
+          "projective_parameters": 2744,
+          "allowed": 343,
+          "allowed_sha256": "9012dd3609f89cf929dc107d8550db2425fb2161efc6fb7c6dbfa1d1775189e5"
+        },
+        {
+          "prime": 13,
+          "exponent": 2,
+          "projective_parameters": 182,
+          "allowed": 26,
+          "allowed_sha256": "fe530289893c78fba0c7d9cf1f752bf2bde02e992d01ea9ced5f8af525e14051"
+        },
+        {
+          "prime": 19,
+          "exponent": 2,
+          "projective_parameters": 380,
+          "allowed": 38,
+          "allowed_sha256": "8b88fc3aa0ba9bf26f44cce2ed81cc90cfb1eaa09e80548cb52f6bc061092152"
+        },
+        {
+          "prime": 31,
+          "exponent": 2,
+          "projective_parameters": 992,
+          "allowed": 93,
+          "allowed_sha256": "dbad503607d787e2e7fda4cb7dbc8534495a33cb350a9ec70b5564a6d09ab786"
+        }
+      ],
+      "result": "NO LIFT IN PARAMETER BOX",
+      "domain": {
+        "u": [
+          -2000,
+          2000
+        ],
+        "v": [
+          1,
+          2000
+        ],
+        "gcd_uv": 1,
+        "also_infinity": [
+          1,
+          0
+        ]
+      },
+      "counts": {
+        "coprime_parameters": 4866352,
+        "positive_quotient_points": 2350621
+      },
+      "positive_parameter_sha256": "00a66265c684b276b8a861ad6045798dbafa59da84f9668a1f224726535187c8"
+    },
+    {
+      "lambda": [
+        864,
+        1519
+      ],
+      "base_point": [
+        109368,
+        13428,
+        115601
+      ],
+      "local_checks": [
+        {
+          "prime": 2,
+          "exponent": 8,
+          "projective_parameters": 384,
+          "allowed": 64,
+          "allowed_sha256": "917c959bde415fa2c304ccca97ce80c10ef536a8a95810f54517610a7d4458ac"
+        },
+        {
+          "prime": 2,
+          "exponent": 12,
+          "projective_parameters": 6144,
+          "allowed": 256,
+          "allowed_sha256": "3c4c318097541d600cc116ff673958cb090d3d567b5ed0d943c5d0e57d637d7e"
+        },
+        {
+          "prime": 3,
+          "exponent": 5,
+          "projective_parameters": 324,
+          "allowed": 54,
+          "allowed_sha256": "a70b837d783f95f1fdd4d7a86f4241144b397fbb35566aec0c22b90cdb8e1975"
+        },
+        {
+          "prime": 3,
+          "exponent": 7,
+          "projective_parameters": 2916,
+          "allowed": 297,
+          "allowed_sha256": "a724b04f3ba7c4c6c34844785bd6c893be53fbfec175ec1ec8dfcf83e4500cbe"
+        },
+        {
+          "prime": 7,
+          "exponent": 3,
+          "projective_parameters": 392,
+          "allowed": 98,
+          "allowed_sha256": "4c120c1ffdb1e28ee08bd50dcc5dd61d6cec3a05f14c9502e4139c94bd4b81c5"
+        },
+        {
+          "prime": 7,
+          "exponent": 4,
+          "projective_parameters": 2744,
+          "allowed": 98,
+          "allowed_sha256": "a2be31659697b275cd72dd421015d86a8ecd18d7ce51509038b894aff661fe83"
+        },
+        {
+          "prime": 13,
+          "exponent": 2,
+          "projective_parameters": 182,
+          "allowed": 56,
+          "allowed_sha256": "ea999a0dabf99f482e2061f0443c037b5c69106ed8b52047b215499981dc93b4"
+        },
+        {
+          "prime": 19,
+          "exponent": 2,
+          "projective_parameters": 380,
+          "allowed": 19,
+          "allowed_sha256": "e74491330240958c0eef65a71a490031b8630fb5366e6cff2d696b7615787091"
+        },
+        {
+          "prime": 31,
+          "exponent": 2,
+          "projective_parameters": 992,
+          "allowed": 62,
+          "allowed_sha256": "7bf8ae39c866878a9d256444b3e9cb496295257c28099221a84116750b4f617b"
+        }
+      ],
+      "result": "NO LIFT IN PARAMETER BOX",
+      "domain": {
+        "u": [
+          -2000,
+          2000
+        ],
+        "v": [
+          1,
+          2000
+        ],
+        "gcd_uv": 1,
+        "also_infinity": [
+          1,
+          0
+        ]
+      },
+      "counts": {
+        "coprime_parameters": 4866352,
+        "positive_quotient_points": 2621648
+      },
+      "positive_parameter_sha256": "ff52711bd8302dc27817589f685d1aa6729338be31af6b5f6b2bf30fe207f2ef"
+    },
+    {
+      "lambda": [
+        864,
+        1813
+      ],
+      "base_point": [
+        456876,
+        257400,
+        744485
+      ],
+      "local_checks": [
+        {
+          "prime": 2,
+          "exponent": 8,
+          "projective_parameters": 384,
+          "allowed": 64,
+          "allowed_sha256": "917c959bde415fa2c304ccca97ce80c10ef536a8a95810f54517610a7d4458ac"
+        },
+        {
+          "prime": 2,
+          "exponent": 12,
+          "projective_parameters": 6144,
+          "allowed": 128,
+          "allowed_sha256": "6c6b86b544ec6daa214fa407fdc13815d6c1032287461bf1d4473f4b1f7ee3b1"
+        },
+        {
+          "prime": 3,
+          "exponent": 5,
+          "projective_parameters": 324,
+          "allowed": 108,
+          "allowed_sha256": "38bdb2e9ac8fa19066fe27341431a33532a75b0ef1f54eff4244ea3914d7962c"
+        },
+        {
+          "prime": 3,
+          "exponent": 7,
+          "projective_parameters": 2916,
+          "allowed": 432,
+          "allowed_sha256": "676b1eac0f9bdd0f9cc74c092aea3bf47b408afe5e72f7b3cc67333cd598a12c"
+        },
+        {
+          "prime": 7,
+          "exponent": 3,
+          "projective_parameters": 392,
+          "allowed": 49,
+          "allowed_sha256": "db673eb24c4f715ae2adfea90f317ad3b9cdb733dedede149ae299dea5f9888f"
+        },
+        {
+          "prime": 7,
+          "exponent": 4,
+          "projective_parameters": 2744,
+          "allowed": 343,
+          "allowed_sha256": "9012dd3609f89cf929dc107d8550db2425fb2161efc6fb7c6dbfa1d1775189e5"
+        },
+        {
+          "prime": 13,
+          "exponent": 2,
+          "projective_parameters": 182,
+          "allowed": 52,
+          "allowed_sha256": "37f172d4bb10153e457e9493a0774497fdce51fde08cc2b5ad9bdc1b96d5d46d"
+        },
+        {
+          "prime": 19,
+          "exponent": 2,
+          "projective_parameters": 380,
+          "allowed": 19,
+          "allowed_sha256": "4b6d6b7af0dcf499c1a00d4085a4fb0798a5230b9ec82043e14e60d9d92fd5f9"
+        },
+        {
+          "prime": 31,
+          "exponent": 2,
+          "projective_parameters": 992,
+          "allowed": 126,
+          "allowed_sha256": "9f289e742548619f3bf6581998a8ada82a898ff100ecc7e559b90ea80fe11817"
+        }
+      ],
+      "result": "NO LIFT IN PARAMETER BOX",
+      "domain": {
+        "u": [
+          -2000,
+          2000
+        ],
+        "v": [
+          1,
+          2000
+        ],
+        "gcd_uv": 1,
+        "also_infinity": [
+          1,
+          0
+        ]
+      },
+      "counts": {
+        "coprime_parameters": 4866352,
+        "positive_quotient_points": 2255630
+      },
+      "positive_parameter_sha256": "fc0d5883d8d2c6d60e0ad8373fcf2f0c5a11339ad262df460b239ef71303ff7d"
+    }
+  ],
+  "solution": null,
+  "seconds": 35.58452160500019
+}

@@ -1,0 +1,9 @@
+{
+  "result": "PASS",
+  "cases": 18,
+  "implementations": [
+    "Python integers",
+    "JavaScript BigInt"
+  ],
+  "known_positive_ESOP6_fixture": false
+}
