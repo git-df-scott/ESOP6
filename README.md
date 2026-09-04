@@ -167,9 +167,10 @@ motivated the structured approach.)
 | 4,000,000 – 4,300,000 | 8,050 | **0** |
 | **730,000 – 4,300,000 total** | **55,684** | **0** |
 
-The ceiling at 4.3M is a memory wall, not a time wall: the pair-sum filter
-grows as (f/42)². See [HANDOFF.md](HANDOFF.md) for the RAM table and how to
-push higher.
+The ceiling at 4.3M was the memory wall of the machine that ran the sweep:
+the pair-sum filter grows as (f/42)². That wall has since been removed by the
+bucketed variant (`src/caseA3.c`), so the frontier is now limited by time
+rather than RAM. See [HANDOFF.md](HANDOFF.md) for how to push higher.
 
 ---
 
@@ -210,6 +211,13 @@ src/caseA2.c    the workhorse: concentrated-case sweep. 144-root candidate
                 confined to one 64-byte cache line) with exact verification.
                 128-bit arithmetic throughout.
 
+src/caseA3.c    low-memory variant of the sweep. Partitions the pair table by
+                a hash of the sum into NB buckets and makes NB passes, so the
+                filter holds 1/NB of the table; every query is still answered
+                in exactly one pass. Removes the RAM wall at the cost of
+                repeating pair enumeration and DFS traversal per pass.
+                Approach contributed by Duncan.
+
 src/audit.c     completeness audit of the candidate enumeration.
 
 src/caseA.c     earlier, slower iteration of the concentrated-case search.
@@ -222,15 +230,26 @@ src/caseA.c     earlier, slower iteration of the concentrated-case search.
 make                          # builds everything
 make validate                 # k=5 sanity check: must print the 144^5 solution
 make control                  # 700k-730k control run: 124 candidates, 0 found
+make equiv                    # bucketed sweep evaluates the same nodes as monolithic
 
-./bin/caseA2 4300000 5000000       # continue the sweep (needs ~12 GB)
-./bin/caseA2 4300000 5000000 12    # optional 3rd arg: Bloom bits/pair, lowers RAM
+./bin/caseA2 4300000 5000000 12       # continue the sweep (~10.6 GB)
+./bin/caseA3 4300000 5000000 12 -b 8  # same search, ~1.3 GB, 8 passes
 ./bin/search 6 2 20000             # exhaustive search, all cases
 ./bin/audit                        # completeness audit
 ```
 
-Requires gcc with OpenMP. Hard limits: f ≤ 10⁸ (128-bit overflow guard);
-memory ≈ (f/42)²/2 × bits-per-pair / 8 bytes.
+Requires gcc with OpenMP. Hard limit: f ≤ 10⁸ (128-bit overflow guard).
+Memory for `caseA2` is (f/42)²/2 × bits-per-pair / 8 bytes; `caseA3` divides
+that by the bucket count:
+
+| f | caseA2 @12 bpp | caseA3, 8 buckets | caseA3, 16 buckets |
+|---|---|---|---|
+| 3.2M | 4.4 GB | 0.54 GB | 0.27 GB |
+| 5.0M | 10.6 GB | 1.33 GB | 0.66 GB |
+| 10.0M | 42.5 GB | 5.31 GB | 2.66 GB |
+
+Time scales roughly linearly in the bucket count, so use the smallest NB that
+fits comfortably in free RAM.
 
 **If a `SOLUTION` line ever appears: do not announce it.** Verify it first with
 independent exact arithmetic (Python big integers are ideal — the whole claim
@@ -279,7 +298,9 @@ next actions, verification protocol.
 The natural next steps, in ascending order of expected value:
 
 1. **More height in the concentrated case.** Anything above f = 4,300,000 is
-   unclaimed. 32 GB of RAM reaches ~5.5M; 64 GB reaches ~8–10M.
+   unclaimed. With `caseA3` the memory wall is gone — f = 10M fits in under
+   3 GB at 16 buckets — so the binding constraint is now time, which scales
+   as ~F⁴ overall.
 2. **The spread-exemption cases**, still covered only to 730,000. These need a
    different algorithmic idea — the modular collapse does not apply.
 3. **The algebraic geometry.** See above. This is where the problem is

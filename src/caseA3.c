@@ -1,23 +1,31 @@
 /*
- * caseA2.c — deep search of the "concentrated exemption" case of
- * a^6+b^6+c^6+d^6+e^6 = f^6, Bloom-filter edition.
+ * caseA3.c -- bucketed (low-memory) concentrated-case sweep.
  *
- * Background (see caseA.c/search.c): in a primitive solution exactly one
- * term is odd, one coprime to 3, one coprime to 7. When all three land on
- * one term t, the remaining four terms are divisible by 42 and
- *      f^6 ≡ t^6 (mod 42^6),  f,t coprime to 42,
- * so t/f is one of the 144 sixth roots of unity mod M = 42^6. Surviving
- * pairs (f,t) need m = (f^6-t^6)/42^6 to be a sum of four sixth powers
- * with bases <= (f-1)/42.
+ * Same mathematics and same search as caseA2.c; the only difference is how
+ * the "is R a sum of two sixth powers?" oracle is stored.
  *
- * This version answers "is R a sum of two sixth powers?" with a Bloom
- * filter over ALL pair sums x^6+y^6 (x>=y>=1, x<=Bmax), built once and
- * shared: the 4-part test enumerates the two largest parts (with exact
- * class budgets from m mod 8/9/7 forcing strides) and probes the filter.
- * Positives are verified exactly. Residue masks mod 64,27,49,13,43 prune.
+ * caseA2 holds one Bloom filter over ALL pair sums x^6+y^6, so memory grows
+ * as (fmax/42)^2 and becomes the binding constraint long before time does
+ * (~10.6 GB at fmax=5e6, 12 bits/pair).
  *
- * Build:  gcc -O3 -march=native -fopenmp -o caseA2 caseA2.c -lm
- * Run:    ./caseA2 <fmin> <fmax>   (fmax <= 1e8 hard; RAM limits ~4e6)
+ * caseA3 partitions the pair table by a hash of the SUM into NB buckets and
+ * makes NB passes. Pass k inserts only pairs whose sum falls in bucket k, and
+ * answers only queries whose sum falls in bucket k -- every query is therefore
+ * answered in exactly one pass, and the filter holds 1/NB of the table.
+ * Memory drops by a factor of NB; the cost is that pair enumeration and the
+ * DFS traversal are repeated per pass (the expensive exact verification is
+ * not -- it still happens at most once per query).
+ *
+ * Approach contributed by Duncan, who prototyped and verified it locally
+ * (8 buckets, node counts identical to the monolithic run).
+ *
+ * Equivalence is checked by construction, not assumed: the program counts
+ * j=2 oracle nodes reached, skipped (wrong bucket), and evaluated. Running
+ * with -b 1 gives monolithic behaviour; for any NB, evaluated must equal the
+ * monolithic node count exactly.
+ *
+ * Build:  gcc -O3 -march=native -fopenmp -o caseA3 caseA3.c -lm
+ * Run:    ./caseA3 <fmin> <fmax> [bits_per_pair] [-b NB]
  */
 #include <stdio.h>
 #include <stdlib.h>
@@ -101,6 +109,16 @@ static inline void bloom_hashes(u128 s,u64 *h1,u64 *h2){
  * (the previous scheme) silently allocated up to 2x the requested
  * bits-per-pair -- e.g. 17.2 GB for a 12 bpp request at fmax=5e6. */
 static inline u64 line_of(u64 h1){ return (u64)(((u128)h1*(u128)nlines)>>64); }
+
+/* ---- bucket partition of the pair table ---- */
+static u64 NB=1, cur_bucket=0;
+static inline u64 bucket_of(u128 s){
+    u64 lo=(u64)s, hi=(u64)(s>>64);
+    u64 h=mix(lo^(0xd6e8feb86659fd93ULL*(hi+1)));
+    return (u64)(((u128)h*(u128)NB)>>64);
+}
+/* j=2 oracle instrumentation (equivalence check vs the monolithic run) */
+static long long j2_nodes=0, j2_skipped=0, j2_evaluated=0;
 static inline void bloom_add(u128 s){
     u64 h1,h2; bloom_hashes(s,&h1,&h2);
     u64 *line=bloom+(line_of(h1)<<3);
@@ -157,7 +175,16 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
         out[0]=e; return 1;
     }
     if(j==2){
-        if(R>0 && !bloom_query(R)) return 0;      /* covers all pairs with x<=Bmax>=maxv */
+        #pragma omp atomic
+        j2_nodes++;
+        if(NB>1 && bucket_of(R)!=cur_bucket){     /* answered in another pass */
+            #pragma omp atomic
+            j2_skipped++;
+            return 0;
+        }
+        #pragma omp atomic
+        j2_evaluated++;
+        if(R>0 && !bloom_query(R)) return 0;
         return pair_verify(R,maxv,o2,o3,o7,out,out+1);
     }
     u64 hi=iroot6(R); if(hi>maxv) hi=maxv;
@@ -190,8 +217,10 @@ static int try_decompose(u128 m,int nb,u64 maxb,u64 *out){
 static long long ncand=0,nsurv=0;
 
 int main(int argc,char **argv){
-    if(argc<3){ fprintf(stderr,"usage: %s <fmin> <fmax>\n",argv[0]); return 2; }
+    if(argc<3){ fprintf(stderr,"usage: %s <fmin> <fmax> [bits_per_pair] [-b NB]\n",argv[0]); return 2; }
     u64 fmin=strtoull(argv[1],0,10),fmax=strtoull(argv[2],0,10);
+    for(int i=3;i<argc-1;i++) if(!strcmp(argv[i],"-b")) NB=strtoull(argv[i+1],0,10);
+    if(NB<1) NB=1;
     if(fmax>100000000ULL){ fprintf(stderr,"fmax capped at 1e8\n"); return 2; }
     Bmax=(fmax-1)/42+1;
     build_roots(); init_sieves();
@@ -201,23 +230,24 @@ int main(int argc,char **argv){
     P6=malloc(sizeof(u128)*(Bmax+1));
     for(u64 x=0;x<=Bmax;x++) P6[x]=ipow6(x);
 
-    /* blocked Bloom: ~16 bits per pair (argv[3] overrides), 512-bit lines.
-     * Sized exactly -- no power-of-two rounding. */
-    u64 bpp = (argc>3)? strtoull(argv[3],0,10) : 16;
+    /* blocked Bloom for ONE bucket: ~bpp bits per in-bucket pair, sized
+     * exactly (no power-of-two rounding). */
+    u64 bpp = (argc>3 && argv[3][0]!='-')? strtoull(argv[3],0,10) : 16;
     u64 npairs=Bmax*(Bmax+1)/2;
-    nlines = (npairs*bpp + 511)/512; if(!nlines) nlines=1;
+    nlines = ((npairs/NB + 1)*bpp + 511)/512; if(!nlines) nlines=1;
     bloom=calloc(nlines*64,1);
     if(!bloom){ fprintf(stderr,"bloom alloc failed (%llu bytes)\n",(unsigned long long)(nlines*64)); return 1; }
-    fprintf(stderr,"building bloom: Bmax=%llu pairs=%llu lines=%llu (%.1f GB)\n",
-        (unsigned long long)Bmax,(unsigned long long)npairs,
-        (unsigned long long)nlines,nlines*64.0/1e9);
-    #pragma omp parallel for schedule(dynamic,64)
-    for(u64 x=1;x<=Bmax;x++)
-        for(u64 y=1;y<=x;y++)
-            bloom_add(P6[x]+P6[y]);
-    fprintf(stderr,"bloom built\n");
+    fprintf(stderr,"Bmax=%llu pairs=%llu buckets=%llu filter=%.2f GB (%.1f GB monolithic)\n",
+        (unsigned long long)Bmax,(unsigned long long)npairs,(unsigned long long)NB,
+        nlines*64.0/1e9, nlines*64.0*NB/1e9);
 
-    {   /* self-tests */
+    {   /* self-tests on a small dedicated filter, bucket gate disabled */
+        u64 *big=bloom, biglines=nlines, savedNB=NB;
+        const u64 TB=200;
+        NB=1; nlines=((TB*(TB+1)/2)*32+511)/512;
+        bloom=calloc(nlines*64,1);
+        if(!bloom){ fprintf(stderr,"self-test alloc failed\n"); return 1; }
+        for(u64 x=1;x<=TB;x++) for(u64 y=1;y<=x;y++) bloom_add(P6[x]+P6[y]);
         u64 out[4];
         if(!bloom_query(P6[5]+P6[9])){ fprintf(stderr,"BLOOM SELF-TEST FAILED\n"); return 1; }
         if(!try_decompose(ipow6(5)+ipow6(9)+ipow6(11)+ipow6(14),4,100,out))
@@ -225,37 +255,55 @@ int main(int argc,char **argv){
         if(!try_decompose(ipow6(42)+ipow6(84)+ipow6(126)+ipow6(168),4,200,out))
             { fprintf(stderr,"SELF-TEST 2 FAILED\n"); return 1; }
         if(try_decompose((u128)12345677,4,100,out))
-            { fprintf(stderr,"SELF-TEST 3 FAILED\n"); return 1; }
+            { fprintf(stderr,"SELF-TEST 3 FAILED (false positive)\n"); return 1; }
+        free(bloom);
+        bloom=big; nlines=biglines; NB=savedNB;
+        j2_nodes=j2_skipped=j2_evaluated=0;   /* don't count self-test nodes */
     }
 
-    #pragma omp parallel for schedule(dynamic,4096) reduction(+:ncand,nsurv)
-    for(u64 f=fmin;f<=fmax;f++){
-        if(f%2==0||f%3==0||f%7==0) continue;
-        for(int i=0;i<nroots;i++){
-            u64 t=(u64)((u128)roots[i]*f%M);
-            if(t==0||t>=f) continue;
-            ncand++;
-            u64 g[2]={f-t,f+t};
-            u128 qq[2]={(u128)f*f-(u128)f*t+(u128)t*t,(u128)f*f+(u128)f*t+(u128)t*t};
-            u64 rem=M; u128 m=1;
-            for(int s=0;s<2;s++){
-                u64 a=g[s],b=rem; while(b){u64 w=a%b;a=b;b=w;}
-                rem/=a; m*=g[s]/a;
+    for(cur_bucket=0; cur_bucket<NB; cur_bucket++){
+        if(NB>1) memset(bloom,0,nlines*64);
+        #pragma omp parallel for schedule(dynamic,64)
+        for(u64 x=1;x<=Bmax;x++)
+            for(u64 y=1;y<=x;y++){
+                u128 sum=P6[x]+P6[y];
+                if(NB==1 || bucket_of(sum)==cur_bucket) bloom_add(sum);
             }
-            for(int s=0;s<2;s++){
-                u64 a=(u64)(qq[s]%rem);
-                if(a){u64 x=a,y=rem;while(y){u64 w=x%y;x=y;y=w;}a=x;} else a=rem;
-                rem/=a; m*=qq[s]/a;
+        fprintf(stderr,"pass %llu/%llu: filter built\n",
+            (unsigned long long)(cur_bucket+1),(unsigned long long)NB);
+
+        #pragma omp parallel for schedule(dynamic,4096) reduction(+:ncand,nsurv)
+        for(u64 f=fmin;f<=fmax;f++){
+            if(f%2==0||f%3==0||f%7==0) continue;
+            for(int i=0;i<nroots;i++){
+                u64 t=(u64)((u128)roots[i]*f%M);
+                if(t==0||t>=f) continue;
+                if(cur_bucket==0) ncand++;
+                u64 g[2]={f-t,f+t};
+                u128 qq[2]={(u128)f*f-(u128)f*t+(u128)t*t,(u128)f*f+(u128)f*t+(u128)t*t};
+                u64 rem=M; u128 m=1;
+                for(int s=0;s<2;s++){
+                    u64 a=g[s],b=rem; while(b){u64 w=a%b;a=b;b=w;}
+                    rem/=a; m*=g[s]/a;
+                }
+                for(int s=0;s<2;s++){
+                    u64 a=(u64)(qq[s]%rem);
+                    if(a){u64 x=a,y=rem;while(y){u64 w=x%y;x=y;y=w;}a=x;} else a=rem;
+                    rem/=a; m*=qq[s]/a;
+                }
+                if(rem!=1){ fprintf(stderr,"WARN rem!=1 f=%llu\n",(unsigned long long)f); continue; }
+                if(cur_bucket==0) nsurv++;
+                u64 out[4],maxb=(f-1)/42;
+                if(try_decompose(m,4,maxb,out)) report(f,t,out,4);
+                if(try_decompose(m,3,maxb,out)) report(f,t,out,3);
+                if(try_decompose(m,2,maxb,out)) report(f,t,out,2);
+                /* the 1-part test never consults the oracle: run it once only */
+                if(cur_bucket==0 && try_decompose(m,1,maxb,out)) report(f,t,out,1);
             }
-            if(rem!=1){ fprintf(stderr,"WARN rem!=1 f=%llu\n",(unsigned long long)f); continue; }
-            nsurv++;
-            u64 out[4],maxb=(f-1)/42;
-            if(try_decompose(m,4,maxb,out)) report(f,t,out,4);
-            if(try_decompose(m,3,maxb,out)) report(f,t,out,3);
-            if(try_decompose(m,2,maxb,out)) report(f,t,out,2);
-            if(try_decompose(m,1,maxb,out)) report(f,t,out,1);
         }
     }
+    fprintf(stderr,"j2_nodes=%lld skipped=%lld evaluated=%lld\n",
+        j2_nodes,j2_skipped,j2_evaluated);
     fprintf(stderr,"done: f in [%llu,%llu] candidates=%lld processed=%lld found=%lld\n",
         (unsigned long long)fmin,(unsigned long long)fmax,ncand,nsurv,nfound);
     return 0;

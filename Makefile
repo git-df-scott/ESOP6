@@ -2,7 +2,7 @@ CC      ?= gcc
 CFLAGS  ?= -O3 -march=native -fopenmp -Wall
 LDLIBS  := -lm
 BIN     := bin
-PROGS   := $(BIN)/search $(BIN)/caseA2 $(BIN)/caseA $(BIN)/audit
+PROGS   := $(BIN)/search $(BIN)/caseA2 $(BIN)/caseA3 $(BIN)/caseA $(BIN)/audit
 
 all: $(PROGS)
 
@@ -27,7 +27,13 @@ control: $(BIN)/caseA2
 	@echo "== control run 700k-730k (expect candidates=124 found=0) =="
 	@./$(BIN)/caseA2 700000 730000
 
+# Bucketed variant must evaluate exactly the same oracle nodes as monolithic
+equiv: $(BIN)/caseA3
+	@echo "== equivalence: monolithic vs 8 buckets (evaluated counts must match) =="
+	@./$(BIN)/caseA3 700000 730000 16 -b 1 2>&1 | grep -E 'j2_|done:'
+	@./$(BIN)/caseA3 700000 730000 16 -b 8 2>&1 | grep -E 'j2_|done:'
+
 clean:
 	rm -rf $(BIN)
 
-.PHONY: all validate control clean
+.PHONY: all validate control equiv clean

@@ -54,16 +54,24 @@ the range.
 ## 3. Hard limits
 
 - `fmax ≤ 1e8` — enforced in code (128-bit overflow guard).
-- Bloom RAM ≈ `(fmax/42)² / 2 × bits_per_pair / 8` bytes:
+- `caseA2` Bloom RAM = `(fmax/42)² / 2 × bits_per_pair / 8` bytes exactly.
+  `caseA3 -b NB` divides that by NB:
 
-  | RAM | reachable f (16 bpp) | reachable f (12 bpp) |
-  |---|---|---|
-  | 15 GB | ~4.0M | ~4.3M |
-  | 32 GB | ~5.5M | ~6.5M |
-  | 64 GB | ~8M | ~10M |
+  | f | caseA2 @12 bpp | caseA3 ×8 | caseA3 ×16 |
+  |---|---|---|---|
+  | 3.2M | 4.4 GB | 0.54 GB | 0.27 GB |
+  | 5.0M | 10.6 GB | 1.33 GB | 0.66 GB |
+  | 10.0M | 42.5 GB | 5.31 GB | 2.66 GB |
 
+  Runtime grows roughly linearly in NB (pair enumeration and DFS traversal
+  repeat per pass; exact verification does not). Use the smallest NB that fits
+  comfortably in *free* RAM, not total RAM.
 - Do not go below ~12 bits/pair: false-positive rate rises and exact
   verification cost explodes.
+- **Fixed 2026-09:** `caseA2` used to round the filter's line count up to a
+  power of two, so a 12 bpp request at fmax=5e6 allocated 17.2 GB rather than
+  10.6 GB (an effective 19.4 bpp). Sizing is now exact, via Lemire range
+  reduction instead of power-of-two masking. Bug found by Duncan.
 - Runtime scales ~F⁴ overall (candidates ~F², cost each ~F²). Budget
   accordingly: the 4.0–4.3M chunk took ~6 h on 4 cores.
 
@@ -74,7 +82,9 @@ the range.
    candidates and 0 found. If either fails, stop and debug before trusting any
    sweep.
 2. Claim a range above **f = 4,300,000** (everything below is done) and run
-   `./bin/caseA2 <fmin> <fmax> [bits_per_pair]`.
+   either `./bin/caseA2 <fmin> <fmax> [bpp]` (one pass, needs the full filter
+   in RAM) or `./bin/caseA3 <fmin> <fmax> [bpp] -b NB` (NB passes, 1/NB the
+   memory). `make equiv` proves the two evaluate identical oracle nodes.
 3. Record the `done:` line in [docs/RESULTS.md](docs/RESULTS.md), update the
    tables in README.md and this file, and commit. **The repo is the only
    durable memory** — a cloud container's /tmp does not survive.
@@ -90,9 +100,10 @@ a multi-week run:
   interrupted chunk resumes instead of restarting. (A chunk dying silently
   mid-run has already happened once — container hiccup — and cost a full
   re-run.)
-- **Disk-backed sorted pair-sum table** as an alternative to the in-memory
-  Bloom filter. Removes the RAM ceiling entirely at roughly 30% slowdown,
-  which converts the 10M barrier from "needs 64 GB" to "needs patience".
+- ~~Disk-backed sorted pair-sum table~~ — **done differently, and better**:
+  `caseA3` partitions the table in memory by a hash of the sum, which removes
+  the RAM ceiling with no disk I/O at all. f = 10M now fits in 2.7 GB at 16
+  buckets. Contributed by Duncan.
 
 A GPU port is *not* recommended: this is integer, branch-heavy,
 memory-latency-bound work, not float throughput.
