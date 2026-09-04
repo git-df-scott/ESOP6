@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <string.h>
 
 typedef unsigned __int128 u128;
 typedef uint64_t u64;
@@ -62,6 +63,8 @@ static void build_roots(void){
 static const u32 MODS[NM]={27,49,13,43};
 static u64 sumres[NM][5], sumres64[5];
 static u32 powmod6[NM][64];
+static u64 pair19=0,pair31=0;
+static u32 pow19[19],pow31[31];
 static void init_sieves(void){
     for(int m=0;m<NM;m++){
         u32 md=MODS[m]; u64 single=0;
@@ -85,6 +88,12 @@ static void init_sieves(void){
                 cur|=1ULL<<((r+s)&63);
         sumres64[j]=cur;
     }
+    for(u32 x=0;x<19;x++) pow19[x]=(u32)pow6m(x,19);
+    for(u32 x=0;x<31;x++) pow31[x]=(u32)pow6m(x,31);
+    for(u32 x=0;x<19;x++) for(u32 y=0;y<19;y++)
+        pair19|=1ULL<<((pow19[x]+pow19[y])%19);
+    for(u32 x=0;x<31;x++) for(u32 y=0;y<31;y++)
+        pair31|=1ULL<<((pow31[x]+pow31[y])%31);
 }
 
 static u64 iroot6(u128 R){
@@ -96,7 +105,7 @@ static u64 iroot6(u128 R){
 }
 
 /* ---- blocked Bloom filter over pair sums: 8 bits in one 64-byte line ---- */
-static u64 *bloom; static u64 nlines;      /* power of two, 8 u64 per line */
+static u64 *bloom; static u64 nlines;      /* 8 u64 per cache line */
 static inline u64 mix(u64 h){ h^=h>>33; h*=0xff51afd7ed558ccdULL; h^=h>>33; h*=0xc4ceb9fe1a85ec53ULL; h^=h>>33; return h; }
 #define BLOOMK 8
 static inline void bloom_hashes(u128 s,u64 *h1,u64 *h2){
@@ -151,17 +160,34 @@ static int pair_verify(u128 R,u64 maxv,int o2,int o3,int o7,u64 *ox,u64 *oy){
 }
 
 static long long nfound=0;
+static int use_valuation_prune=0;
+static long long valuation_rejects=0;
+static int use_extra_sieve=0;
+static long long extra_sieve_rejects=0;
+
+/* Necessary valuation law for sums of at most four sixth powers. */
+static int valuation_possible(u128 s){
+    int v2=0,v3=0,v7=0;
+    while(s%2==0){ s/=2; v2++; }
+    while(s%3==0){ s/=3; v3++; }
+    while(s%7==0){ s/=7; v7++; }
+    return v2%6<=2 && v3%6<=1 && v7%6==0;
+}
+
 static void report(u64 f,u64 t,u64 *b,int nb){
-    printf("SOLUTION f=%llu t=%llu parts42:",(unsigned long long)f,(unsigned long long)t);
+    const char *kind=(nb==4)?"SOLUTION":"DEGENERATE";
+    printf("%s f=%llu t=%llu parts42:",kind,(unsigned long long)f,(unsigned long long)t);
     for(int i=0;i<nb;i++) printf(" %llu",(unsigned long long)(b[i]*42));
     printf("\n"); fflush(stdout);
-    #pragma omp atomic
-    nfound++;
+    if(nb==4){
+        #pragma omp atomic
+        nfound++;
+    }
 }
 
 /* R as sum of j sixth powers (j=2,3,4), bases<=maxv, exact budgets. */
 static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
-               u32 r27,u32 r49,u32 r13,u32 r43,u64 *out){
+               u32 r27,u32 r49,u32 r13,u32 r43,u32 r19,u32 r31,u64 *out){
     if(o2>j||o3>j||o7>j) return 0;
     if(!(sumres64[j]>>((u32)R&63)&1)) return 0;
     if(!(sumres[0][j]>>r27&1)) return 0;
@@ -182,6 +208,11 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
             j2_skipped++;
             return 0;
         }
+        if(use_extra_sieve && (!(pair19>>r19&1) || !(pair31>>r31&1))){
+            #pragma omp atomic
+            extra_sieve_rejects++;
+            return 0;
+        }
         #pragma omp atomic
         j2_evaluated++;
         if(R>0 && !bloom_query(R)) return 0;
@@ -195,31 +226,56 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
     u64 x=hi; if(stride>1) x-=x%stride;
     for(;x>=lo&&x>0;x-=(u64)stride){
         int x2=(int)(x&1),x3=(x%3!=0),x7=(x%7!=0);
-        if(o2==j&&!x2) continue; if(o2==0&&x2) continue;
-        if(o3==j&&!x3) continue; if(o3==0&&x3) continue;
-        if(o7==j&&!x7) continue; if(o7==0&&x7) continue;
+        if(o2==j&&!x2) continue;
+        if(o2==0&&x2) continue;
+        if(o3==j&&!x3) continue;
+        if(o3==0&&x3) continue;
+        if(o7==j&&!x7) continue;
+        if(o7==0&&x7) continue;
         out[0]=x;
         u32 p27=powmod6[0][x%27],p49=powmod6[1][x%49],p13=powmod6[2][x%13],p43=powmod6[3][x%43];
+        u32 nr19=r19,nr31=r31;
+        if(use_extra_sieve){
+            u32 p19=pow19[x%19],p31=pow31[x%31];
+            nr19=r19+((r19<p19)?19:0)-p19;
+            nr31=r31+((r31<p31)?31:0)-p31;
+        }
         if(dfs(R-P6[x],j-1,x,o2-x2,o3-x3,o7-x7,
                r27+((r27<p27)?27:0)-p27,r49+((r49<p49)?49:0)-p49,
-               r13+((r13<p13)?13:0)-p13,r43+((r43<p43)?43:0)-p43,out+1)) return 1;
+               r13+((r13<p13)?13:0)-p13,r43+((r43<p43)?43:0)-p43,
+               nr19,nr31,out+1)) return 1;
         if(x<(u64)stride) break;
     }
     return 0;
 }
 
 static int try_decompose(u128 m,int nb,u64 maxb,u64 *out){
+    if(use_valuation_prune && !valuation_possible(m)){
+        #pragma omp atomic
+        valuation_rejects++;
+        return 0;
+    }
     int k2=(int)(m%8),k3=(int)(m%9),k7=(int)(m%7);
     if(k2>nb||k3>nb||k7>nb) return 0;
-    return dfs(m,nb,maxb,k2,k3,k7,(u32)(m%27),(u32)(m%49),(u32)(m%13),(u32)(m%43),out);
+    return dfs(m,nb,maxb,k2,k3,k7,(u32)(m%27),(u32)(m%49),(u32)(m%13),(u32)(m%43),
+               use_extra_sieve?(u32)(m%19):0,use_extra_sieve?(u32)(m%31):0,out);
 }
 
 static long long ncand=0,nsurv=0;
 
 int main(int argc,char **argv){
-    if(argc<3){ fprintf(stderr,"usage: %s <fmin> <fmax> [bits_per_pair] [-b NB]\n",argv[0]); return 2; }
+    if(argc<3){ fprintf(stderr,"usage: %s <fmin> <fmax> [bits_per_pair] [-b NB] [--dump-candidates] [--valuation-prune] [--extra-sieve]\n",argv[0]); return 2; }
     u64 fmin=strtoull(argv[1],0,10),fmax=strtoull(argv[2],0,10);
-    for(int i=3;i<argc-1;i++) if(!strcmp(argv[i],"-b")) NB=strtoull(argv[i+1],0,10);
+    u64 bpp=16; int dump_candidates=0;
+    for(int i=3;i<argc;i++){
+        if(!strcmp(argv[i],"-b")){
+            if(i+1>=argc){ fprintf(stderr,"-b requires a bucket count\n"); return 2; }
+            NB=strtoull(argv[++i],0,10);
+        } else if(!strcmp(argv[i],"--dump-candidates")) dump_candidates=1;
+        else if(!strcmp(argv[i],"--valuation-prune")) use_valuation_prune=1;
+        else if(!strcmp(argv[i],"--extra-sieve")) use_extra_sieve=1;
+        else if(argv[i][0]!='-') bpp=strtoull(argv[i],0,10);
+    }
     if(NB<1) NB=1;
     if(fmax>100000000ULL){ fprintf(stderr,"fmax capped at 1e8\n"); return 2; }
     Bmax=(fmax-1)/42+1;
@@ -232,7 +288,6 @@ int main(int argc,char **argv){
 
     /* blocked Bloom for ONE bucket: ~bpp bits per in-bucket pair, sized
      * exactly (no power-of-two rounding). */
-    u64 bpp = (argc>3 && argv[3][0]!='-')? strtoull(argv[3],0,10) : 16;
     u64 npairs=Bmax*(Bmax+1)/2;
     nlines = ((npairs/NB + 1)*bpp + 511)/512; if(!nlines) nlines=1;
     bloom=calloc(nlines*64,1);
@@ -243,7 +298,12 @@ int main(int argc,char **argv){
 
     {   /* self-tests on a small dedicated filter, bucket gate disabled */
         u64 *big=bloom, biglines=nlines, savedNB=NB;
+        u128 *bigP6=P6;
         const u64 TB=200;
+        u128 *testP6=malloc(sizeof(u128)*(TB+1));
+        if(!testP6){ fprintf(stderr,"self-test powers alloc failed\n"); return 1; }
+        for(u64 x=0;x<=TB;x++) testP6[x]=ipow6(x);
+        P6=testP6;
         NB=1; nlines=((TB*(TB+1)/2)*32+511)/512;
         bloom=calloc(nlines*64,1);
         if(!bloom){ fprintf(stderr,"self-test alloc failed\n"); return 1; }
@@ -257,7 +317,8 @@ int main(int argc,char **argv){
         if(try_decompose((u128)12345677,4,100,out))
             { fprintf(stderr,"SELF-TEST 3 FAILED (false positive)\n"); return 1; }
         free(bloom);
-        bloom=big; nlines=biglines; NB=savedNB;
+        free(testP6);
+        bloom=big; nlines=biglines; NB=savedNB; P6=bigP6;
         j2_nodes=j2_skipped=j2_evaluated=0;   /* don't count self-test nodes */
     }
 
@@ -279,6 +340,10 @@ int main(int argc,char **argv){
                 u64 t=(u64)((u128)roots[i]*f%M);
                 if(t==0||t>=f) continue;
                 if(cur_bucket==0) ncand++;
+                if(cur_bucket==0 && dump_candidates){
+                    #pragma omp critical(candidate_dump)
+                    printf("CANDIDATE %llu %llu\n",(unsigned long long)f,(unsigned long long)t);
+                }
                 u64 g[2]={f-t,f+t};
                 u128 qq[2]={(u128)f*f-(u128)f*t+(u128)t*t,(u128)f*f+(u128)f*t+(u128)t*t};
                 u64 rem=M; u128 m=1;
@@ -306,5 +371,7 @@ int main(int argc,char **argv){
         j2_nodes,j2_skipped,j2_evaluated);
     fprintf(stderr,"done: f in [%llu,%llu] candidates=%lld processed=%lld found=%lld\n",
         (unsigned long long)fmin,(unsigned long long)fmax,ncand,nsurv,nfound);
+    if(use_valuation_prune) fprintf(stderr,"valuation_rejects=%lld\n",valuation_rejects);
+    if(use_extra_sieve) fprintf(stderr,"extra_sieve_rejects=%lld\n",extra_sieve_rejects);
     return 0;
 }

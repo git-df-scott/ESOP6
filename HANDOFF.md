@@ -1,5 +1,10 @@
 # HANDOFF — continuing the ESOP6 search
 
+> **Superseded for new work by [ASTRA_HANDOFF.md](ASTRA_HANDOFF.md).** This
+> file preserves the pre-audit campaign handoff. The 2026-09-04 audit adds
+> evidence grades, full-class frontier reconciliation, formal caseA3 proof,
+> new controls, and a YELLOW verdict.
+
 Everything needed to resume this project on a new machine or in a new session,
 with no context loss. Read [README.md](README.md) first for the mathematics;
 this file is the operational companion.

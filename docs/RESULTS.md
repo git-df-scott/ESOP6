@@ -210,3 +210,33 @@ A mid-campaign snapshot of HANDOFF.md and PR #3 showed the 2.5M–3.2M chunk as
 hours and completed 2.5M–3.2M (12,443 candidates), 3.2M–4.0M (18,003) and
 4.0M–4.3M (8,050), all with zero solutions. **The cleared frontier is
 f = 4,300,000**, as recorded in the results table above.
+
+---
+
+# Audit addendum, 2026-09-04
+
+The original long-run files were not retained; the transcript above is a
+curated repository record and has no original per-run checksums. The audit
+therefore assigns the production zero-result evidence grade B rather than
+claiming an end-to-end independent reproduction.
+
+Cheap independent candidate regeneration now reproduces every row and the
+55,684 total (`make frontier-audit`). The full control chain also passes:
+
+```text
+Lander–Parkin fifth-power identity: PASS
+700k–730k: 124 candidates, 0 solutions: PASS
+caseA3 effective nodes: 4,139,088 for NB=1 and NB=8: PASS
+18 randomized candidate-set differentials: PASS
+external exact routed join: 0 mismatches
+mmap Bloom oracle: 0 false negatives
+```
+
+On the final 8-thread control build, NB=1 averaged 6.177 s and NB=8 averaged
+10.568 s, a 1.71× wall penalty for 8× less Bloom memory. Incremental mod-19
+and mod-31 pair masks (`--extra-sieve`) rejected 3,590,968 of 4,139,088 Bloom
+queries (86.76%); NB=8 averaged 10.402 s with the added masks.
+
+The production reporter was hardened: fewer-than-four reduced decompositions
+are now `DEGENERATE`, not `SOLUTION`, because zero padding violates the target's
+positive-integer condition. No prior run reported either kind of hit.

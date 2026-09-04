@@ -1,5 +1,11 @@
 # ESOP6 — Euler's Sum of Powers, sixth-power case
 
+> **2026-09-04 audit:** the canonical verdict is **YELLOW**. The concentrated
+> candidate sets through 4.3M have been independently regenerated exactly,
+> caseA3 is proved and differentially tested, and two engineering bugs were
+> fixed. No asymptotic improvement below the F^4 traversal was proved. Start
+> with [AUDIT.md](AUDIT.md) and [ASTRA_HANDOFF.md](ASTRA_HANDOFF.md).
+
 A search for a counterexample to Euler's sum of powers conjecture at k = 6:
 
 ```
@@ -31,13 +37,15 @@ described below.
 
 ## Headline result
 
-> **The concentrated-exemption case of a⁶+b⁶+c⁶+d⁶+e⁶ = f⁶ has no solution
-> for 730,000 < f ≤ 4,300,000.**
+> **The historical campaign reports no concentrated-exemption solution for
+> 730,000 < f ≤ 4,300,000.**
 >
 > 55,684 candidate pairs survived the modular sieve in that range; every one
-> was tested to exhaustion and rejected. This is a slice of the search space
-> extending 5.9× beyond the published exhaustive frontier, and no prior search
-> is known to have covered it.
+> was reported tested to exhaustion and rejected. The 2026-09-04 audit
+> independently regenerated all 55,684 candidate pairs and replayed cheap
+> controls. Original long-run logs/checksums were not retained, so the
+> decomposition result is evidence grade B, not an end-to-end independent
+> reproduction. See [CANONICAL_FRONTIER.md](CANONICAL_FRONTIER.md).
 
 Euler's conjecture survives, but it had to defend ground nobody had attacked.
 
@@ -174,10 +182,10 @@ rather than RAM. See [HANDOFF.md](HANDOFF.md) for how to push higher.
 
 ---
 
-## Validation — why these zeros are trustworthy
+## Validation and evidence limits
 
-A null result is only worth as much as the evidence that the machinery would
-have reported a hit. Four independent checks:
+A null result is only worth as much as its evidence. Four control families
+support the historical record; they do not replace the lost production logs:
 
 1. **It finds a real counterexample.** Run in fifth-power mode, the same DFS
    engine rediscovers Lander & Parkin's 1966 result — 27⁵+84⁵+110⁵+133⁵ =
@@ -220,6 +228,14 @@ src/caseA3.c    low-memory variant of the sweep. Partitions the pair table by
 
 src/audit.c     completeness audit of the candidate enumeration.
 
+src/frontier_audit.c
+                cheap independent regeneration of every historical (f,t)
+                candidate count and set digest through 4.3M.
+
+src/routed_join.c, src/mmap_bloom.c
+                single-pass low-memory oracle prototypes; exact controls only,
+                not production replacements for caseA3.
+
 src/caseA.c     earlier, slower iteration of the concentrated-case search.
                 Kept for provenance; superseded by caseA2.c.
 ```
@@ -231,9 +247,13 @@ make                          # builds everything
 make validate                 # k=5 sanity check: must print the 144^5 solution
 make control                  # 700k-730k control run: 124 candidates, 0 found
 make equiv                    # bucketed sweep evaluates the same nodes as monolithic
+make frontier-audit           # reproduce all historical candidate counts/digests
+make differential             # actual candidate-set diff over six bucket counts
+make prototypes               # exact external-route and mmap-oracle controls
 
 ./bin/caseA2 4300000 5000000 12       # continue the sweep (~10.6 GB)
 ./bin/caseA3 4300000 5000000 12 -b 8  # same search, ~1.3 GB, 8 passes
+./bin/caseA3 4300000 5000000 12 -b 8 --extra-sieve --valuation-prune
 ./bin/search 6 2 20000             # exhaustive search, all cases
 ./bin/audit                        # completeness audit
 ```
@@ -248,8 +268,10 @@ that by the bucket count:
 | 5.0M | 10.6 GB | 1.33 GB | 0.66 GB |
 | 10.0M | 42.5 GB | 5.31 GB | 2.66 GB |
 
-Time scales roughly linearly in the bucket count, so use the smallest NB that
-fits comfortably in free RAM.
+Worst-case work grows with the bucket count, but the measured control penalty
+is sublinear because wrong-bucket leaves exit early (NB=8 was 1.71× NB=1 on
+the audit host). Use the smallest NB that fits comfortably in free RAM and
+calibrate at the intended height.
 
 **If a `SOLUTION` line ever appears: do not announce it.** Verify it first with
 independent exact arithmetic (Python big integers are ideal — the whole claim
@@ -291,17 +313,17 @@ way. This is the open door.
 
 ## Continuing the work
 
-[HANDOFF.md](HANDOFF.md) is written so that a new session or a new machine can
-resume with zero context loss: proven results, code map, hardware limits,
-next actions, verification protocol.
+[ASTRA_HANDOFF.md](ASTRA_HANDOFF.md) is the current operational handoff.
+[HANDOFF.md](HANDOFF.md) is preserved as the pre-audit historical handoff.
 
-The natural next steps, in ascending order of expected value:
+The current priority order is:
 
-1. **More height in the concentrated case.** Anything above f = 4,300,000 is
-   unclaimed. With `caseA3` the memory wall is gone — f = 10M fits in under
-   3 GB at 16 buckets — so the binding constraint is now time, which scales
-   as ~F⁴ overall.
-2. **The spread-exemption cases**, still covered only to 730,000. These need a
-   different algorithmic idea — the modular collapse does not apply.
-3. **The algebraic geometry.** See above. This is where the problem is
-   actually likely to fall.
+1. **Bounded algebraic geometry:** the explicit degree ≤4 construction problem
+   in [GEOMETRIC_ATTACK.md](GEOMETRIC_ATTACK.md).
+2. **Class-complete certification:** an external GPU campaign reports all
+   classes through 2,353,973, classes 2–4 through 3M, and class 5 through 5M;
+   preserve/reproduce its logs before treating those as canonical certificates.
+3. **Asymptotic attack:** exploit the structured target family to beat the
+   offline F⁴ join.
+4. **Only then, bounded height:** caseA3 makes 4.3M→5.5M fit below 2 GB with
+   sufficient bucketing, but this is calibration rather than a structural win.

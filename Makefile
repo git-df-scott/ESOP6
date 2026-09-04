@@ -2,7 +2,8 @@ CC      ?= gcc
 CFLAGS  ?= -O3 -march=native -fopenmp -Wall
 LDLIBS  := -lm
 BIN     := bin
-PROGS   := $(BIN)/search $(BIN)/caseA2 $(BIN)/caseA3 $(BIN)/caseA $(BIN)/audit
+PROGS   := $(BIN)/search $(BIN)/caseA2 $(BIN)/caseA3 $(BIN)/caseA $(BIN)/audit $(BIN)/frontier_audit
+PROTOS  := $(BIN)/routed_join $(BIN)/mmap_bloom
 
 all: $(PROGS)
 
@@ -33,7 +34,17 @@ equiv: $(BIN)/caseA3
 	@./$(BIN)/caseA3 700000 730000 16 -b 1 2>&1 | grep -E 'j2_|done:'
 	@./$(BIN)/caseA3 700000 730000 16 -b 8 2>&1 | grep -E 'j2_|done:'
 
+differential: $(BIN)/caseA2 $(BIN)/caseA3
+	@python3 tests/differential.py
+
+prototypes: $(PROTOS)
+	@./$(BIN)/routed_join 2000 8 20000
+	@./$(BIN)/mmap_bloom 5000 12 20000
+
+frontier-audit: $(BIN)/frontier_audit
+	@./$(BIN)/frontier_audit
+
 clean:
 	rm -rf $(BIN)
 
-.PHONY: all validate control equiv clean
+.PHONY: all validate control equiv differential prototypes frontier-audit clean

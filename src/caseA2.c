@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <math.h>
+#include <string.h>
 
 typedef unsigned __int128 u128;
 typedef uint64_t u64;
@@ -88,7 +89,7 @@ static u64 iroot6(u128 R){
 }
 
 /* ---- blocked Bloom filter over pair sums: 8 bits in one 64-byte line ---- */
-static u64 *bloom; static u64 nlines;      /* power of two, 8 u64 per line */
+static u64 *bloom; static u64 nlines;      /* 8 u64 per cache line */
 static inline u64 mix(u64 h){ h^=h>>33; h*=0xff51afd7ed558ccdULL; h^=h>>33; h*=0xc4ceb9fe1a85ec53ULL; h^=h>>33; return h; }
 #define BLOOMK 8
 static inline void bloom_hashes(u128 s,u64 *h1,u64 *h2){
@@ -133,12 +134,30 @@ static int pair_verify(u128 R,u64 maxv,int o2,int o3,int o7,u64 *ox,u64 *oy){
 }
 
 static long long nfound=0;
+static int use_valuation_prune=0;
+static long long valuation_rejects=0;
+
+/* If S is a sum of at most four sixth powers, repeated use of
+ * x^6 in {0,1} modulo 8, 9, and 7 forces
+ *   v2(S) mod 6 in {0,1,2}, v3(S) mod 6 in {0,1}, v7(S) mod 6 = 0.
+ * This is optional so the historical node-count control remains unchanged. */
+static int valuation_possible(u128 s){
+    int v2=0,v3=0,v7=0;
+    while(s%2==0){ s/=2; v2++; }
+    while(s%3==0){ s/=3; v3++; }
+    while(s%7==0){ s/=7; v7++; }
+    return v2%6<=2 && v3%6<=1 && v7%6==0;
+}
+
 static void report(u64 f,u64 t,u64 *b,int nb){
-    printf("SOLUTION f=%llu t=%llu parts42:",(unsigned long long)f,(unsigned long long)t);
+    const char *kind=(nb==4)?"SOLUTION":"DEGENERATE";
+    printf("%s f=%llu t=%llu parts42:",kind,(unsigned long long)f,(unsigned long long)t);
     for(int i=0;i<nb;i++) printf(" %llu",(unsigned long long)(b[i]*42));
     printf("\n"); fflush(stdout);
-    #pragma omp atomic
-    nfound++;
+    if(nb==4){
+        #pragma omp atomic
+        nfound++;
+    }
 }
 
 /* R as sum of j sixth powers (j=2,3,4), bases<=maxv, exact budgets. */
@@ -168,9 +187,12 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
     u64 x=hi; if(stride>1) x-=x%stride;
     for(;x>=lo&&x>0;x-=(u64)stride){
         int x2=(int)(x&1),x3=(x%3!=0),x7=(x%7!=0);
-        if(o2==j&&!x2) continue; if(o2==0&&x2) continue;
-        if(o3==j&&!x3) continue; if(o3==0&&x3) continue;
-        if(o7==j&&!x7) continue; if(o7==0&&x7) continue;
+        if(o2==j&&!x2) continue;
+        if(o2==0&&x2) continue;
+        if(o3==j&&!x3) continue;
+        if(o3==0&&x3) continue;
+        if(o7==j&&!x7) continue;
+        if(o7==0&&x7) continue;
         out[0]=x;
         u32 p27=powmod6[0][x%27],p49=powmod6[1][x%49],p13=powmod6[2][x%13],p43=powmod6[3][x%43];
         if(dfs(R-P6[x],j-1,x,o2-x2,o3-x3,o7-x7,
@@ -182,6 +204,11 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
 }
 
 static int try_decompose(u128 m,int nb,u64 maxb,u64 *out){
+    if(use_valuation_prune && !valuation_possible(m)){
+        #pragma omp atomic
+        valuation_rejects++;
+        return 0;
+    }
     int k2=(int)(m%8),k3=(int)(m%9),k7=(int)(m%7);
     if(k2>nb||k3>nb||k7>nb) return 0;
     return dfs(m,nb,maxb,k2,k3,k7,(u32)(m%27),(u32)(m%49),(u32)(m%13),(u32)(m%43),out);
@@ -190,8 +217,14 @@ static int try_decompose(u128 m,int nb,u64 maxb,u64 *out){
 static long long ncand=0,nsurv=0;
 
 int main(int argc,char **argv){
-    if(argc<3){ fprintf(stderr,"usage: %s <fmin> <fmax>\n",argv[0]); return 2; }
+    if(argc<3){ fprintf(stderr,"usage: %s <fmin> <fmax> [bits_per_pair] [--dump-candidates] [--valuation-prune]\n",argv[0]); return 2; }
     u64 fmin=strtoull(argv[1],0,10),fmax=strtoull(argv[2],0,10);
+    u64 bpp=16; int dump_candidates=0;
+    for(int i=3;i<argc;i++){
+        if(!strcmp(argv[i],"--dump-candidates")) dump_candidates=1;
+        else if(!strcmp(argv[i],"--valuation-prune")) use_valuation_prune=1;
+        else if(argv[i][0]!='-') bpp=strtoull(argv[i],0,10);
+    }
     if(fmax>100000000ULL){ fprintf(stderr,"fmax capped at 1e8\n"); return 2; }
     Bmax=(fmax-1)/42+1;
     build_roots(); init_sieves();
@@ -203,7 +236,6 @@ int main(int argc,char **argv){
 
     /* blocked Bloom: ~16 bits per pair (argv[3] overrides), 512-bit lines.
      * Sized exactly -- no power-of-two rounding. */
-    u64 bpp = (argc>3)? strtoull(argv[3],0,10) : 16;
     u64 npairs=Bmax*(Bmax+1)/2;
     nlines = (npairs*bpp + 511)/512; if(!nlines) nlines=1;
     bloom=calloc(nlines*64,1);
@@ -217,7 +249,13 @@ int main(int argc,char **argv){
             bloom_add(P6[x]+P6[y]);
     fprintf(stderr,"bloom built\n");
 
-    {   /* self-tests */
+    {   /* self-tests; dedicated powers keep tiny fmax runs in bounds */
+        u128 *bigP6=P6;
+        const u64 TB=200;
+        u128 *testP6=malloc(sizeof(u128)*(TB+1));
+        if(!testP6){ fprintf(stderr,"self-test powers alloc failed\n"); return 1; }
+        for(u64 x=0;x<=TB;x++) testP6[x]=ipow6(x);
+        P6=testP6;
         u64 out[4];
         if(!bloom_query(P6[5]+P6[9])){ fprintf(stderr,"BLOOM SELF-TEST FAILED\n"); return 1; }
         if(!try_decompose(ipow6(5)+ipow6(9)+ipow6(11)+ipow6(14),4,100,out))
@@ -226,6 +264,8 @@ int main(int argc,char **argv){
             { fprintf(stderr,"SELF-TEST 2 FAILED\n"); return 1; }
         if(try_decompose((u128)12345677,4,100,out))
             { fprintf(stderr,"SELF-TEST 3 FAILED\n"); return 1; }
+        free(testP6);
+        P6=bigP6;
     }
 
     #pragma omp parallel for schedule(dynamic,4096) reduction(+:ncand,nsurv)
@@ -235,6 +275,10 @@ int main(int argc,char **argv){
             u64 t=(u64)((u128)roots[i]*f%M);
             if(t==0||t>=f) continue;
             ncand++;
+            if(dump_candidates){
+                #pragma omp critical(candidate_dump)
+                printf("CANDIDATE %llu %llu\n",(unsigned long long)f,(unsigned long long)t);
+            }
             u64 g[2]={f-t,f+t};
             u128 qq[2]={(u128)f*f-(u128)f*t+(u128)t*t,(u128)f*f+(u128)f*t+(u128)t*t};
             u64 rem=M; u128 m=1;
@@ -258,5 +302,6 @@ int main(int argc,char **argv){
     }
     fprintf(stderr,"done: f in [%llu,%llu] candidates=%lld processed=%lld found=%lld\n",
         (unsigned long long)fmin,(unsigned long long)fmax,ncand,nsurv,nfound);
+    if(use_valuation_prune) fprintf(stderr,"valuation_rejects=%lld\n",valuation_rejects);
     return 0;
 }

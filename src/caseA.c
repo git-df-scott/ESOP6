@@ -131,9 +131,12 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
     for(; x>=lo && x>0; x-=(u64)stride){
         int x2=(int)(x&1), x3=(x%3!=0), x7=(x%7!=0);
         /* forced coprimality: budget == j => every remaining base coprime */
-        if(o2==j && !x2) continue;   if(o2==0 && x2) continue;
-        if(o3==j && !x3) continue;   if(o3==0 && x3) continue;
-        if(o7==j && !x7) continue;   if(o7==0 && x7) continue;
+        if(o2==j && !x2) continue;
+        if(o2==0 && x2) continue;
+        if(o3==j && !x3) continue;
+        if(o3==0 && x3) continue;
+        if(o7==j && !x7) continue;
+        if(o7==0 && x7) continue;
         out[0]=x;
         u32 p27=powmod6[0][x%27], p49=powmod6[1][x%49], p13=powmod6[2][x%13], p43=powmod6[3][x%43];
         if(dfs(R-ipow6(x),j-1,x,o2-x2,o3-x3,o7-x7,
