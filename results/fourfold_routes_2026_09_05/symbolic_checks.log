@@ -1,0 +1,69 @@
+{
+  "F7_degree_1": {
+    "nonzero_polynomials": 48,
+    "support_histogram": {
+      "7": 48
+    },
+    "at_most_one_nonzero_left_polynomial": true,
+    "scope": "F7-rational coefficient tuples, not geometric points over F7bar; bad reduction is not excluded"
+  },
+  "F7_degree_2": {
+    "nonzero_polynomials": 342,
+    "support_histogram": {
+      "7": 48,
+      "6": 168,
+      "8": 126
+    },
+    "at_most_one_nonzero_left_polynomial": true,
+    "scope": "F7-rational coefficient tuples, not geometric points over F7bar; bad reduction is not excluded"
+  },
+  "F7_degree_3": {
+    "nonzero_polynomials": 2400,
+    "support_histogram": {
+      "7": 1056,
+      "6": 336,
+      "5": 336,
+      "8": 672
+    },
+    "at_most_one_nonzero_left_polynomial": true,
+    "scope": "F7-rational coefficient tuples, not geometric points over F7bar; bad reduction is not excluded"
+  },
+  "real_conic_control": {
+    "identity": "8u^6+8v^6+(u+v)^6+(u-v)^6=10w^6; u=1-t^2,v=2t,w=1+t^2",
+    "rational_lift": false,
+    "reason": "a^6=8b^6 forces (a/b)^2=2 for nonzero rational a,b"
+  },
+  "weight_ratio_groebner": {
+    "7": [
+      "a**6 - 1"
+    ],
+    "11": [
+      "1"
+    ],
+    "13": [
+      "1"
+    ],
+    "17": [
+      "a**2 - 2"
+    ]
+  },
+  "tangent_identity": {
+    "tangent_constraint_verified": true,
+    "universal_cubic_identity_verified": true,
+    "formula": "C=F(D)B-3*(sum eps_i B_i D_i^2)*D"
+  },
+  "quadratic_contact": {
+    "necessary_condition": "q is a positive rational square for a reduced degree-eight identity",
+    "gaussian_factorization_verified": true,
+    "proof": "See FOURFOLD_ROUTES_2026_09_05.md"
+  },
+  "full_boundary_contact": {
+    "identity_verified": true,
+    "residual": "sum(A_i^6)=6k M^5+5k^3 t^12 M^3+(3/8)k^5 t^24 M, i=1..4",
+    "status": "new exact system, unsolved"
+  },
+  "BCU": {
+    "control_verified": true,
+    "signature": "four sixth powers versus two after both cube bases are squares; not 5 versus 1"
+  }
+}

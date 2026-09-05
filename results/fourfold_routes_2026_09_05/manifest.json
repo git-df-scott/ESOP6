@@ -1,0 +1,186 @@
+{
+  "base_commit": "36e03d4ccc3a2f1a2b7d8d77ea3652cfb758a3cd",
+  "counterexample_found": false,
+  "files": [
+    {
+      "path": "FOURFOLD_ROUTES_2026_09_05.md",
+      "bytes": 15279,
+      "sha256": "80c4093074e3a0b6a4b20c531598447616fec48a357e16fce0de5f596fe07fd3"
+    },
+    {
+      "path": "tools/fourfold_conic_F7.py",
+      "bytes": 1525,
+      "sha256": "18db2385baffb318560f6c5b95ee42eccd7af76f21247599564de9a1099e5b38"
+    },
+    {
+      "path": "tools/fourfold_conic_lift.py",
+      "bytes": 3563,
+      "sha256": "ea7a3b48b251c7f960726f875c7c199ff2bc8571fd806b653a54edf290053e3d"
+    },
+    {
+      "path": "tools/fourfold_degree8_sparse.py",
+      "bytes": 1845,
+      "sha256": "6a8de0c7893a754313afdff80de0b568e0bf1487d3538e506e42c3b1006f9fb2"
+    },
+    {
+      "path": "tools/fourfold_large_tangent.py",
+      "bytes": 3240,
+      "sha256": "1dbf85f2249457ce6f3f07e91a232a1b30c133e3154dec7bf26d4b93de61dc5e"
+    },
+    {
+      "path": "tools/fourfold_proof_checks.py",
+      "bytes": 1195,
+      "sha256": "7b7bcf208f3a956ebc2b27e4e519ce63c5d3d5991517a7a132622c6def2edbf9"
+    },
+    {
+      "path": "tools/fourfold_reconstruct.py",
+      "bytes": 1123,
+      "sha256": "fb04577b4f19a22d1a89c342cdf10254fec5c31f52c1b4c1dd409e08eaad3509"
+    },
+    {
+      "path": "tools/fourfold_symbolic_routes.py",
+      "bytes": 3865,
+      "sha256": "c354488f116802981cf1117bdc4c072abb3630197698a614d66cc4a35c824d65"
+    },
+    {
+      "path": "tools/fourfold_tangent_search.cpp",
+      "bytes": 3525,
+      "sha256": "94abfc19b595bfbfe7a4725ab3654845d7040170649222cff6d84112f51fd463"
+    },
+    {
+      "path": "tools/fourfold_two_squares.py",
+      "bytes": 3352,
+      "sha256": "54af52e0873ca4e338df5f4f6ffeb9cdb72b0f626766868fced37dbde3ca6ef6"
+    },
+    {
+      "path": "tools/verify_fourfold_routes.mjs",
+      "bytes": 2605,
+      "sha256": "7cafccbf029f3a12eee097c7154fea75d39c8bbd23ca1d05fae015a8f30f5d58"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/conic_F7_transverse.json",
+      "bytes": 1177,
+      "sha256": "a6867c2f34f74fb29bf8de8c75c366cc6da76e53cca5fd53ab347fb2f3fd19ce"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/conic_F7_transverse.log",
+      "bytes": 1177,
+      "sha256": "a6867c2f34f74fb29bf8de8c75c366cc6da76e53cca5fd53ab347fb2f3fd19ce"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/conic_lifts.json",
+      "bytes": 21949,
+      "sha256": "f913f7a22c8bb13d039ce4cf33ca738b3b7dc5b0accc9584733ba6b6033440e2"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/conic_lifts.log",
+      "bytes": 21949,
+      "sha256": "f913f7a22c8bb13d039ce4cf33ca738b3b7dc5b0accc9584733ba6b6033440e2"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/crt_tangent.json",
+      "bytes": 1024,
+      "sha256": "a504b17e9454c03cbb58126068976bfe64d17bd263e2c11d78aa606dd690959e"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/crt_tangent.log",
+      "bytes": 1024,
+      "sha256": "a504b17e9454c03cbb58126068976bfe64d17bd263e2c11d78aa606dd690959e"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/crt_tangent_samples.json",
+      "bytes": 579319,
+      "sha256": "65fb42ba073e9e0689284d0d11f6ab9f3160866f14ddc39176e2db4d95cc6f20"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/degree8_sparse.json",
+      "bytes": 1660,
+      "sha256": "c1fddf2671d6f27b5aed1aaf082a7cc7475c83f9021704182132356df4f3ed2a"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/degree8_sparse.log",
+      "bytes": 1282,
+      "sha256": "ea9213ab94a85236b2addeed5be8b4d0da3341c4305d4f50a740c89a3ccf1eb9"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/independent_node_verification.json",
+      "bytes": 245,
+      "sha256": "62bc6aa2aac7ba25be3a4f7ffaeaf9e63b096be4d5b7e022c280126986d728ed"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/integer_4300000_4400000.log",
+      "bytes": 97,
+      "sha256": "e0ac7579bf5f2d46a2342f21033b2a507d180b18f138a6db051c88a69d0e487e"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/large_tangent.json",
+      "bytes": 883,
+      "sha256": "a8ad0deae630ef72bbddec57a37f8e5ac29365334dff230478c5ef9de9cb0377"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/large_tangent.log",
+      "bytes": 883,
+      "sha256": "a8ad0deae630ef72bbddec57a37f8e5ac29365334dff230478c5ef9de9cb0377"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/large_tangent_samples.json",
+      "bytes": 439919,
+      "sha256": "cbaec5993e6f6a7d0fefabafdee7978ff079b6be93eb1890d4af604e2b379a7b"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/proof_checks.json",
+      "bytes": 173,
+      "sha256": "4ff7bd6691687f7171ca7586a71e4cf8d3dc5f044a749076735d266dfb1923f3"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/rational_reconstruction.json",
+      "bytes": 2587,
+      "sha256": "0f279f1eb7bc7bd70de83516b69aa524e6fa300e829db893780e6f598ee10efd"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/rational_reconstruction.log",
+      "bytes": 24536,
+      "sha256": "78be7dba7835d18f63d14db67ba48d8ac31ba11002bd3e8532985b9dc004e7be"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/symbolic_checks.json",
+      "bytes": 1952,
+      "sha256": "499d5ff0e9053134c6cd2dd1e90a883bdc414c0e37dcd4dd8fede81bce02414c"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/symbolic_checks.log",
+      "bytes": 1952,
+      "sha256": "499d5ff0e9053134c6cd2dd1e90a883bdc414c0e37dcd4dd8fede81bce02414c"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/tangent_10_4.log",
+      "bytes": 1555,
+      "sha256": "5e3f51bec26a449e5e011bfbbf791614810dac0098db17eaf89ad4e81c4f3152"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/tangent_24_4.log",
+      "bytes": 1655,
+      "sha256": "57958c93cbb8829b34d2bbf1ee6eee927a43e0d366ba6eb3684ffaae536fe33c"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/two_squares.json",
+      "bytes": 15017,
+      "sha256": "ed825e7a6a77c823e4104e8639c8f1400344a0226f26fb0191cb8803650fd224"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/two_squares.log",
+      "bytes": 466,
+      "sha256": "a41056e315c36eae4b7266c83d6d63e1ce343c27b3ede77e8ccd5eedcdc78d6c"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/two_squares_unequal.json",
+      "bytes": 14523,
+      "sha256": "b208bbeb0ee62823466a5937c95750fb75b4776e40fa0e172ea19d2f455ba94f"
+    },
+    {
+      "path": "results/fourfold_routes_2026_09_05/two_squares_unequal.log",
+      "bytes": 505,
+      "sha256": "6b4230cebcf721dee660d4704d05e0ec42b2bef7c17726f4e3e2cfca23431e7e"
+    }
+  ]
+}

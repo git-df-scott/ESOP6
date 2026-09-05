@@ -1,0 +1,32 @@
+{
+  "random_seed": 20260905,
+  "requested_samples": 1000000,
+  "seed_bound": 100,
+  "direction_bound": 10000,
+  "counts": {
+    "sampled_directions": 1000000,
+    "nondegenerate": 1000000,
+    "positive": 21159,
+    "cubic_identity_checks": 21159,
+    "square_sieve_pass": 0,
+    "hits": 0,
+    "above_730000_squared": 21153,
+    "above_4300000_squared": 21128,
+    "above_100000000_squared": 20953
+  },
+  "square_count_histogram": {
+    "0": 21159
+  },
+  "largest_primitive_cube_base": "743187575898934139033756200",
+  "best_square_count": 0,
+  "best_cube_bases": [
+    "257223749752147000718120",
+    "848989187093436115290708",
+    "657114365806324096112179",
+    "755697842108075475216901",
+    "462776305493985210909222",
+    "1130123344804363014810340"
+  ],
+  "elapsed_seconds": 7.949677770000562,
+  "scope": "sampled tangent points; no integer-height interval is exhausted"
+}

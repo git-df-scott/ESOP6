@@ -1,0 +1,22 @@
+{
+  "seed": [
+    1,
+    2,
+    3
+  ],
+  "r_bound": 40,
+  "rotation_bound": 100,
+  "counts": {
+    "r_values_tested": 392,
+    "r_values_with_integer_norm_representation": 28,
+    "rotations": 340900,
+    "positive": 175152,
+    "exact_cubic_checks": 175152,
+    "forced_square_ratio_checks": 175152,
+    "all_remaining_squares": 0
+  },
+  "best_of_four_remaining_square_ratios": 0,
+  "best_primitive_cube_bases": [],
+  "largest_primitive_cube_base": "1254888375",
+  "elapsed_seconds": 5.977939669999614
+}

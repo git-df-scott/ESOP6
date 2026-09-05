@@ -1,0 +1,1070 @@
+[
+  {
+    "pattern": 1,
+    "initial_vector": [
+      0,
+      1,
+      0,
+      6,
+      0,
+      1,
+      6,
+      2,
+      1,
+      6,
+      5,
+      1,
+      1,
+      0,
+      4,
+      0,
+      4
+    ],
+    "jacobian_rank": 11,
+    "nullity": 6,
+    "lift_to_49": true,
+    "one_lift_mod49": [
+      35,
+      8,
+      14,
+      27,
+      42,
+      22,
+      41,
+      2,
+      8,
+      48,
+      33,
+      1,
+      1,
+      0,
+      4,
+      0,
+      4
+    ],
+    "chosen_path": [
+      {
+        "modulus": 343,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 2401,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 16807,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 117649,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 823543,
+        "chosen_path_lifts": true
+      }
+    ],
+    "unperturbed_final_vector": [
+      146153,
+      219577,
+      677390,
+      441811,
+      71729,
+      381732,
+      59674,
+      2,
+      763869,
+      823542,
+      119348,
+      1,
+      1,
+      0,
+      4,
+      0,
+      4
+    ],
+    "full_conic_chosen_path": [
+      {
+        "modulus": "49",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "16807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "117649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "823543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "5764801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "40353607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "282475249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1977326743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "13841287201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "96889010407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "678223072849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "4747561509943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "33232930569601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "232630513987207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1628413597910449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "11398895185373143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "79792266297612001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "558545864083284007",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3909821048582988049",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "27368747340080916343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "191581231380566414401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1341068619663964900807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "9387480337647754305649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "65712362363534280139543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "459986536544739960976801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3219905755813179726837607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "22539340290692258087863249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "157775382034845806615042743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1104427674243920646305299201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "7730993719707444524137094407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "54116956037952111668959660849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "378818692265664781682717625943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2651730845859653471779023381601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "18562115921017574302453163671207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "129934811447123020117172145698449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "909543680129861140820205019889143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "6366805760909027985741435139224001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "44567640326363195900190045974568007",
+        "chosen_path_lifts": true
+      }
+    ],
+    "full_conic_final_vector": [
+      "22915489002796416494834296585696608",
+      "31588667939688473410548926894062519",
+      "21652151323566779405355749388871399",
+      "26242104504827220607118217878176162",
+      "36707189344383779325482639133054693",
+      "18325535821535975293071828096391845",
+      "31570220252196127787104925212728830",
+      "2",
+      "12997420074167068113085120761839177",
+      "44567640326363195900190045974568006",
+      "18572800178029059674019804450889653",
+      "1",
+      "1",
+      "0",
+      "4",
+      "0",
+      "4"
+    ],
+    "full_conic_residual_zero": false
+  },
+  {
+    "pattern": 2,
+    "initial_vector": [
+      1,
+      3,
+      1,
+      1,
+      4,
+      1,
+      2,
+      0,
+      1,
+      4,
+      0,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "jacobian_rank": 11,
+    "nullity": 6,
+    "lift_to_49": true,
+    "one_lift_mod49": [
+      1,
+      3,
+      1,
+      1,
+      46,
+      1,
+      23,
+      0,
+      15,
+      25,
+      0,
+      22,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "chosen_path": [
+      {
+        "modulus": 343,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 2401,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 16807,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 117649,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 823543,
+        "chosen_path_lifts": true
+      }
+    ],
+    "unperturbed_final_vector": [
+      198255,
+      381468,
+      198255,
+      198255,
+      442075,
+      198255,
+      563719,
+      0,
+      76357,
+      816022,
+      0,
+      434554,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "full_conic_chosen_path": [
+      {
+        "modulus": "49",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "16807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "117649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "823543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "5764801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "40353607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "282475249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1977326743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "13841287201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "96889010407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "678223072849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "4747561509943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "33232930569601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "232630513987207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1628413597910449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "11398895185373143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "79792266297612001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "558545864083284007",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3909821048582988049",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "27368747340080916343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "191581231380566414401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1341068619663964900807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "9387480337647754305649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "65712362363534280139543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "459986536544739960976801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3219905755813179726837607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "22539340290692258087863249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "157775382034845806615042743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1104427674243920646305299201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "7730993719707444524137094407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "54116956037952111668959660849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "378818692265664781682717625943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2651730845859653471779023381601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "18562115921017574302453163671207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "129934811447123020117172145698449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "909543680129861140820205019889143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "6366805760909027985741435139224001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "44567640326363195900190045974568007",
+        "chosen_path_lifts": true
+      }
+    ],
+    "full_conic_final_vector": [
+      "16056534247857938948691802075993940",
+      "11335203138582870431401798000515666",
+      "16056534247857938948691802075993940",
+      "16056534247857938948691802075993940",
+      "33232437187780325468788247974052341",
+      "16056534247857938948691802075993940",
+      "29935056628887370943123332034321641",
+      "0",
+      "25579799283161179826234981257242033",
+      "34178707647796692167199142898831900",
+      "0",
+      "22843504509213821735797344898316234",
+      "1",
+      "0",
+      "3",
+      "0",
+      "3"
+    ],
+    "full_conic_residual_zero": false
+  },
+  {
+    "pattern": 3,
+    "initial_vector": [
+      3,
+      2,
+      1,
+      3,
+      5,
+      1,
+      5,
+      3,
+      1,
+      5,
+      4,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "jacobian_rank": 11,
+    "nullity": 6,
+    "lift_to_49": true,
+    "one_lift_mod49": [
+      31,
+      16,
+      29,
+      38,
+      47,
+      22,
+      26,
+      38,
+      36,
+      12,
+      39,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "chosen_path": [
+      {
+        "modulus": 343,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 2401,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 16807,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 117649,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 823543,
+        "chosen_path_lifts": true
+      }
+    ],
+    "unperturbed_final_vector": [
+      740862,
+      167841,
+      266148,
+      175654,
+      348829,
+      7813,
+      336754,
+      243568,
+      243223,
+      579976,
+      93531,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "full_conic_chosen_path": [
+      {
+        "modulus": "49",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "16807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "117649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "823543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "5764801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "40353607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "282475249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1977326743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "13841287201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "96889010407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "678223072849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "4747561509943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "33232930569601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "232630513987207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1628413597910449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "11398895185373143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "79792266297612001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "558545864083284007",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3909821048582988049",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "27368747340080916343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "191581231380566414401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1341068619663964900807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "9387480337647754305649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "65712362363534280139543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "459986536544739960976801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3219905755813179726837607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "22539340290692258087863249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "157775382034845806615042743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1104427674243920646305299201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "7730993719707444524137094407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "54116956037952111668959660849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "378818692265664781682717625943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2651730845859653471779023381601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "18562115921017574302453163671207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "129934811447123020117172145698449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "909543680129861140820205019889143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "6366805760909027985741435139224001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "44567640326363195900190045974568007",
+        "chosen_path_lifts": true
+      }
+    ],
+    "full_conic_final_vector": [
+      "3904267559792584510343751618653587",
+      "27349353102021759394384495771713396",
+      "29716157180885256520678027038918753",
+      "30484888921349800212703137214642868",
+      "25811889621092672010334275420265166",
+      "3135535819328040818318641442929472",
+      "7779144704470067949339493139679201",
+      "23401787416332672871974709139575796",
+      "13386708205560455078875843695313012",
+      "21165852910030523028215336834992212",
+      "38960076825272808770653695418934196",
+      "1",
+      "1",
+      "0",
+      "3",
+      "0",
+      "3"
+    ],
+    "full_conic_residual_zero": false
+  },
+  {
+    "pattern": 4,
+    "initial_vector": [
+      6,
+      1,
+      1,
+      6,
+      3,
+      1,
+      6,
+      4,
+      1,
+      6,
+      6,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "jacobian_rank": 11,
+    "nullity": 6,
+    "lift_to_49": true,
+    "one_lift_mod49": [
+      41,
+      36,
+      8,
+      48,
+      10,
+      1,
+      20,
+      11,
+      29,
+      48,
+      34,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "chosen_path": [
+      {
+        "modulus": 343,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 2401,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 16807,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 117649,
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": 823543,
+        "chosen_path_lifts": true
+      }
+    ],
+    "unperturbed_final_vector": [
+      43308,
+      225044,
+      780235,
+      802276,
+      769359,
+      21267,
+      641283,
+      658179,
+      182260,
+      823542,
+      325051,
+      1,
+      1,
+      0,
+      3,
+      0,
+      3
+    ],
+    "full_conic_chosen_path": [
+      {
+        "modulus": "49",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "16807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "117649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "823543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "5764801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "40353607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "282475249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1977326743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "13841287201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "96889010407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "678223072849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "4747561509943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "33232930569601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "232630513987207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1628413597910449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "11398895185373143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "79792266297612001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "558545864083284007",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3909821048582988049",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "27368747340080916343",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "191581231380566414401",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1341068619663964900807",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "9387480337647754305649",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "65712362363534280139543",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "459986536544739960976801",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "3219905755813179726837607",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "22539340290692258087863249",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "157775382034845806615042743",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "1104427674243920646305299201",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "7730993719707444524137094407",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "54116956037952111668959660849",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "378818692265664781682717625943",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "2651730845859653471779023381601",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "18562115921017574302453163671207",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "129934811447123020117172145698449",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "909543680129861140820205019889143",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "6366805760909027985741435139224001",
+        "chosen_path_lifts": true
+      },
+      {
+        "modulus": "44567640326363195900190045974568007",
+        "chosen_path_lifts": true
+      }
+    ],
+    "full_conic_final_vector": [
+      "16563593812203286064309390241819811",
+      "23156087409401709171733837374608664",
+      "28004046514159909835880655732748196",
+      "24181415028901404418781059667108864",
+      "19572209396710274826125869982947352",
+      "20386225297461791481408986307459143",
+      "1695011583080108469558413182869283",
+      "7808535119585169020687503237307172",
+      "42872628743283087430631632791698724",
+      "44567640326363195900190045974568006",
+      "14247966845761637779700691199273918",
+      "1",
+      "1",
+      "0",
+      "3",
+      "0",
+      "3"
+    ],
+    "full_conic_residual_zero": false
+  }
+]

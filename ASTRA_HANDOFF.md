@@ -1,5 +1,32 @@
 # Astra handoff — after the September 4 direct strike
 
+## September 5 update: full fourfold is the main target
+
+Read [FOURFOLD_ROUTES_2026_09_05.md](FOURFOLD_ROUTES_2026_09_05.md) and
+`results/fourfold_routes_2026_09_05/` first. No ESOP6 point or exact rational
+curve was found. The user redirected the main work to the full fourfold.
+
+* Odd reduced degrees are impossible over R. Conics over Q remain open.
+* Four nontrivial F7 transverse conic patterns each have a chosen full
+  coefficient lift through 7^41; these are finite congruences, not exact
+  rational identities. Rational reconstruction did not produce a curve.
+* Three of the recorded chosen paths retain a fixed coordinate ratio
+  excluded at 2; their residue classes can admit different free-digit paths.
+* The equal-pair-sum cubic tangent route is excluded by the proved 3-adic
+  obstruction. Do not enlarge its two-square searches.
+* Unrestricted cubic tangent square lifting remains open. Bounded and
+  sampled searches produced no hit and no integer frontier advance.
+* The degree-eight surface route needs q=s^2 for a reduced map. Only the
+  explicitly recorded sparse Gaussian-factor family was closed over Q.
+* Four independent transverse directions give a new full-fourfold
+  boundary residual, derived but unsolved.
+
+The integer 4.3M–4.4M attempt was capped after 90 seconds, completed one
+filter build, and did not finish a search result. There is no continuing
+background process from this work block. Earlier next-strike instructions
+below are preserved as history; do not treat the degree-eight surface as
+the user's sole authorized lane.
+
 ## Second-strike update — the previous next construction is now closed
 
 The normalized degree-six boundary-contact polynomial ansatz below has been

@@ -1,0 +1,17 @@
+{
+  "r_bound": 60,
+  "rotation_bound": 60,
+  "counts": {
+    "r_values_tested": 681,
+    "r_values_with_integer_norm_representation": 56,
+    "rotations": 246792,
+    "positive": 142226,
+    "exact_cubic_checks": 142226,
+    "forced_square_ratio_checks": 142226,
+    "all_remaining_squares": 0
+  },
+  "best_of_four_remaining_square_ratios": 0,
+  "best_primitive_cube_bases": [],
+  "largest_primitive_cube_base": "127812050",
+  "elapsed_seconds": 2.046506038001098
+}

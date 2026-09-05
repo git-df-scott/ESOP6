@@ -1,0 +1,32 @@
+{
+  "random_seed": 20260905,
+  "requested_samples": 1000000,
+  "seed_rule": "a,b=1764*i,1764*j; c=1764*k+1; 1<=i,j,k<=8",
+  "direction_bound": 10000,
+  "counts": {
+    "sampled_directions": 1000000,
+    "nondegenerate": 1000000,
+    "positive": 20687,
+    "cubic_identity_checks": 20687,
+    "square_sieve_pass": 0,
+    "hits": 0,
+    "above_730000_squared": 20687,
+    "above_4300000_squared": 20687,
+    "above_100000000_squared": 20687
+  },
+  "square_count_histogram": {
+    "0": 20687
+  },
+  "largest_primitive_cube_base": "1170274450075294331673718278839025531020153",
+  "best_square_count": 0,
+  "best_cube_bases": [
+    "8350743111776392297205635508350636380",
+    "20694199039603704550633258907432209620",
+    "148424959014298306938474987378362869152",
+    "192046307315768383888969830495536047848",
+    "214488320286954469870797033432557534515",
+    "272477601274848398720833788146649516595"
+  ],
+  "elapsed_seconds": 8.57633686600093,
+  "scope": "sampled tangent points; no integer-height interval is exhausted"
+}

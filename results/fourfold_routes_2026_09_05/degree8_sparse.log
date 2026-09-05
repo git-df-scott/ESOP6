@@ -1,0 +1,20 @@
+eliminated 1
+eliminated 2
+eliminated 3
+eliminated 4
+eliminated 5
+eliminated 6
+eliminated 7
+eliminated 8
+residual 9 732*s**3*(u - v)/5
+residual 10 27*s**4*(7735588*s**6 - 5375*u - 5375*v)/3125
+residual 11 -804*s**5*(u - v)/25
+residual 12 (11917695564*s**12 - 30063150*s**6*u - 30063150*s**6*v + 658125*u**2 - 1215000*u*v + 658125*v**2 - 62500)/168750
+residual 13 6*s*(u - v)*(17672*s**6 - 25*u - 25*v)/125
+residual 14 -s**2*(207207200628*s**12 - 315470700*s**6*u - 315470700*s**6*v + 16621875*u**2 - 35775000*u*v + 16621875*v**2 + 1187500)/281250
+residual 15 -24*s**3*(u - v)*(178693*s**6 - 9150*u - 9150*v)/625
+residual 16 s**4*(14857282122966*s**12 + 210349588500*s**6*u + 210349588500*s**6*v - 920244375*u**2 + 1226205000*u*v - 920244375*v**2 - 2750000)/1406250
+mod 7 {'basis': ['1'], 'seconds': 0.008549876001779921, 'scope': 'necessary residual equations in this sparse family; finite-characteristic result only'}
+mod 11 {'basis': ['1'], 'seconds': 0.0019632059993455186, 'scope': 'necessary residual equations in this sparse family; finite-characteristic result only'}
+mod 13 {'basis': ['1'], 'seconds': 0.001919451002322603, 'scope': 'necessary residual equations in this sparse family; finite-characteristic result only'}
+QQ {'basis': ['1'], 'seconds': 0.002179773000534624}

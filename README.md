@@ -1,5 +1,13 @@
 # ESOP6 — Euler's Sum of Powers, sixth-power case
 
+> **2026-09-05 full-fourfold routes:** no counterexample was found.
+> Full-conic residue patterns lift through `7^41` in the divided identity,
+> but none reconstructs an exact rational curve. Cubic tangent searches,
+> an exact obstruction to the equal-pair tangent route, and a sparse
+> degree-eight certificate are recorded in
+> [FOURFOLD_ROUTES_2026_09_05.md](FOURFOLD_ROUTES_2026_09_05.md).
+> The unrestricted conic and square-lifting problems remain open.
+
 > **2026-09-04 direct strike:** no positive solution was found. The cubic
 > quotient pencil was derived exactly; its generic square lift has genus 9.
 > Coupled valuation conditions now guide parameter selection. Four selected
