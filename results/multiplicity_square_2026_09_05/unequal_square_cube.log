@@ -1,0 +1,58 @@
+24329 16553 directions 0 positive 0
+28325 18331 directions 0 positive 0
+53215 32321 directions 0 positive 0
+45445 35717 directions 0 positive 0
+57311 39329 directions 0 positive 0
+60689 40399 directions 0 positive 0
+90217 49879 directions 0 positive 0
+91307 53035 directions 0 positive 0
+82225 55313 directions 0 positive 0
+104647 59449 directions 28800 positive 52
+97679 64145 directions 28800 positive 52
+74981 64987 directions 74880 positive 52
+86501 75323 directions 74880 positive 52
+148753 86545 directions 74880 positive 52
+140641 88639 directions 120960 positive 108
+89575 89273 directions 120960 positive 108
+112603 92677 directions 167040 positive 108
+143797 92885 directions 167040 positive 108
+131941 93061 directions 167040 positive 108
+140977 94321 directions 167040 positive 108
+{
+  "seed": [
+    1,
+    -1,
+    2,
+    -2,
+    3,
+    3
+  ],
+  "pair_sum_ratio": [
+    1,
+    182
+  ],
+  "h": 81,
+  "counts": {
+    "ratio_seeds": 24,
+    "positive_norms": 20,
+    "integer_norm_representations": 107,
+    "used_norm_representations": 58,
+    "directions": 167040,
+    "positive_cubic_outputs": 108,
+    "square_sieve_pass": 0,
+    "exact_lifts": 0
+  },
+  "slopes": 720,
+  "norm_representation_cap_per_ratio": 16,
+  "best_remaining_square_ratios": 0,
+  "best_C": [
+    "14078684113",
+    "9087404591",
+    "1729269542074",
+    "2486958602054",
+    "894148451053",
+    "2770601636077"
+  ],
+  "seconds": 1.212797236003098,
+  "scope": "bounded conic rotations with unequal pair sums and locally admissible RHS/fifth ratio; no height interval exhausted"
+}

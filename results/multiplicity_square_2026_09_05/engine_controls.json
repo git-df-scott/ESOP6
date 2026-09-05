@@ -1,0 +1,1 @@
+{"status":"PASS","positive_pair_controls":2850,"exhaustive_target_controls":150000,"sieve_controls":20000,"root_join_controls":"all unit f,t <= 300 at 7^6 and 42^6"}

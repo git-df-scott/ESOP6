@@ -1,3 +1,5 @@
+> **2026-09-05 multiplicity strike:** no counterexample. All-height exclusions for 3+2, 4+1, and 5; complete bounded runs for 2+2+1 through f=50,000,000, 3+1+1 through 500,000, and 2+1+1+1 through 200,000. The degree-eight integral-at-7 branch is excluded; rational denominators and global conics remain open. See [the report](MULTIPLICITY_SQUARE_CONICS_2026_09_05.md).
+
 # ESOP6 status — 2026-09-04
 
 ## Latest: second strike after 80a2d9f

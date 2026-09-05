@@ -1,0 +1,10 @@
+{
+  "u": 1,
+  "v": 182,
+  "prime": 7,
+  "valuation_of_u_over_v": -1,
+  "globally_excluded": true,
+  "reason": "A ratio of two nonzero sums of two rational squares has even valuation at every prime congruent to 3 modulo 4.",
+  "production_search_launched": false,
+  "diagnostic_replay_flag": "--replay-rejected-control"
+}

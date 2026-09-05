@@ -1,0 +1,153 @@
+{
+  "base_commit": "60d02436c46dfeb2b873b36be37a3ec426e2de5d",
+  "branch": "codex/multiplicity-square-conics-2026-09-05",
+  "counterexample_found": false,
+  "background_search_active": false,
+  "files": [
+    {
+      "path": "MULTIPLICITY_SQUARE_CONICS_2026_09_05.md",
+      "bytes": 15001,
+      "sha256": "1df5f4c3f4025a82ef9cf4e3580b788588ab923c764c95241a805c8698c6f3c6"
+    },
+    {
+      "path": "README.md",
+      "bytes": 15485,
+      "sha256": "6453a4e3157f0ce044f161e1a883596221e4be2f30b220ea70ef330ee8204c67"
+    },
+    {
+      "path": "STATUS.md",
+      "bytes": 5633,
+      "sha256": "4124925ccbdcd6239e1e51817ff38b6eddf095d661af1667bffed8c3c685e694"
+    },
+    {
+      "path": "tools/repeated_campaign.cpp",
+      "bytes": 7929,
+      "sha256": "cda8fec6d13abf75592e81d575265ae22ce40fb96b510286067ed6397ac38805"
+    },
+    {
+      "path": "tools/multiplicity_algebra.py",
+      "bytes": 5360,
+      "sha256": "91c605a0336c6b0a6d0d9caf363fce9467995574b07d4e8b8adfd6af0345ff11"
+    },
+    {
+      "path": "tools/conic_crt_reconstruction.py",
+      "bytes": 2266,
+      "sha256": "d92a08a7769361b71e97b6239e9c1e5635c28c97355e4c3d5bf728baeb72e45d"
+    },
+    {
+      "path": "tools/unequal_square_cube.py",
+      "bytes": 5120,
+      "sha256": "c9e1d7d1f1a7f92dcec9c84f7d52700cc16f510fb95a616cec94d897a864f516"
+    },
+    {
+      "path": "tools/verify_multiplicity_campaign.py",
+      "bytes": 4229,
+      "sha256": "4b966518fdb8cc8815ba6e2d426a33bf13e56f2c6d516de5d4b054c714615e6c"
+    },
+    {
+      "path": "tools/verify_multiplicity_bigint.mjs",
+      "bytes": 1430,
+      "sha256": "1659499697e474722dcef6a9d2fb5b83d5d66806d2c570e0daa3912f3f4a392f"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/algebra_local.json",
+      "bytes": 17391,
+      "sha256": "e503c5c20a91246bcf1ea33c7b34aea6a57e546f92b1e4f3f7d99f68c91f3bd7"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/algebra_local.log",
+      "bytes": 13085,
+      "sha256": "85cbe65e8d541f6326caaea18fb38d05d618f7e465bce9763fe3250a1850c584"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/conic_crt.json",
+      "bytes": 6025,
+      "sha256": "deb6e2175999a5803da4bf3460393ceb62e6564a37d1dafb176daade192af464"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/degree8_mod7.json",
+      "bytes": 75838,
+      "sha256": "49661f1bd1f841e13266424c6fda572b08b7009fe8b9202fe42bc1e34e028419"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/engine_controls.json",
+      "bytes": 166,
+      "sha256": "22bdcee133c8c851c0e160bd318de3a969b8c058ffd7f82f15dd8285637bf80a"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/independent_verification.json",
+      "bytes": 695,
+      "sha256": "1aab361fbe7edf2bfefc8c8bb867e8e54eff676ad65df323755d2291e380c0ef"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/independent_verification.log",
+      "bytes": 695,
+      "sha256": "1aab361fbe7edf2bfefc8c8bb867e8e54eff676ad65df323755d2291e380c0ef"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/node_verification.json",
+      "bytes": 179,
+      "sha256": "a8d8924a26762ddb6c478f62c92206cdc4d7b94e05c256e22e662bffb7d5bf56"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/node_verification.log",
+      "bytes": 171,
+      "sha256": "b5571030df5755e947bf4879d837714a6af738ee63db6d6b810003bee5750be9"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/search_2111.json",
+      "bytes": 269,
+      "sha256": "b580d577a3a3798c9813e659b139656ea4938011323a621370686004c7b48dbe"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/search_2111_200k.json",
+      "bytes": 274,
+      "sha256": "c09a5d0b6f44333b9ff520338d59e780b3b01c27dd5c0f2eaa1474a95f189ac1"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/search_221.json",
+      "bytes": 238,
+      "sha256": "c5136e82969f57e69e6bc1cfa5a2f85d1dfe5e47755241449ca8677ebe7cc9e0"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/search_221_50m.json",
+      "bytes": 244,
+      "sha256": "897c8ddf6a411f4bcfd28ccfbb63b56aa80aaf8b572a4012ab83ad42b1e7c743"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/search_311.json",
+      "bytes": 243,
+      "sha256": "12bf55de642d454d84d6da8eee724f9334709179cbdcc64f04bf439d949afe5f"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/search_311_500k.json",
+      "bytes": 247,
+      "sha256": "017e68af35f2bacb48ac7fb8d260f03eca7781f5c18d178e30d98d4e7cda6dee"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/square_cube_ratio_seeds.csv",
+      "bytes": 298,
+      "sha256": "92baae1bc0ca85da1e1feec1af9eeed92a48d1a03b8432eb780344752122513d"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/unequal_square_cube.json",
+      "bytes": 15674,
+      "sha256": "afd9917c2d3d1d1501c4fd66b9009e4690e15f6b83f0b63ab21d26810b77832e"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/unequal_square_cube.log",
+      "bytes": 1563,
+      "sha256": "811dd8b75b16061bddcee5b3f477e59c8f437eb22e6549e0c3f178b4787820e5"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/unequal_square_cube_gate.json",
+      "bytes": 321,
+      "sha256": "40dacb615afd4ca53f4a32faf68a8410552ea9b766e605d12a2cb3a64dfdf974"
+    },
+    {
+      "path": "results/multiplicity_square_2026_09_05/unequal_square_cube_gate.log",
+      "bytes": 321,
+      "sha256": "40dacb615afd4ca53f4a32faf68a8410552ea9b766e605d12a2cb3a64dfdf974"
+    }
+  ]
+}

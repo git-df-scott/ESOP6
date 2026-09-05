@@ -1,0 +1,6 @@
+{
+  "status": "PASS",
+  "combined_conic_prefixes": 4,
+  "positive_cubic_samples": 32,
+  "scope": "Node BigInt independent replay of retained samples and all CRT conic prefixes"
+}

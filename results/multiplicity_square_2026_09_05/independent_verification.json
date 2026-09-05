@@ -1,0 +1,25 @@
+{
+  "status": "PASS",
+  "root_list_independent_CRT": 144,
+  "python_bigint_quotients": 2000,
+  "large_positive_pair_controls": 64,
+  "degree8_sympy_cases": 343,
+  "direct_conic_census": {
+    "8": 28,
+    "9": 13
+  },
+  "independent_small_pair_table_sizes": [
+    269,
+    533,
+    1065,
+    2160
+  ],
+  "engine_selftest": {
+    "status": "PASS",
+    "positive_pair_controls": 2850,
+    "exhaustive_target_controls": 150000,
+    "sieve_controls": 20000,
+    "root_join_controls": "all unit f,t <= 300 at 7^6 and 42^6"
+  },
+  "limits": "Production negative pair queries were not all rerun with a second pair algorithm; exact algorithm proof and positive/differential controls support the run."
+}
