@@ -1,0 +1,669 @@
+{
+  "F7_independent_squarefree_replay": [
+    {
+      "support": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        2,
+        4
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        2,
+        5
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        2,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        2,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        3,
+        4
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        3,
+        5
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        3,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        3,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        4,
+        5
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        4,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        4,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        5,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        5,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        1,
+        6,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        3,
+        4
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        3,
+        5
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        3,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        3,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        4,
+        5
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        4,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        4,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        5,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        5,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        2,
+        6,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        3,
+        4,
+        5
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        3,
+        4,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        3,
+        4,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        3,
+        5,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        3,
+        5,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        3,
+        6,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        4,
+        5,
+        6
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        4,
+        5,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        4,
+        6,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1
+      ],
+      "cannot_be_a_sixth_power": true
+    },
+    {
+      "support": [
+        0,
+        5,
+        6,
+        7
+      ],
+      "squarefree_multiplicities": [
+        1,
+        4
+      ],
+      "cannot_be_a_sixth_power": true
+    }
+  ],
+  "real_root_symbolic_replay": [
+    {
+      "lane": "single",
+      "source_start": 18,
+      "independent_symbolic_eta_and_inverse_error_agree": true,
+      "exact_contraction_pass": true
+    },
+    {
+      "lane": "single",
+      "source_start": 25,
+      "independent_symbolic_eta_and_inverse_error_agree": true,
+      "exact_contraction_pass": true
+    },
+    {
+      "lane": "double",
+      "source_start": 18,
+      "independent_symbolic_eta_and_inverse_error_agree": true,
+      "exact_contraction_pass": true
+    },
+    {
+      "lane": "double",
+      "source_start": 27,
+      "independent_symbolic_eta_and_inverse_error_agree": true,
+      "exact_contraction_pass": true
+    },
+    {
+      "lane": "double",
+      "source_start": 34,
+      "independent_symbolic_eta_and_inverse_error_agree": true,
+      "exact_contraction_pass": true
+    }
+  ],
+  "elliptic_exact_reconstruction_checks": [
+    {
+      "start": 1,
+      "cap": 100,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 84,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "2256810633/689869781056"
+    },
+    {
+      "start": 1,
+      "cap": 10000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 84,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "-2181120449291688321841968955322107984661/20864809835079405186913031372389891906155466752"
+    },
+    {
+      "start": 1,
+      "cap": 1000000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 84,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "759826228992806123108635144776278483530813/5349788595670497320203905485501669835790825477915265625"
+    },
+    {
+      "start": 5,
+      "cap": 100,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 80,
+      "first_nonzero_monomial": [
+        4,
+        2,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "1/9801"
+    },
+    {
+      "start": 5,
+      "cap": 10000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 80,
+      "first_nonzero_monomial": [
+        4,
+        2,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "-21983/581961181440"
+    },
+    {
+      "start": 5,
+      "cap": 1000000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 80,
+      "first_nonzero_monomial": [
+        4,
+        2,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "-2031565/417526240715859583"
+    },
+    {
+      "start": 7,
+      "cap": 100,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 84,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "108511015660114/35221800342041015625"
+    },
+    {
+      "start": 7,
+      "cap": 10000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 84,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "158323607257578023126760277016397678863667/7966187597869406432576448784170463813955388821504"
+    },
+    {
+      "start": 7,
+      "cap": 1000000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 84,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "61254369100168964424063112830179170202372089364854557463603299/4564189506866433397108401158519468755707754662911024880354025522372341568"
+    },
+    {
+      "start": 20,
+      "cap": 100,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 40,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "-45841945791347440851/644958979973472042569728"
+    },
+    {
+      "start": 20,
+      "cap": 10000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 40,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "-20278470543297718617089214309085689089/176428879947888479591646541925135532096000000"
+    },
+    {
+      "start": 20,
+      "cap": 1000000,
+      "over_Q_reconstruction": true,
+      "exact_identity": false,
+      "nonzero_coefficient_count": 40,
+      "first_nonzero_monomial": [
+        6,
+        0,
+        0,
+        0
+      ],
+      "first_nonzero_coefficient": "-2271305178020088745310408513725812323012425028187568009102121/482922475821764828576197862661074645982653494260274986810816000000000000"
+    },
+    {
+      "start": 27,
+      "cap": 100,
+      "over_Q_reconstruction": false,
+      "exact_identity": false,
+      "reason": "nonreal reconstructed coefficients"
+    },
+    {
+      "start": 27,
+      "cap": 10000,
+      "over_Q_reconstruction": false,
+      "exact_identity": false,
+      "reason": "nonreal reconstructed coefficients"
+    },
+    {
+      "start": 27,
+      "cap": 1000000,
+      "over_Q_reconstruction": false,
+      "exact_identity": false,
+      "reason": "nonreal reconstructed coefficients"
+    }
+  ],
+  "rational_curve_found": false
+}

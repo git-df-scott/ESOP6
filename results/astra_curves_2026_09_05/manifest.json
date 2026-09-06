@@ -1,0 +1,198 @@
+{
+  "branch": "astra/curves-elliptic",
+  "base_commit": "d3c30ceee6c5ca43e23a7a2e515f5b7478be48f3",
+  "remote_main_at_checkout": "36e03d4ccc3a2f1a2b7d8d77ea3652cfb758a3cd",
+  "record_date_utc": "2026-09-06T00:22:47.625967+00:00",
+  "result_directory_date": "session start 2026-09-05; completed after 2026-09-06 UTC rollover",
+  "environment": {
+    "python": "3.12.13 (main, Aug  7 2026, 02:25:39) [Clang 22.1.3 ]",
+    "platform": "Linux-6.18.35-x86_64-with-glibc2.39",
+    "numpy": "2.3.5",
+    "scipy": "1.17.0",
+    "sympy": "1.14.0",
+    "mpmath": "1.3.0"
+  },
+  "verified_rational_curves": 0,
+  "counterexamples": 0,
+  "real_algebraic_quartic_root_certificates": 5,
+  "integer_searches_run": 0,
+  "conic_numerical_searches_run": 0,
+  "complete_global_Fano_classification": false,
+  "files": [
+    {
+      "path": "ASTRA_CONIC_CONTROL.md",
+      "bytes": 1763,
+      "sha256": "2f6cb7391b0e74d21ecd78fea755deab22bf067a8e5adaa160b522042d3bceac"
+    },
+    {
+      "path": "ASTRA_CURVES_REPORT.md",
+      "bytes": 19089,
+      "sha256": "f36ebe0367c07dc8b32a98d0c0525c04be194b612729f9f00ec6ca0a98e78840"
+    },
+    {
+      "path": "ASTRA_HANDOFF.md",
+      "bytes": 7282,
+      "sha256": "e77c373b49387b18fc7d427aa171887d47a23c5579f8213ec7aa81c4a2f6e08e"
+    },
+    {
+      "path": "ASTRA_PROMPT_CURVES.md",
+      "bytes": 3822,
+      "sha256": "373f414d0e14ee2eb10867723d75a47feb2c9d562b7a377c2c269471cd6b137b"
+    },
+    {
+      "path": "README.md",
+      "bytes": 15867,
+      "sha256": "d31613a5998114da364e15cf32e43c8d701f4f1af03faffcb2091a5b9b3bafca"
+    },
+    {
+      "path": "STATUS.md",
+      "bytes": 6130,
+      "sha256": "1ebf21ba1ebaf66ad6c2520bcc223a17e20099bd4b680cad1434c2b321a5f26a"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/certify_real.log",
+      "bytes": 1739,
+      "sha256": "4820e80fe09550a158801991e3b1fb127f1a1925972a1f5723e4d3e8c88af2cd"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/conic_plane_ideal.json",
+      "bytes": 2780,
+      "sha256": "fdb063d65eba0844c0fb0e23c8e44405df6c9fd88b92b94c0766c6d821bdec26"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/double.json",
+      "bytes": 40394,
+      "sha256": "f35ffbe7390c85172b8b0ceec9350db41b6805383fa8fb647673f558b0454976"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/double.log",
+      "bytes": 11226,
+      "sha256": "4abf106f4dc8c806a553077cd3d3468dfa3f190e982da93ffd1c01539927c1b6"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/double_ideal.json",
+      "bytes": 2849,
+      "sha256": "0c8bfe5110b7125d2528ef397102b510c4d2f0f2753d7fdf3f27c6cd1ef49aec"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/elliptic.json",
+      "bytes": 49553,
+      "sha256": "c15cdc931f7713ebaedd2048dbcb7fc5444f2ea0ad5e04e2babf16fe273e5e06"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/elliptic.log",
+      "bytes": 7859,
+      "sha256": "d3ead816c6f6a943c50a631b13d2ae7e7155b0a4b42ec9b9bea779fd8de86931"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/elliptic_ideal.json",
+      "bytes": 11311,
+      "sha256": "2a785c4383a4d61e2d22fcac89223f9b3885641eb6910ff13a561ce3f9577e23"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/exact.log",
+      "bytes": 17185,
+      "sha256": "1f6376306cb8cf9b113b1d85018fd4d57d8d4ae9de7b99ebc182bd7696f422ab"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/exact_results.json",
+      "bytes": 17185,
+      "sha256": "1f6376306cb8cf9b113b1d85018fd4d57d8d4ae9de7b99ebc182bd7696f422ab"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/independent_verification.json",
+      "bytes": 12147,
+      "sha256": "bf5d207cb63af2b919480f67c5b466be03f8e1dd489d95e8d3982fd450bcbf89"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/jacobian_controls.json",
+      "bytes": 910,
+      "sha256": "a2e8e305bd2b360ad9a00c1463e818ec96c6c7c1b7ed87da9d57509f08560515"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/models.log",
+      "bytes": 33,
+      "sha256": "214c04651df1c99f5c8d2fb3bc1ecdb054c0a7fdc2d1a688a3160d857e4be574"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/plane_cubic_ideal.json",
+      "bytes": 3417,
+      "sha256": "abdb2ce056725f46224643c69da2ccddde09955d269d36ae3866562150a27ca8"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/quartic_F7_certificate.json",
+      "bytes": 23414,
+      "sha256": "7b59fba754132784ed0a2af00cc7d0c056b71fc31ea9c09a94b8c10aa8b6be1b"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/real_quartic_certificates.json",
+      "bytes": 87137,
+      "sha256": "8836d00c5c2c48497a5581e7ebebc22b8412790a1b625840fc1a7633217323dd"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/refine.log",
+      "bytes": 1123,
+      "sha256": "0ddf6e9f40f90cb4c01bf136fe5b016d4883c9aa4ed530497615e27b72506712"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/refinements.json",
+      "bytes": 183713,
+      "sha256": "9de52cf5f021ea9222fd4b3bc9c45a2ac9f067d88fafe41419b7af7a9bfba961"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/single.json",
+      "bytes": 21179,
+      "sha256": "831850a1da2e065105a52b35a65f11e0ed6a6e241c1d589210c0cb599bb5afc0"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/single.log",
+      "bytes": 10593,
+      "sha256": "799cdcc61395696f16f5745b46473080effd03fe940199d157db1c595f035638"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/single_ideal.json",
+      "bytes": 5321,
+      "sha256": "a38f6980368b34439b4345c1a309da3bbd4284173b949644ba68085786d60dec"
+    },
+    {
+      "path": "results/astra_curves_2026_09_05/verify.log",
+      "bytes": 141,
+      "sha256": "d9c2f25ac09bcfcd3be867dfbd352b864df9509ce1a394d58d4d9c88e47dc189"
+    },
+    {
+      "path": "tools/astra_curves/.gitignore",
+      "bytes": 13,
+      "sha256": "32dae3052f331ee34d628ef535709b301259a45df7c7522c4d35dcf49873f00b"
+    },
+    {
+      "path": "tools/astra_curves/certify_real.py",
+      "bytes": 5245,
+      "sha256": "9894e87675b93dd20d25f0de9a768f835e58254f98de557bcfbb435b8fe172fa"
+    },
+    {
+      "path": "tools/astra_curves/exact.py",
+      "bytes": 7696,
+      "sha256": "f49a9448a939d3c1a74d904a37af9f8487010792e5ac1507bae76b2d279db966"
+    },
+    {
+      "path": "tools/astra_curves/models.py",
+      "bytes": 2634,
+      "sha256": "cc1422f484d3776958a32bc2328197a68b3568a3414adcad8179eb87d13248f7"
+    },
+    {
+      "path": "tools/astra_curves/refine.py",
+      "bytes": 4438,
+      "sha256": "5d05ffb90c942d956600c396df18acff0cf94a1ed5d6eb24426fc0584b009160"
+    },
+    {
+      "path": "tools/astra_curves/search.py",
+      "bytes": 9442,
+      "sha256": "691dcd85ae454d14c54c3c37b1ee45fcb904d4ebb56b379e505cfe5ef3824aa2"
+    },
+    {
+      "path": "tools/astra_curves/verify.py",
+      "bytes": 5037,
+      "sha256": "66de2980d0c7c7fde426f30b98efea369a165f13ec67f3cdf347a1dd479aee23"
+    }
+  ]
+}

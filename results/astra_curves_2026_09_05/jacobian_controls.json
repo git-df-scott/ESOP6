@@ -1,0 +1,38 @@
+[
+  {
+    "system": "EllipticQuartic",
+    "double": null,
+    "complex": false,
+    "relative_directional_derivative_error": 3.9474019597743646e-11
+  },
+  {
+    "system": "EllipticQuartic",
+    "double": null,
+    "complex": true,
+    "relative_directional_derivative_error": 5.038047261216377e-11
+  },
+  {
+    "system": "RationalQuartic",
+    "double": false,
+    "complex": false,
+    "relative_directional_derivative_error": 2.924193745399846e-11
+  },
+  {
+    "system": "RationalQuartic",
+    "double": false,
+    "complex": true,
+    "relative_directional_derivative_error": 1.2572489106168497e-10
+  },
+  {
+    "system": "RationalQuartic",
+    "double": true,
+    "complex": false,
+    "relative_directional_derivative_error": 4.215122969387249e-10
+  },
+  {
+    "system": "RationalQuartic",
+    "double": true,
+    "complex": true,
+    "relative_directional_derivative_error": 5.338203802172902e-11
+  }
+]

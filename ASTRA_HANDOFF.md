@@ -1,5 +1,11 @@
 # Astra handoff — after the September 4 direct strike
 
+## Full-fourfold curve handoff — September 5–6, 2026
+
+Read [ASTRA_CURVES_REPORT.md](ASTRA_CURVES_REPORT.md), [ASTRA_CONIC_CONTROL.md](ASTRA_CONIC_CONTROL.md), and `results/astra_curves_2026_09_05/manifest.json` first. This branch preserves the later fourfold and multiplicity work. Plane cubics are excluded over R; only P6 must be definite. Five genuine quartic embeddings with real algebraic coefficients are certified, but none is Q-certified. The supplied D conic seed is exact over a number field and has rank 11; it is not an ESOP6 candidate. The full Fermat conic scheme has higher-dimensional strata, so a complete Fano-curve classification has not been obtained. No integer sweep is authorized by this update.
+
+The older handoff below remains historical; the current curve assignment is in `ASTRA_PROMPT_CURVES.md`.
+
 ## September 5 update: full fourfold is the main target
 
 Read [FOURFOLD_ROUTES_2026_09_05.md](FOURFOLD_ROUTES_2026_09_05.md) and
