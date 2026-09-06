@@ -1,3 +1,27 @@
+# ESOP6 status — 2026-09-06
+
+## Latest: conic lane on the full fourfold (after 36e03d4)
+
+No ESOP6 solution was found. The conic lane was moved from surface slices
+to the Fermat sextic fourfold itself and reduced exactly. Conics on X are
+trigonometric identities `sum_i (z_i + x_i cos t + y_i sin t)^6 = g^6`. Two
+components: the design stratum (`z = 0`, weighted 3-designs on the circle,
+Hilbert identities) and a general component that is provably a plane curve
+Gamma whose rational points are governed by an elliptic curve of conductor
+4070 with rank 0 and torsion Z/4. The general component therefore contains
+no rational conic. In the design stratum, rational positive 5-node designs
+exist (30 at Gaussian norm 400) but none satisfies the sixth-power weight
+condition. The calibrated Hardy–Littlewood heuristic predicts 0.12 generic
+solutions below 10^100, so only structured solutions are plausible.
+
+The concentrated integer frontier was extended by one calibration band to
+f = 4,310,000 (281 candidates, 0 solutions, 18 min on 4 cores); further
+extension is not a productive use of compute.
+
+Read [CONIC_LANE.md](CONIC_LANE.md); results in `results/conics_2026_09_06/`
+and `results/frontier_2026_09_05/`. The compute-split prompt for a second
+agent is [ASTRA_PROMPT_CURVES.md](ASTRA_PROMPT_CURVES.md).
+
 # ESOP6 status — 2026-09-04
 
 ## Latest: second strike after 80a2d9f
