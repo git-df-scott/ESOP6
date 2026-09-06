@@ -1,5 +1,14 @@
 # ESOP6 — Euler's Sum of Powers, sixth-power case
 
+> **2026-09-06 conic lane:** conics on the full Fermat sextic fourfold were
+> reduced exactly to trigonometric sixth-power identities. The general
+> component is a plane curve whose rational points live on an elliptic curve
+> of rank 0, so it carries no rational conic; the design stratum (Hilbert
+> identities / weighted 3-designs on the circle) has rational positive
+> designs but none with sixth-power weights up to Gaussian norm 400. The
+> Hardy–Littlewood constant was computed and calibrated against k=5. No
+> counterexample. Start with [CONIC_LANE.md](CONIC_LANE.md).
+
 > **2026-09-04 direct strike:** no positive solution was found. The cubic
 > quotient pencil was derived exactly; its generic square lift has genus 9.
 > Coupled valuation conditions now guide parameter selection. Four selected

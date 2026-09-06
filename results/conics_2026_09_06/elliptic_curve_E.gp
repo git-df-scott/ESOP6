@@ -1,0 +1,10 @@
+default(parisize, "256M");
+E = ellinit([0,0,0,-611307,183887334]);
+print("minimal model: ", ellminimalmodel(E).a1, " ", ellglobalred(E)[1]);
+Em = ellminimalmodel(E);
+print("conductor: ", ellglobalred(Em)[1]);
+print("torsion: ", elltors(Em));
+r = ellrank(Em);
+print("ellrank (lower, upper, ...): ", r);
+print("analytic rank (ellanalyticrank): ", ellanalyticrank(Em));
+print("rational points on quartic y^2=137c^4-186c^3+21c^2+28c+4 up to height 10^5: ", hyperellratpoints([137,-186,21,28,4], 10^5));

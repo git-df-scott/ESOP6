@@ -3,3 +3,7 @@ __pycache__/
 *.o
 *.log
 sweep.log
+
+tools/conics/*.log
+tools/conics/*.npy
+tools/conics/__pycache__/
