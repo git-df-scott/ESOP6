@@ -141,6 +141,28 @@ multiplicities of f decide the genus; the slice principle decides which are admi
 Collinearity test (`y2_collinear_pairs.py`): no two of the 298 Y2 points with x6 ≤ 150 lie on a common plane
 cubic of X (4.2M pair/permutation/sign tests, exact).
 
+### 1.9 The odd-factor principle (a Kepler moment, late in the night)
+
+Along any real curve on X write the identity as a product: x6^6 - x5^6 = (x6^k - x5^k)(...) with the relevant real
+factor N. If N has odd degree in the parameter it has a real root t1, and there Σ_{i≤4} x_i^6 = 0 forces
+x1 = x2 = x3 = x4 = 0: the curve passes through the boundary point B = [0:0:0:0:1:1]. For a Q-curve t1 is then
+rational (a quadratic t1 would make all four coordinate forms proportional). Consequences, each checked numerically:
+
+* Plane cubics u^3 = ±S (lines on Y2): N = L6^3 - S is a real cubic; linear forms cannot all vanish at t1 unless
+  proportional. **No real plane cubic of this type exists.** The 68+31 seeds tested (all mod-p counts, no rational
+  lines) were complex-only Galois sets. Lane closed; the solver remains as a template.
+* Cubic covers V3' (u^3 = K M^3): N = G6^3 - K M^3 has degree 9, so real members pass through B at a rational
+  parameter, G_i = t·(linear). That boundary-contact system is zero-dimensional and has **no solutions even over C**
+  (`boundary_cubic_cover.py`, 800 complex and 1500 real starts). V3' has no real members; the per-seed counts
+  "near-real 0" were this theorem showing up as data. Lane closed.
+* Quadratic covers V3 (w^2 = F): N = G6^2 - F is a quartic, no forced root; real members exist. Live, needs Y(Q)
+  seeds (structured search to x6 ≤ 360 running: `y_points_structured_N360.log`).
+* Z-quotient conics (τ-symmetric genus-1 curves, w^2 = e1^2 - 4e2 quartic): 3-dimensional with real members
+  (local dim 7); live; tickets are Z(Q) points = quadratic points of X with a conjugate pair. Known: (7±11i,8,12,15,17)
+  and (9±√-249,14,18,0,22), neither carrying a rational curve of this family (14 and 16 complex curves each).
+* Sextic rational curves: N = x6 - x5 has even degree; real nondegenerate sextics exist (two with generic local
+  dimension 5). Live; no seed mechanism (through a point is overdetermined).
+
 ## 2. Lanes closed tonight
 
 * Family 0 and genus-0 cubic covers: rational root of x5 (1.2).
@@ -164,7 +186,7 @@ cubic of X (4.2M pair/permutation/sign tests, exact).
 
 ## 4. Tomorrow
 
-0. Read `plane_cubics_lottery_N70.log` and `plane_cubic_hits.json` first; any hit → `plane_cubic_points.py` → verifiers.
+0. The plane-cubic and cubic-cover lotteries are closed by the odd-factor principle (1.9); do not rerun them.
 1. Read `cubic_cover_lottery_N40.log` and `cubic_cover_rational_hits.json`. Any hit: find rational points on the
    elliptic curve u^3 = K(t) (search t, then 2-descent if needed), specialize, run both verifiers.
 2. Extend Y2 seeds to x6 ≤ 70 (`y2_points_N70.log`) and rerun; raise starts until the per-seed count saturates.
