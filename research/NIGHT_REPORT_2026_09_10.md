@@ -211,6 +211,13 @@ parameter, in particular at t = 0 and t = ∞ after normalization, with seed hei
 Interpretation: these families are high-degree correspondences (≈ 800 real curves through a point of Y), not
 fibrations. Elkies' K3 had an elliptic fibration (one curve through each point), which is why a rational seed there
 was a rational fibre. The missing material is a genus-≤1 fibration of (a piece of) X over Q, or a rational curve.
+
+Field-of-definition probe: the 42 real V3' curves through the seed (2,6,17,22;23;S=3236) were polished to 50 digits;
+none of the first 12 has a coordinate of algebraic degree ≤ 12 (PSLQ, coefficients ≤ 1e8). The Galois sets through
+a seed are large and irreducible; rational members exist only for seeds in a thin set. The complete height-300 run
+(`cubic_cover_real_a*.log`) therefore answers a precise question — is there a rational cubic-cover curve of height
+≲ 300 — rather than sampling a distribution.
+
 The natural fibration X → P^3, (x1:..:x4), has twisted Fermat sextic fibres x5^6 + c·s^6 = x6^6 (genus 10), which
 cover the cubic twists E_c: X^3 + cY^3 = Z^3; a counterexample is a point of E_c(Q) with X/Z and Y/Z both squares.
 
