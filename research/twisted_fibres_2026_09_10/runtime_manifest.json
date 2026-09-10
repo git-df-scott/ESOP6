@@ -1,0 +1,18 @@
+{
+  "version": "2.17.4",
+  "source_url": "https://pari.math.u-bordeaux.fr/pub/pari/unix/pari-2.17.4.tar.gz",
+  "published_sha256": "02651d99c391007d384b3fadbc20abc6916b77036f9e496c99e9ce8688ca4b53",
+  "source_sha256": "02651d99c391007d384b3fadbc20abc6916b77036f9e496c99e9ce8688ca4b53",
+  "build_command": "./Configure --prefix=/workspace/scratch/3b44542ad661/runtime/pari-install --without-gmp --without-readline --graphic=none --static && make -j4 gp",
+  "compiler": "gcc (Ubuntu 13.3.0-6ubuntu2~24.04) 13.3.0",
+  "executable": "/workspace/scratch/3b44542ad661/runtime/pari-2.17.4/gp",
+  "executable_sha256": "f0094f392cb29c26aba5ba4139b19d3ba02cda75bb90e203291cef217e691ea0",
+  "kernel": "native (GMP runtime installed but development headers unavailable)",
+  "regression_targets": [
+    "test-ellrank",
+    "test-ellratpoints",
+    "test-elltors"
+  ],
+  "class_group_certification": "ellrankinit(E)[3] entries of length10 are bnf structures in pinned2.17.4 source; certify using bnfcertify(entry)==1 before promoting rank upper bounds",
+  "regression_result": "PASS: ellrank, ellratpoints, elltors for gp-sta and gp-dyn"
+}

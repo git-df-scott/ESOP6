@@ -1,5 +1,12 @@
 # ESOP6 night report — 2026-09-10
 
+> **Continuation audit:** read
+> [the corrections](twisted_fibres_2026_09_10/CORRECTIONS.md) before using
+> this historical report as a proof source. In particular, the LPS premise
+> is conjectural, reducibility does not imply a rational root, and numerical
+> lotteries are not certified exhaustive curve searches. The new exact
+> fibre arithmetic is in [ARITHMETIC.md](twisted_fibres_2026_09_10/ARITHMETIC.md).
+
 ## Morning briefing (read this first)
 
 Tonight produced two explicit algebraic solutions of Euler's equation over quadratic fields, a structural principle
