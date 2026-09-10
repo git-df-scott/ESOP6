@@ -1,0 +1,46 @@
+{
+  "date_utc": "2026-09-10",
+  "status": "No positive-integer counterexample",
+  "bremner_1981": {
+    "doi": "10.1112/plms/s3-43.3.544",
+    "pages": "544-581",
+    "full_text_read": false,
+    "access_result": "Publisher HTTP 403; advertised public TDM endpoint requires token"
+  },
+  "kuwata_2007": {
+    "doi": "10.1216/rmjm/1181068763",
+    "pages": "497-517",
+    "full_text_read": false,
+    "access_result": "Euclid returned HTML bot challenge; official author bibliography read",
+    "author_bibliography": "https://www.kuwata.r.chuo-u.ac.jp/papers_en.html"
+  },
+  "bcu_2014": {
+    "url": "https://arxiv.org/pdf/1402.4583",
+    "sections_read": [
+      "5",
+      "6"
+    ],
+    "pages_read": "13-19",
+    "sha256": "ef6d90178a11b63109f8d220e08a22f6724288f0d89482d0fa7f279f12d6217e"
+  },
+  "independent_symbolic_checks": {
+    "quadratic_pair_identity_residual": "{}",
+    "cubic_pair_identity_residual": "{}",
+    "gaussian_square_sum_residual": 0,
+    "gaussian_sixth_sum_residual": 0,
+    "gaussian_imaginary_sixth_sum": 0,
+    "gaussian_discriminant": -484,
+    "boundary_seed_square_sum_residual": -300,
+    "nonnegative_cross_term_identity_residual": "{}"
+  },
+  "checker_version": {
+    "python": "3.12.14",
+    "method": "Integer sparse multivariate polynomial expansion and Gaussian-integer pair arithmetic; {} denotes zero polynomial"
+  },
+  "claims_requiring_correction": [
+    "LPS is not a certified boundary rejection",
+    "Reducibility does not imply a rational root",
+    "General degree-six minimum is not established by rational-root argument"
+  ],
+  "new_certified_obstruction": "The simultaneous quadratic and sextic locus sum(x_i^2)=x6^2 and sum(x_i^6)=x6^6 has only ten real projective points; all are trivial"
+}
