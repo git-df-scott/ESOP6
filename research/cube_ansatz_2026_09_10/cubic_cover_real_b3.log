@@ -1,0 +1,23 @@
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((42, 66, 158, 216), 301) S= 25029909 : distinct curves found 32  real 32  rational 0
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((59, 87, 237, 267), 302) S= 14787306 : distinct curves found 54  real 54  rational 0
+seed ((39, 44, 136, 240), 303) S= 24008476 : distinct curves found 39  real 39  rational 0
+seed ((80, 102, 120, 176), 303) S= 27198383 : distinct curves found 29  real 29  rational 0
+seed ((8, 10, 96, 304), 305) S= 3863183 : distinct curves found 39  real 39  rational 0
+seed ((46, 60, 102, 249), 305) S= 23779908 : distinct curves found 46  real 46  rational 0
+seed ((74, 236, 246, 271), 305) S= 3786736 : distinct curves found 61  real 61  rational 0
+seed ((134, 146, 216, 284), 305) S= 12777809 : distinct curves found 53  real 53  rational 0
+seed ((2, 102, 256, 278), 307) S= 9643531 : distinct curves found 50  real 50  rational 0
+seed ((18, 64, 248, 290), 307) S= 3107435 : distinct curves found 41  real 41  rational 0
+seed ((36, 86, 230, 296), 307) S= 4021141 : distinct curves found 48  real 48  rational 0
+seed ((118, 184, 243, 268), 307) S= 14808344 : distinct curves found 62  real 62  rational 0
+seed ((119, 123, 165, 285), 308) S= 17068518 : distinct curves found 58  real 58  rational 0
+seed ((72, 110, 221, 234), 309) S= 24246140 : distinct curves found 59  real 59  rational 0
+seed ((9, 65, 83, 89), 310) S= 29775902 : distinct curves found 6  real 6  rational 0
+seed ((2, 16, 212, 234), 311) S= 25492441 : distinct curves found 42  real 42  rational 0
+seed ((9, 44, 152, 202), 311) S= 28714856 : distinct curves found 38  real 38  rational 0
+seed ((50, 132, 260, 286), 311) S= 6583001 : distinct curves found 52  real 52  rational 0
+seed ((88, 136, 274, 279), 311) S= 1792688 : distinct curves found 49  real 49  rational 0

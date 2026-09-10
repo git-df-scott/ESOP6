@@ -204,7 +204,7 @@ Height bookkeeping. A rational curve in any of these families passes through a r
 parameter, in particular at t = 0 and t = ∞ after normalization, with seed height ≤ curve height. Hence:
 
 * the per-seed V3' solver run over all Y2 points of height ≤ H is a complete (up to numerical coverage) search for
-  rational cubic-cover curves of height ≲ H; H = 300 (1239 seeds) is running: `cubic_cover_real_c*.log`, `_n*.log`;
+  rational cubic-cover curves of height ≲ H; **H = 300 done: 1239 seeds, 40–60 real curves each, zero rational (`cubic_cover_real_a*.log`); H = 500 running (`_b*.log`)**;
 * the V3 search is limited by Y(Q): only two points ≤ 360, both tested, so no rational V3 curve of height ≤ 360;
 * the Z-conic search is limited by Z(Q): two points known ≤ 62.
 
