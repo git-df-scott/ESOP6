@@ -194,6 +194,26 @@ x1,x2 = A ± R·w on the conic w^2 = ω(E1,E2) (A cubic, R quadratic), x3..x6 cu
 (`sym_sextics.py`, local dim 7). Real Newton starts land only on special loci (local dims 13–22), so whether the
 generic component has real members is open. Parked.
 
+### 1.11 Day 2: real-start lotteries and a completeness statement
+
+The overnight lotteries used complex random starts, which essentially never converge to real solutions; with real
+starts the picture changes: through random real points of Y2 there are 9–32 real V3' curves, through each of the two
+Y points 753 and 793 real V3 curves, through the two Z points 29 and 23 real Z-conics. None rational so far.
+
+Height bookkeeping. A rational curve in any of these families passes through a rational seed at every rational
+parameter, in particular at t = 0 and t = ∞ after normalization, with seed height ≤ curve height. Hence:
+
+* the per-seed V3' solver run over all Y2 points of height ≤ H is a complete (up to numerical coverage) search for
+  rational cubic-cover curves of height ≲ H; H = 300 (1239 seeds) is running: `cubic_cover_real_c*.log`, `_n*.log`;
+* the V3 search is limited by Y(Q): only two points ≤ 360, both tested, so no rational V3 curve of height ≤ 360;
+* the Z-conic search is limited by Z(Q): two points known ≤ 62.
+
+Interpretation: these families are high-degree correspondences (≈ 800 real curves through a point of Y), not
+fibrations. Elkies' K3 had an elliptic fibration (one curve through each point), which is why a rational seed there
+was a rational fibre. The missing material is a genus-≤1 fibration of (a piece of) X over Q, or a rational curve.
+The natural fibration X → P^3, (x1:..:x4), has twisted Fermat sextic fibres x5^6 + c·s^6 = x6^6 (genus 10), which
+cover the cubic twists E_c: X^3 + cY^3 = Z^3; a counterexample is a point of E_c(Q) with X/Z and Y/Z both squares.
+
 ## 2. Lanes closed tonight
 
 * Family 0 and genus-0 cubic covers: rational root of x5 (1.2).

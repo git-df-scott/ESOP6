@@ -56,10 +56,10 @@ class Sys:
                 if sv[-1]/sv[0]<1e-10: continue
                 if not any(np.linalg.norm(v-u)<1e-6*(1+np.linalg.norm(u)) for u in sols): sols.append(v)
         return sols
-def ratrec_float(z,maxden=10**6):
+def ratrec_float(z,maxden=3000):
     if abs(z.imag)>1e-7*(1+abs(z)): return None
     f=Fraction(z.real).limit_denominator(maxden)
-    return f if abs(float(f)-z.real)<1e-8*(1+abs(z.real)) else None
+    return f if abs(float(f)-z.real)<1e-10*(1+abs(z.real)) else None
 if __name__=="__main__":
     pts=json.load(open(sys.argv[1])); starts=int(sys.argv[2]) if len(sys.argv)>2 else 800
     for p in pts:
