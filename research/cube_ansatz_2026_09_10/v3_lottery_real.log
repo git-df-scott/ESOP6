@@ -1,0 +1,4 @@
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+Y-point [75, 119, 273, 279, 353, 101517] : curves found 753 near-real 753 rational-looking 0
+Y-point [48, 175, 228, 350, 355, -18082] : curves found 793 near-real 793 rational-looking 0

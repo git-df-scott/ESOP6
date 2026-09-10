@@ -1,0 +1,1084 @@
+{
+  "y2_all_chunk0.json": {
+    "source_sha256": "90c4908424e643e7bc5021193a6b27397606b00415758978fbdea1e1a063e287",
+    "rows": 310,
+    "valid_distinct": 310,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_all_chunk1.json": {
+    "source_sha256": "3c10049621ce46e7038c1b9e4be5797eb1cf3144d0a914056d25207eef1ca7fb",
+    "rows": 310,
+    "valid_distinct": 310,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_all_chunk2.json": {
+    "source_sha256": "5cdfc0ee670566790c01103256237f2bcd0e479a4a181b081c7ca1da09977163",
+    "rows": 310,
+    "valid_distinct": 310,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_all_chunk3.json": {
+    "source_sha256": "daf66a2651ee434be13b670fac9db2f3b40305746da1208ba9cdf622e74da978",
+    "rows": 309,
+    "valid_distinct": 309,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_b_chunk0.json": {
+    "source_sha256": "162e3650922ff40778c481262e203e971c15a8c17d894cb1b12e73983433e129",
+    "rows": 422,
+    "valid_distinct": 414,
+    "duplicates": 0,
+    "invalid": [
+      {
+        "index_zero_based": 397,
+        "point": {
+          "x": [
+            211,
+            255,
+            315,
+            341
+          ],
+          "x6": 457,
+          "S": 78722114,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 404,
+        "point": {
+          "x": [
+            139,
+            225,
+            353,
+            429
+          ],
+          "x6": 469,
+          "S": 48341038,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 406,
+        "point": {
+          "x": [
+            6,
+            140,
+            372,
+            388
+          ],
+          "x6": 473,
+          "S": 71618612,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 410,
+        "point": {
+          "x": [
+            70,
+            144,
+            216,
+            338
+          ],
+          "x6": 479,
+          "S": 102356392,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 412,
+        "point": {
+          "x": [
+            58,
+            180,
+            336,
+            464
+          ],
+          "x6": 481,
+          "S": 30525808,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 413,
+        "point": {
+          "x": [
+            108,
+            198,
+            364,
+            464
+          ],
+          "x6": 481,
+          "S": 4118000,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 415,
+        "point": {
+          "x": [
+            97,
+            109,
+            179,
+            271
+          ],
+          "x6": 483,
+          "S": 110747234,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 420,
+        "point": {
+          "x": [
+            265,
+            273,
+            325,
+            435
+          ],
+          "x6": 499,
+          "S": 82001894,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      }
+    ]
+  },
+  "y2_b_chunk1.json": {
+    "source_sha256": "c0d94c757f1a77c95792d8fea023c1bfd544db7d31170caaba6a211a21466826",
+    "rows": 421,
+    "valid_distinct": 415,
+    "duplicates": 0,
+    "invalid": [
+      {
+        "index_zero_based": 403,
+        "point": {
+          "x": [
+            7,
+            81,
+            229,
+            381
+          ],
+          "x6": 467,
+          "S": 84673706,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 406,
+        "point": {
+          "x": [
+            84,
+            228,
+            374,
+            416
+          ],
+          "x6": 473,
+          "S": 56021324,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 409,
+        "point": {
+          "x": [
+            14,
+            138,
+            340,
+            390
+          ],
+          "x6": 479,
+          "S": 83714080,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 410,
+        "point": {
+          "x": [
+            84,
+            134,
+            216,
+            226
+          ],
+          "x6": 479,
+          "S": 108800536,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 412,
+        "point": {
+          "x": [
+            60,
+            154,
+            188,
+            240
+          ],
+          "x6": 481,
+          "S": 110161840,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 416,
+        "point": {
+          "x": [
+            42,
+            204,
+            384,
+            456
+          ],
+          "x6": 487,
+          "S": 32736636,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      }
+    ]
+  },
+  "y2_b_chunk2.json": {
+    "source_sha256": "15906e578451781b8eca21873538ee8da36f8ad2337179237869c7d7f3b24fa5",
+    "rows": 421,
+    "valid_distinct": 413,
+    "duplicates": 0,
+    "invalid": [
+      {
+        "index_zero_based": 406,
+        "point": {
+          "x": [
+            126,
+            144,
+            176,
+            452
+          ],
+          "x6": 473,
+          "S": 51267596,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 407,
+        "point": {
+          "x": [
+            35,
+            237,
+            255,
+            377
+          ],
+          "x6": 475,
+          "S": 90346874,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 409,
+        "point": {
+          "x": [
+            14,
+            220,
+            312,
+            414
+          ],
+          "x6": 479,
+          "S": 77509192,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 410,
+        "point": {
+          "x": [
+            143,
+            259,
+            333,
+            411
+          ],
+          "x6": 479,
+          "S": 74729650,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 411,
+        "point": {
+          "x": [
+            16,
+            168,
+            230,
+            396
+          ],
+          "x6": 481,
+          "S": 91419088,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 412,
+        "point": {
+          "x": [
+            87,
+            225,
+            385,
+            421
+          ],
+          "x6": 481,
+          "S": 58562590,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 416,
+        "point": {
+          "x": [
+            66,
+            224,
+            334,
+            450
+          ],
+          "x6": 487,
+          "S": 59347220,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 419,
+        "point": {
+          "x": [
+            21,
+            77,
+            319,
+            381
+          ],
+          "x6": 497,
+          "S": 104680966,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      }
+    ]
+  },
+  "y2_b_chunk3.json": {
+    "source_sha256": "c0d1af4ee631cb7a364dd45feb10f62c24e9192f0fb67993258db420695cf326",
+    "rows": 421,
+    "valid_distinct": 412,
+    "duplicates": 0,
+    "invalid": [
+      {
+        "index_zero_based": 396,
+        "point": {
+          "x": [
+            93,
+            191,
+            273,
+            425
+          ],
+          "x6": 457,
+          "S": 52473038,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 403,
+        "point": {
+          "x": [
+            21,
+            37,
+            159,
+            455
+          ],
+          "x6": 469,
+          "S": 41871478,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 409,
+        "point": {
+          "x": [
+            26,
+            84,
+            194,
+            264
+          ],
+          "x6": 479,
+          "S": 108103144,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 410,
+        "point": {
+          "x": [
+            147,
+            213,
+            277,
+            407
+          ],
+          "x6": 479,
+          "S": 83534162,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 411,
+        "point": {
+          "x": [
+            56,
+            60,
+            218,
+            444
+          ],
+          "x6": 481,
+          "S": 67938512,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 412,
+        "point": {
+          "x": [
+            88,
+            154,
+            360,
+            408
+          ],
+          "x6": 481,
+          "S": 74705584,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 414,
+        "point": {
+          "x": [
+            71,
+            97,
+            121,
+            359
+          ],
+          "x6": 483,
+          "S": 102721034,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 416,
+        "point": {
+          "x": [
+            78,
+            270,
+            294,
+            348
+          ],
+          "x6": 487,
+          "S": 102620628,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 417,
+        "point": {
+          "x": [
+            265,
+            293,
+            385,
+            439
+          ],
+          "x6": 489,
+          "S": 47740030,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      }
+    ]
+  },
+  "y2_chunk0.json": {
+    "source_sha256": "aadb24e66958381182458fce803517b747ae4f447c2aeec46e2f0f4657228ea0",
+    "rows": 100,
+    "valid_distinct": 100,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_chunk1.json": {
+    "source_sha256": "30411c7646af5f03a0a66e563c1a4c91d8533a848e7eaeb2064bf384c3200bfd",
+    "rows": 99,
+    "valid_distinct": 99,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_chunk2.json": {
+    "source_sha256": "582747de12303e51e39fdfa1e0c4aebb041167ac57e6520e8d60668a389030fb",
+    "rows": 99,
+    "valid_distinct": 99,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_new_chunk0.json": {
+    "source_sha256": "3e91dbba3e8852af2f00ca556969bd423111a0b7c1f0f9cea6c3f89e3595d280",
+    "rows": 236,
+    "valid_distinct": 236,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_new_chunk1.json": {
+    "source_sha256": "cfe1053a8f1ec7ed746f226bb3a25a1060d40674c5c0f9f69fc5733bfc2c351f",
+    "rows": 235,
+    "valid_distinct": 235,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_new_chunk2.json": {
+    "source_sha256": "e36ccfbdd1bc9c877dc40b760e152e0dd080b16744e6f381bfbf1ffa7331dfca",
+    "rows": 235,
+    "valid_distinct": 235,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_new_chunk3.json": {
+    "source_sha256": "e0c6031e4b6f8efab0b3f5d83c7a8a6da1c2c02ed4bbd050fac29c3f748314af",
+    "rows": 235,
+    "valid_distinct": 235,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_points_N150.json": {
+    "source_sha256": "cd61a834701a3baf16a7bbb1ef0dff0ac82a3198769ab53a0d3a50304085db88",
+    "rows": 298,
+    "valid_distinct": 298,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_points_N150_gt70.json": {
+    "source_sha256": "776a2d0295424f71572bbb44e5ad89f5600ef98c447be6196aa3b2b4f2be2ef3",
+    "rows": 230,
+    "valid_distinct": 230,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_points_N300.json": {
+    "source_sha256": "295a3f483710735893e643385751b2512d198c50d2ef3dd19c9f8f567cd2847b",
+    "rows": 1239,
+    "valid_distinct": 1239,
+    "duplicates": 0,
+    "invalid": []
+  },
+  "y2_points_N40.json": {
+    "source_sha256": "62a1a3901a7d42c46fc68a959b6ac8a8efc1b7196c2b31a5349057456b5c5211",
+    "rows": 50,
+    "valid_distinct": 19,
+    "duplicates": 31,
+    "invalid": []
+  },
+  "y2_points_N500.json": {
+    "source_sha256": "3d94b53409de4d507dc7d20a50958610d3eec02b1101ec427700beb7aabdc232",
+    "rows": 2924,
+    "valid_distinct": 2893,
+    "duplicates": 0,
+    "invalid": [
+      {
+        "index_zero_based": 2826,
+        "point": {
+          "x": [
+            93,
+            191,
+            273,
+            425
+          ],
+          "x6": 457,
+          "S": 52473038,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2827,
+        "point": {
+          "x": [
+            211,
+            255,
+            315,
+            341
+          ],
+          "x6": 457,
+          "S": 78722114,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2852,
+        "point": {
+          "x": [
+            7,
+            81,
+            229,
+            381
+          ],
+          "x6": 467,
+          "S": 84673706,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2854,
+        "point": {
+          "x": [
+            21,
+            37,
+            159,
+            455
+          ],
+          "x6": 469,
+          "S": 41871478,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2855,
+        "point": {
+          "x": [
+            139,
+            225,
+            353,
+            429
+          ],
+          "x6": 469,
+          "S": 48341038,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2863,
+        "point": {
+          "x": [
+            6,
+            140,
+            372,
+            388
+          ],
+          "x6": 473,
+          "S": 71618612,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2864,
+        "point": {
+          "x": [
+            84,
+            228,
+            374,
+            416
+          ],
+          "x6": 473,
+          "S": 56021324,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2865,
+        "point": {
+          "x": [
+            126,
+            144,
+            176,
+            452
+          ],
+          "x6": 473,
+          "S": 51267596,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2869,
+        "point": {
+          "x": [
+            35,
+            237,
+            255,
+            377
+          ],
+          "x6": 475,
+          "S": 90346874,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2876,
+        "point": {
+          "x": [
+            14,
+            138,
+            340,
+            390
+          ],
+          "x6": 479,
+          "S": 83714080,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2877,
+        "point": {
+          "x": [
+            14,
+            220,
+            312,
+            414
+          ],
+          "x6": 479,
+          "S": 77509192,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2878,
+        "point": {
+          "x": [
+            26,
+            84,
+            194,
+            264
+          ],
+          "x6": 479,
+          "S": 108103144,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2879,
+        "point": {
+          "x": [
+            70,
+            144,
+            216,
+            338
+          ],
+          "x6": 479,
+          "S": 102356392,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2880,
+        "point": {
+          "x": [
+            84,
+            134,
+            216,
+            226
+          ],
+          "x6": 479,
+          "S": 108800536,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2881,
+        "point": {
+          "x": [
+            143,
+            259,
+            333,
+            411
+          ],
+          "x6": 479,
+          "S": 74729650,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2882,
+        "point": {
+          "x": [
+            147,
+            213,
+            277,
+            407
+          ],
+          "x6": 479,
+          "S": 83534162,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2885,
+        "point": {
+          "x": [
+            16,
+            168,
+            230,
+            396
+          ],
+          "x6": 481,
+          "S": 91419088,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2886,
+        "point": {
+          "x": [
+            56,
+            60,
+            218,
+            444
+          ],
+          "x6": 481,
+          "S": 67938512,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2887,
+        "point": {
+          "x": [
+            58,
+            180,
+            336,
+            464
+          ],
+          "x6": 481,
+          "S": 30525808,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2888,
+        "point": {
+          "x": [
+            60,
+            154,
+            188,
+            240
+          ],
+          "x6": 481,
+          "S": 110161840,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2889,
+        "point": {
+          "x": [
+            87,
+            225,
+            385,
+            421
+          ],
+          "x6": 481,
+          "S": 58562590,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2890,
+        "point": {
+          "x": [
+            88,
+            154,
+            360,
+            408
+          ],
+          "x6": 481,
+          "S": 74705584,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2891,
+        "point": {
+          "x": [
+            108,
+            198,
+            364,
+            464
+          ],
+          "x6": 481,
+          "S": 4118000,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2898,
+        "point": {
+          "x": [
+            71,
+            97,
+            121,
+            359
+          ],
+          "x6": 483,
+          "S": 102721034,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2899,
+        "point": {
+          "x": [
+            97,
+            109,
+            179,
+            271
+          ],
+          "x6": 483,
+          "S": 110747234,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2904,
+        "point": {
+          "x": [
+            42,
+            204,
+            384,
+            456
+          ],
+          "x6": 487,
+          "S": 32736636,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2905,
+        "point": {
+          "x": [
+            66,
+            224,
+            334,
+            450
+          ],
+          "x6": 487,
+          "S": 59347220,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2906,
+        "point": {
+          "x": [
+            78,
+            270,
+            294,
+            348
+          ],
+          "x6": 487,
+          "S": 102620628,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2910,
+        "point": {
+          "x": [
+            265,
+            293,
+            385,
+            439
+          ],
+          "x6": 489,
+          "S": 47740030,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2917,
+        "point": {
+          "x": [
+            21,
+            77,
+            319,
+            381
+          ],
+          "x6": 497,
+          "S": 104680966,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      },
+      {
+        "index_zero_based": 2919,
+        "point": {
+          "x": [
+            265,
+            273,
+            325,
+            435
+          ],
+          "x6": 499,
+          "S": 82001894,
+          "S_is_cube": false
+        },
+        "residual": "-1"
+      }
+    ]
+  },
+  "y2_points_N70.json": {
+    "source_sha256": "33fb3683f835c6946395dae29d720f2cf790f33e9f5ba72f41bf65deb6065083",
+    "rows": 187,
+    "valid_distinct": 68,
+    "duplicates": 119,
+    "invalid": []
+  }
+}

@@ -1,0 +1,187 @@
+{
+  "checks": {
+    "box_rays": 626,
+    "certified_rejections_replayed": 573,
+    "distinct_rejecting_models": 570,
+    "exact_lift_attempts_replayed": 5844,
+    "exact_model_points_checked": 4398,
+    "fibres": 627,
+    "model_certified": 1984,
+    "model_timeout": 95,
+    "model_torsion_independently_bounded": 1984,
+    "model_torsion_reduction_orders": 1864,
+    "model_torsion_reduction_orders_and_3_division_polynomial": 120,
+    "rejecting_fibres_torsion_independently_complete": 573,
+    "rejecting_models_torsion_independently_complete": 570,
+    "representations": 628
+  },
+  "dispositions": {
+    "difference": 61,
+    "four_fourth": 6,
+    "minus": 35,
+    "minus_cubed": 267,
+    "minus_four": 5,
+    "plus": 62,
+    "plus_cubed": 58,
+    "plus_four": 17,
+    "square": 62,
+    "unresolved": 54
+  },
+  "rank_targets": {
+    "all_nine_rank_bounds_available": 35,
+    "distinct_fibres_with_rank_one_genus2_route": 38,
+    "first_genus10_targets": [
+      {
+        "c": 67,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 12
+      },
+      {
+        "c": 1523,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 14
+      },
+      {
+        "c": 2188,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 12
+      },
+      {
+        "c": 4099,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 12
+      },
+      {
+        "c": 4953,
+        "jacobian_rank_lower": 14,
+        "jacobian_rank_upper": 14
+      },
+      {
+        "c": 8985,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 16
+      },
+      {
+        "c": 46939,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 12
+      },
+      {
+        "c": 47604,
+        "jacobian_rank_lower": 15,
+        "jacobian_rank_upper": 15
+      },
+      {
+        "c": 119836,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 12
+      },
+      {
+        "c": 121747,
+        "jacobian_rank_lower": 12,
+        "jacobian_rank_upper": 12
+      }
+    ],
+    "first_genus2_targets": [
+      {
+        "c": 67,
+        "rank_one_pairs": [
+          "t6_plus_c",
+          "t6_minus_4c",
+          "t6_plus_c2_over4"
+        ]
+      },
+      {
+        "c": 1523,
+        "rank_one_pairs": [
+          "t6_plus_c"
+        ]
+      },
+      {
+        "c": 2188,
+        "rank_one_pairs": [
+          "t6_plus_c",
+          "t6_plus_4c",
+          "t6_minus_4c",
+          "t6_plus_c2_over4"
+        ]
+      },
+      {
+        "c": 4099,
+        "rank_one_pairs": [
+          "t6_plus_c",
+          "t6_minus_4c",
+          "t6_plus_c2_over4"
+        ]
+      },
+      {
+        "c": 4953,
+        "rank_one_pairs": [
+          "t6_minus_c"
+        ]
+      },
+      {
+        "c": 8985,
+        "rank_one_pairs": [
+          "t6_minus_c"
+        ]
+      },
+      {
+        "c": 46939,
+        "rank_one_pairs": [
+          "t6_plus_c",
+          "t6_minus_4c",
+          "t6_plus_c2_over4"
+        ]
+      },
+      {
+        "c": 47604,
+        "rank_one_pairs": [
+          "t6_plus_4c",
+          "t6_minus_4c",
+          "t6_plus_c2_over4"
+        ]
+      },
+      {
+        "c": 119836,
+        "rank_one_pairs": [
+          "t6_plus_c",
+          "t6_minus_c",
+          "t6_plus_4c",
+          "t6_plus_c2_over4"
+        ]
+      },
+      {
+        "c": 121747,
+        "rank_one_pairs": [
+          "t6_plus_c",
+          "t6_minus_4c",
+          "t6_plus_c2_over4"
+        ]
+      }
+    ],
+    "genus2_rank_one_pair_counts": {
+      "t6_minus_4c": 17,
+      "t6_minus_c": 12,
+      "t6_plus_4c": 10,
+      "t6_plus_c": 24,
+      "t6_plus_c2_over4": 20
+    },
+    "heights_integrals_and_rational_point_classification_executed": false,
+    "quadratic_chabauty_upper_bound_at_most_19": 35,
+    "rational_neron_severi_lower_bound": 11
+  },
+  "result": "PASS",
+  "scope": "exact independent replay; saved PARI rank bounds not recomputed",
+  "synthetic_controls": {
+    "ESOP6_positive_fixture": false,
+    "jacobian_differential_checks": {
+      "independent_basis": true,
+      "monomial_quotient_equations": 9,
+      "pullback_differentials": 10
+    },
+    "quadratic_field_seed_identities": 2,
+    "retained_Y_seeds": 2,
+    "synthetic_map_sign_scale_checks": 72
+  }
+}

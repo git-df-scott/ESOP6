@@ -1,0 +1,31 @@
+{
+  "sixth_residues": [
+    0,
+    1
+  ],
+  "cube_residues": [
+    0,
+    1,
+    6
+  ],
+  "unit_square_residues": [
+    1,
+    2,
+    4
+  ],
+  "primitive_five_term_sum_residues": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "cube_intersection": [
+    1
+  ],
+  "ordered_residue_tuples_checked": 16807,
+  "nonzero_diagonal_pairs_checked": 36,
+  "diagonal_pairs_taking_only_square_or_zero_values": [],
+  "counterexample_found": false,
+  "scope": "Finite checks support the proof; not a search for integer ESOP6 points."
+}

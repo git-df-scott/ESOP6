@@ -1,5 +1,21 @@
 # ESOP6 — Euler's Sum of Powers, sixth-power case
 
+> **2026-09-10 twisted-fibre continuation:** no counterexample found.
+> Nine exact elliptic quotient gates excluded 573 of 627 normalized fibres
+> at every height on those fibres; 54 remain unresolved. A proved Jacobian
+> decomposition gives 38 genus-two rank-(1,1) follow-up targets. The N500
+> seed audit removed 31 false entries from a verified replacement. Start
+> with [the new report](research/twisted_fibres_2026_09_10/REPORT.md) and
+> [corrections](research/twisted_fibres_2026_09_10/CORRECTIONS.md).
+
+> **2026-09-10 full-fourfold execution:** no counterexample found. Two agents
+> and the coordinator completed exact conic lifting, bounded numerical
+> construction searches, denominator obstructions, and a primitive local-density
+> audit. Ten selected conic branches survive modulo `7^12`; none yielded a
+> complete bounded rational reconstruction. Start with
+> [the execution report](research/EXECUTION_REPORT_2026_09_10.md) and
+> [the next handoff](research/NEXT_HANDOFF_2026_09_10.md).
+
 > **2026-09-04 direct strike:** no positive solution was found. The cubic
 > quotient pencil was derived exactly; its generic square lift has genus 9.
 > Coupled valuation conditions now guide parameter selection. Four selected

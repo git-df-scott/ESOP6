@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "direct_prime_enumeration_bound": 397,
+  "sixth_unit_moduli": [
+    256,
+    729
+  ],
+  "retained_all_place_survivors": [
+    [
+      428,
+      85
+    ],
+    [
+      883,
+      540
+    ],
+    [
+      964,
+      343
+    ],
+    [
+      995,
+      652
+    ]
+  ],
+  "scope": "independent finite certificates; all-place theorem also uses proof and Weil bound in REPORT.md"
+}

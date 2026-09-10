@@ -1,0 +1,59 @@
+{
+  "field": 7,
+  "projective_quadratic_forms_including_zero": 58,
+  "unordered_pair_count": 1711,
+  "unordered_pair_pair_iterations": 1464616,
+  "unique_rhs_polynomials": 19494,
+  "raw_matching_presentations": 537,
+  "unique_trivial_solutions": 228,
+  "unique_nonproportional_solutions": 84,
+  "jacobian_rank_histogram": {
+    "11": 84
+  },
+  "W_discriminant_histogram": {
+    "5": 28,
+    "6": 28,
+    "3": 28
+  },
+  "canonical_mod49_branches_lifting_to_mod343_count": 63,
+  "lifts_to_mod49_count": 84,
+  "H_proportional_W_count": 84,
+  "nonproportional_examples": [
+    {
+      "U": [
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          1,
+          1,
+          4
+        ],
+        [
+          1,
+          6,
+          4
+        ]
+      ],
+      "W": [
+        1,
+        0,
+        4
+      ],
+      "H": [
+        3,
+        0,
+        5
+      ]
+    }
+  ],
+  "elapsed_seconds": 0.6290233135223389,
+  "scope": "Exhaustive sum of four sixth powers = 6 H W^5 over F7 with quadratic forms; modular solutions are not Q7 or rational lifts."
+}

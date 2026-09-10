@@ -1,0 +1,43 @@
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((12, 56, 109, 298), 301) S= 6455416 : distinct curves found 47  real 47  rational 0
+seed ((118, 149, 184, 294), 301) S= 6743452 : distinct curves found 39  real 39  rational 0
+seed ((97, 157, 201, 233), 302) S= 22735246 : distinct curves found 64  real 64  rational 0
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((50, 132, 250, 282), 303) S= 4635409 : distinct curves found 54  real 54  rational 0
+seed ((90, 116, 153, 250), 303) S= 22669628 : distinct curves found 46  real 46  rational 0
+seed ((8, 71, 86, 270), 305) S= 20421868 : distinct curves found 31  real 31  rational 0
+seed ((46, 66, 177, 282), 305) S= 16469640 : distinct curves found 54  real 54  rational 0
+seed ((90, 144, 192, 284), 305) S= 14858097 : distinct curves found 65  real 65  rational 0
+seed ((144, 176, 209, 244), 305) S= 21725464 : distinct curves found 55  real 55  rational 0
+seed ((8, 13, 116, 138), 307) S= 28772536 : distinct curves found 32  real 32  rational 0
+seed ((19, 52, 110, 300), 307) S= 10315552 : distinct curves found 38  real 38  rational 0
+seed ((36, 192, 212, 288), 307) S= 11211051 : distinct curves found 57  real 57  rational 0
+seed ((124, 200, 267, 272), 307) S= 1518620 : distinct curves found 55  real 55  rational 0
+seed ((4, 54, 198, 227), 309) S= 25949236 : distinct curves found 50  real 50  rational 0
+seed ((96, 120, 166, 278), 309) S= 19600205 : distinct curves found 62  real 62  rational 0
+seed ((31, 45, 239, 257), 310) S= 20321978 : distinct curves found 37  real 37  rational 0
+seed ((2, 22, 62, 162), 311) S= 29777305 : distinct curves found 25  real 25  rational 0
+seed ((15, 142, 250, 274), 311) S= 15143396 : distinct curves found 64  real 64  rational 0
+seed ((66, 124, 247, 296), 311) S= 1196312 : distinct curves found 49  real 49  rational 0
+seed ((120, 146, 220, 298), 311) S= 8857049 : distinct curves found 42  real 42  rational 0
+seed ((192, 194, 194, 239), 311) S= 23700812 : distinct curves found 48  real 48  rational 0
+seed ((31, 78, 260, 268), 313) S= 16144340 : distinct curves found 47  real 47  rational 0
+seed ((58, 80, 159, 232), 313) S= 27711220 : distinct curves found 40  real 40  rational 0
+seed ((90, 104, 121, 304), 313) S= 12085736 : distinct curves found 45  real 45  rational 0
+seed ((23, 61, 61, 93), 314) S= 30947026 : distinct curves found 13  real 13  rational 0
+seed ((12, 100, 224, 246), 315) S= 25059613 : distinct curves found 47  real 47  rational 0
+seed ((3, 19, 87, 141), 316) S= 31422834 : distinct curves found 23  real 23  rational 0
+seed ((17, 75, 173, 173), 316) S= 30690238 : distinct curves found 36  real 36  rational 0
+seed ((16, 27, 44, 232), 317) S= 29305372 : distinct curves found 30  real 30  rational 0
+seed ((34, 34, 142, 228), 317) S= 29428933 : distinct curves found 38  real 38  rational 0
+seed ((48, 50, 74, 290), 317) S= 20487227 : distinct curves found 35  real 35  rational 0
+seed ((80, 90, 228, 276), 317) S= 20771067 : distinct curves found 63  real 63  rational 0
+seed ((132, 192, 234, 262), 317) S= 21719451 : distinct curves found 60  real 60  rational 0
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((150, 162, 264, 290), 317) S= 7204293 : distinct curves found 58  real 58  rational 0
+seed ((6, 30, 164, 255), 319) S= 27556608 : distinct curves found 44  real 44  rational 0
+seed ((32, 146, 246, 302), 319) S= 7987999 : distinct curves found 56  real 56  rational 0
+seed ((62, 137, 174, 316), 319) S= 4864036 : distinct curves found 57  real 57  rational 0
