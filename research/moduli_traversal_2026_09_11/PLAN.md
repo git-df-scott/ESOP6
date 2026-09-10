@@ -19,3 +19,18 @@ Odd d impossible over R. d=4 also considered (quartics: 30 unknowns).
 Note on the fibration lane: X/Z and Y/Z square conditions on E_c give a (Z/2)^2 cover (genus 4 then 10) with no
 isogeny-type descent, and per-fibre expected point counts are dominated by small heights (~c^{-2/3}); rank-0 fibres
 are certified dead, survivors are as hard as the original problem on that fibre.
+
+## Results (2026-09-11)
+
+* Generic moduli: no rational-compatible normal form exists (the two unipotent gauges do not commute; invariant
+  coordinates have degree ≥ 12 in the coefficients), so traversal-with-detection is restricted to symmetric
+  sub-moduli with rational anchors.
+* Z/3-symmetric sextics (t ↦ 1/(1−t)): real nondegenerate members exist (`z3_sextics.py`, local dim 3 = 1 + torus +
+  scale), but the residual gauge is the anisotropic torus Q(ω)^*/Q^* acting with degree 6, again with no rational
+  normal form.
+* S3-symmetric sextics (`s3_sextics.py`): the only character combination with real members is (x1 ι-even; x4, x6
+  S3-invariant; x5 sign character), a 2-dimensional family with scaling as the only gauge. Its exact search
+  (`s3_fast.py`, structured p^5 enumeration + Hensel + reconstruction) finds nothing, and the reason is structural:
+  the sign-character sextic is st(s−t)·(cubic), so x5 vanishes at the rational S3-orbit {0,1,∞}; by the slice-contact
+  principle every Q-curve in the family carries rational (6,1,4) points. Lane closed.
+* Height-300 cubic-cover search complete (1239 seeds, no rational curve); height-500 running.
