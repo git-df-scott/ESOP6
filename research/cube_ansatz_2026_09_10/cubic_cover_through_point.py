@@ -17,7 +17,8 @@ def pad(a,n=13):
     r=np.zeros(n,dtype=complex); r[:len(a)]=a; return r
 class Sys:
     def __init__(s,x,x6,S):
-        s.x=[complex(v) for v in x]; s.x6=complex(x6); s.s0=complex(S)
+        s.norm=float(x6)
+        s.x=[complex(v)/s.norm for v in x]; s.x6=complex(1.0); s.s0=complex(S)/s.norm**3
         assert abs(sum(v**6 for v in s.x)+s.s0**2-s.x6**6)<1e-9*abs(s.x6)**6
     def forms(s,v):
         g=v[:8]; k=v[8:11]; m1=v[11]
@@ -47,7 +48,7 @@ class Sys:
         return v,np.linalg.norm(s.res(v))/s.scale(v)
     def solve_all(s,starts,seed=0,real=False):
         rng=np.random.default_rng(seed); sols=[]
-        base=max(abs(s.x6),1.0)
+        base=1.0
         for k in range(starts):
             v=base*10**rng.uniform(-1.5,1.5)*(rng.standard_normal(12)+(0 if real else 1j*rng.standard_normal(12)))
             v=v.astype(complex)
@@ -60,7 +61,7 @@ class Sys:
 def ratrec_float(z,maxden=10**6):
     if abs(z.imag)>1e-7*(1+abs(z)): return None
     f=Fraction(z.real).limit_denominator(maxden)
-    return f if abs(float(f)-z.real)<1e-8*(1+abs(z.real)) else None
+    return f if abs(float(f)-z.real)<1e-10*(1+abs(z.real)) else None
 def exact_check(x,x6,S,fr):
     import sympy as sp
     t=sp.symbols('t')
@@ -82,7 +83,7 @@ if __name__=="__main__":
         for v in sols:
             fr=[ratrec_float(z) for z in v]
             if all(f is not None for f in fr):
-                ok,G,G6,K,M=exact_check(p['x'],p['x6'],p['S'],fr)
+                xn=[Fraction(v,p['x6']) for v in p['x']]; ok,G,G6,K,M=exact_check(xn,Fraction(1),Fraction(p['S'],p['x6']**3),fr)
                 if ok:
                     rat+=1
                     print("!!!! RATIONAL GENUS-1 CURVE through",p, "G=",G,"G6=",G6,"K=",K,"M=",M,flush=True)
