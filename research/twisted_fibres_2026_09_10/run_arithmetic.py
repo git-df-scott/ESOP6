@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Resumable six-quotient rejection DAG, certified PARI 2.17.4 only.
+"""Resumable nine-model rejection DAG, certified PARI 2.17.4 only.
 
 Each GP task is independent and has a wall-clock limit. Failures/timeouts
 remain unresolved and are cached. No jobs or old lottery files are changed.

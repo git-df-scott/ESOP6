@@ -1,5 +1,12 @@
 # Astra handoff — after the September 4 direct strike
 
+> **Current continuation, September 10:** start with
+> [the twisted-fibre report](research/twisted_fibres_2026_09_10/REPORT.md) and
+> [QC_HANDOFF.md](research/twisted_fibres_2026_09_10/QC_HANDOFF.md).
+> No counterexample; 573/627 fibres globally excluded, 54 unresolved,
+> 38 genus-two rank-(1,1) targets. The previous handoff below is history.
+> Do not use LPS as a theorem or numerical lotteries as complete elimination.
+
 ## Second-strike update — the previous next construction is now closed
 
 The normalized degree-six boundary-contact polynomial ansatz below has been
