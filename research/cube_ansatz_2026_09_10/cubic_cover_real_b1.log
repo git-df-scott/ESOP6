@@ -27,3 +27,4 @@ seed ((38, 234, 248, 281), 313) S= 7152808 : distinct curves found 64  real 64  
 seed ((65, 222, 234, 240), 313) S= 21569508 : distinct curves found 54  real 54  rational 0
 seed ((97, 114, 156, 312), 313) S= 663948 : distinct curves found 44  real 44  rational 0
 seed ((99, 141, 229, 303), 314) S= 5621838 : distinct curves found 50  real 50  rational 0
+seed ((24, 126, 250, 293), 315) S= 9801832 : distinct curves found 54  real 54  rational 0
