@@ -1,0 +1,955 @@
+{
+  "modulus": 13841287201,
+  "surviving_canonical_branches_by_exponent": {
+    "3": 63,
+    "4": 12,
+    "5": 10,
+    "6": 10,
+    "7": 10,
+    "8": 10,
+    "9": 10,
+    "10": 10,
+    "11": 10,
+    "12": 10
+  },
+  "failed_canonical_branches": [
+    {
+      "seed_index": 0,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 3,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 4,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 5,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 7,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 8,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 9,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 10,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 13,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 14,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 15,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 16,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 18,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 20,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 23,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 24,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 25,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 26,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 28,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 29,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 30,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 33,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 35,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 36,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 37,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 38,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 39,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 41,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 42,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 43,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 44,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 45,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 46,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 48,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 51,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 52,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 53,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 54,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 55,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 57,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 58,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 59,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 66,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 67,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 72,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 73,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 74,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 77,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 78,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 79,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 82,
+      "first_failed_exponent": 4
+    },
+    {
+      "seed_index": 47,
+      "first_failed_exponent": 5
+    },
+    {
+      "seed_index": 56,
+      "first_failed_exponent": 5
+    }
+  ],
+  "final_branches": [
+    {
+      "seed_index": 1,
+      "forms": [
+        [
+          13047826303,
+          6588933617,
+          801056999
+        ],
+        [
+          1175860463,
+          13483307362,
+          12537098984
+        ],
+        [
+          1,
+          5383972344,
+          785864795
+        ],
+        [
+          7313575998,
+          8457314857,
+          2
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          6
+        ]
+      ]
+    },
+    {
+      "seed_index": 12,
+      "forms": [
+        [
+          1175860463,
+          1866732567,
+          6268549492
+        ],
+        [
+          13047826303,
+          6527711204,
+          7321172100
+        ],
+        [
+          1,
+          8114632998,
+          7313575998
+        ],
+        [
+          7313575998,
+          5726654203,
+          1
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "seed_index": 21,
+      "forms": [
+        [
+          6857930311,
+          2269222333,
+          8791526158
+        ],
+        [
+          4395763079,
+          1472542782,
+          12919181071
+        ],
+        [
+          6789809643,
+          3042721211,
+          3173555170
+        ],
+        [
+          1586777585,
+          3304389129,
+          3
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          3,
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "seed_index": 40,
+      "forms": [
+        [
+          6292987751,
+          0,
+          7548299450
+        ],
+        [
+          5379532649,
+          10759065298,
+          8461754552
+        ],
+        [
+          5379532649,
+          3082221903,
+          8461754552
+        ],
+        [
+          0,
+          6845453476,
+          0
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          4,
+          0,
+          4
+        ]
+      ]
+    },
+    {
+      "seed_index": 60,
+      "forms": [
+        [
+          3467154685,
+          10020795,
+          5859445122
+        ],
+        [
+          1989886942,
+          3900362839,
+          9599845405
+        ],
+        [
+          125426582,
+          7713184708,
+          13328766125
+        ],
+        [
+          6396877243,
+          3485876939,
+          6
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          6
+        ]
+      ]
+    },
+    {
+      "seed_index": 63,
+      "forms": [
+        [
+          9311142520,
+          12676946703,
+          7895948864
+        ],
+        [
+          6591811801,
+          173862069,
+          831525668
+        ],
+        [
+          5520528987,
+          9824667767,
+          12624896994
+        ],
+        [
+          5649426861,
+          11298853726,
+          4
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          3,
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "seed_index": 65,
+      "forms": [
+        [
+          7713529986,
+          13635631073,
+          6127757215
+        ],
+        [
+          11168243682,
+          11605083738,
+          2673043519
+        ],
+        [
+          2765727686,
+          501706328,
+          11075559515
+        ],
+        [
+          13841287195,
+          6957414799,
+          6
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "seed_index": 68,
+      "forms": [
+        [
+          5386393370,
+          7453433115,
+          4125056330
+        ],
+        [
+          7419223547,
+          2780184577,
+          8310735886
+        ],
+        [
+          11468943942,
+          785864791,
+          12844127308
+        ],
+        [
+          9685919258,
+          6,
+          1783024690
+        ],
+        [
+          1,
+          2,
+          2
+        ],
+        [
+          3,
+          6,
+          6
+        ]
+      ]
+    },
+    {
+      "seed_index": 71,
+      "forms": [
+        [
+          3467154685,
+          7444409961,
+          2929722561
+        ],
+        [
+          125426582,
+          4110607840,
+          13585026663
+        ],
+        [
+          1989886942,
+          13459600081,
+          11720566303
+        ],
+        [
+          6396877243,
+          537432124,
+          3
+        ],
+        [
+          1,
+          0,
+          1
+        ],
+        [
+          3,
+          0,
+          3
+        ]
+      ]
+    },
+    {
+      "seed_index": 76,
+      "forms": [
+        [
+          10451763512,
+          8416249088,
+          6779047378
+        ],
+        [
+          4065771956,
+          10518979880,
+          5709743289
+        ],
+        [
+          3057130889,
+          5321808384,
+          7727025423
+        ],
+        [
+          6920643598,
+          2183061753,
+          5
+        ],
+        [
+          1,
+          0,
+          2
+        ],
+        [
+          3,
+          0,
+          6
+        ]
+      ]
+    }
+  ],
+  "reconstructions": [
+    {
+      "seed_index": 1,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "-251822/7815",
+          "-339913/9785",
+          null
+        ],
+        [
+          null,
+          "-654787/7733",
+          "336265/7047"
+        ],
+        [
+          "1",
+          null,
+          null
+        ],
+        [
+          "496813/6323",
+          null,
+          "2"
+        ],
+        [
+          "1",
+          "0",
+          "2"
+        ],
+        [
+          "3",
+          "0",
+          "6"
+        ]
+      ]
+    },
+    {
+      "seed_index": 12,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          null,
+          null,
+          null
+        ],
+        [
+          "-251822/7815",
+          "-490490/6323",
+          "557992/2851"
+        ],
+        [
+          "1",
+          null,
+          "496813/6323"
+        ],
+        [
+          "496813/6323",
+          null,
+          "1"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ],
+        [
+          "3",
+          "0",
+          "3"
+        ]
+      ]
+    },
+    {
+      "seed_index": 21,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "-591551/7173",
+          "461601/4288",
+          null
+        ],
+        [
+          "-487906/5545",
+          "-562552/4493",
+          null
+        ],
+        [
+          null,
+          "524530/2461",
+          "133857/362"
+        ],
+        [
+          "133857/724",
+          "577505/4993",
+          "3"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "3",
+          "6",
+          "6"
+        ]
+      ]
+    },
+    {
+      "seed_index": 40,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "-582703/4212",
+          "0",
+          "582703/4212"
+        ],
+        [
+          "401746/723",
+          null,
+          "-401746/723"
+        ],
+        [
+          "401746/723",
+          null,
+          "-401746/723"
+        ],
+        [
+          "0",
+          null,
+          "0"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ],
+        [
+          "4",
+          "0",
+          "4"
+        ]
+      ]
+    },
+    {
+      "seed_index": 60,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "323837/3545",
+          "-256429/5525",
+          null
+        ],
+        [
+          null,
+          "80393/692",
+          null
+        ],
+        [
+          "-409964/9049",
+          "-529167/2087",
+          null
+        ],
+        [
+          "501688/9791",
+          "-542876/9343",
+          "6"
+        ],
+        [
+          "1",
+          "0",
+          "2"
+        ],
+        [
+          "3",
+          "0",
+          "6"
+        ]
+      ]
+    },
+    {
+      "seed_index": 63,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          null,
+          null,
+          null
+        ],
+        [
+          "-135367/2736",
+          null,
+          "-72584/7657"
+        ],
+        [
+          null,
+          "-665768/3191",
+          "-527322/6065"
+        ],
+        [
+          null,
+          null,
+          "4"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "3",
+          "6",
+          "6"
+        ]
+      ]
+    },
+    {
+      "seed_index": 65,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "-426093/9706",
+          "217345/2221",
+          "426093/9706"
+        ],
+        [
+          "-113717/3925",
+          null,
+          "113717/3925"
+        ],
+        [
+          null,
+          "-25271/8580",
+          null
+        ],
+        [
+          "-6",
+          "114425/9034",
+          "6"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ],
+        [
+          "3",
+          "0",
+          "3"
+        ]
+      ]
+    },
+    {
+      "seed_index": 68,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          null,
+          null,
+          null
+        ],
+        [
+          null,
+          "-541481/4874",
+          "-570725/9748"
+        ],
+        [
+          "-43828/881",
+          null,
+          "-297623/5469"
+        ],
+        [
+          null,
+          "6",
+          "-155669/6513"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "3",
+          "6",
+          "6"
+        ]
+      ]
+    },
+    {
+      "seed_index": 71,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "323837/3545",
+          "-472315/9791",
+          null
+        ],
+        [
+          "-409964/9049",
+          "460312/8647",
+          null
+        ],
+        [
+          null,
+          "-205014/6745",
+          null
+        ],
+        [
+          "501688/9791",
+          "602757/4301",
+          "3"
+        ],
+        [
+          "1",
+          "0",
+          "1"
+        ],
+        [
+          "3",
+          "0",
+          "3"
+        ]
+      ]
+    },
+    {
+      "seed_index": 76,
+      "all_coefficients_reconstructed": false,
+      "exact_original_identity": false,
+      "forms": [
+        [
+          "579199/6305",
+          null,
+          null
+        ],
+        [
+          "-58897/4075",
+          "-4353/9728",
+          "117794/4075"
+        ],
+        [
+          null,
+          null,
+          null
+        ],
+        [
+          "-5/2",
+          "-338995/6968",
+          "5"
+        ],
+        [
+          "1",
+          "0",
+          "2"
+        ],
+        [
+          "3",
+          "0",
+          "6"
+        ]
+      ]
+    }
+  ],
+  "exact_identity_count": 0,
+  "scope": "Only canonical free-zero corrections; branch failures do not exclude seed families. Original divided equation used, including terms from 7^6 onward."
+}

@@ -1,0 +1,11 @@
+{
+  "counterexample_found": false,
+  "midpoint_identity_verified": true,
+  "initial_sixth_sum": 4890,
+  "c": 815,
+  "four_square_reduction_identities_verified": true,
+  "mod8_degree_at_most_one_ordered_quadruples_covered": 16777216,
+  "primitive_sixth_power_zero_sums": 0,
+  "nonprimitive_sixth_power_zero_sums": 65536,
+  "scope": "The enumeration cross-checks a lemma; the accompanying algebra proves it for arbitrary degree."
+}
