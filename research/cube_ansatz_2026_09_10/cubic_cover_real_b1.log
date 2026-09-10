@@ -40,3 +40,4 @@ seed ((134, 174, 262, 272), 317) S= 15899333 : distinct curves found 60  real 60
 /usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
   sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
 seed ((3, 11, 17, 51), 318) S= 32157158 : distinct curves found 0  real 0  rational 0
+seed ((10, 86, 118, 279), 319) S= 24062540 : distinct curves found 36  real 36  rational 0
