@@ -13,7 +13,7 @@ constructions that survive it, with solvers and seed generators ready.
 2. **Slice-contact principle** (1.2): every coordinate form of a Q-curve on X must be irreducible, and degree 6 is the
    first degree where slice contact is free. **Odd-factor principle** (1.9): an odd-degree real factor of x6^6 - x5^6
    along the curve forces passage through [0:0:0:0:1:1]. Together these closed, with proofs checked numerically:
-   plane cubics u^3 = ±S, cubic covers u^3 = K M^3, Family 0, genus-0 cubic covers, Klein-symmetric conics, and
+   plane cubics u^3 = ±S, Family 0, genus-0 cubic covers, Klein-symmetric conics, and
    Family I through generic seeds.
 3. **Live materials, ranked**: (a) quadratic covers V3, w^2 = F(t) quartic, 3-dim, real, seeded by points of the
    Fano fourfold Y: two found at height 353 and 355 (`y_points_structured_N360.json`), 1297 genus-1 curves through
@@ -176,10 +176,10 @@ rational (a quadratic t1 would make all four coordinate forms proportional). Con
 * Plane cubics u^3 = ±S (lines on Y2): N = L6^3 - S is a real cubic; linear forms cannot all vanish at t1 unless
   proportional. **No real plane cubic of this type exists.** The 68+31 seeds tested (all mod-p counts, no rational
   lines) were complex-only Galois sets. Lane closed; the solver remains as a template.
-* Cubic covers V3' (u^3 = K M^3): N = G6^3 - K M^3 has degree 9, so real members pass through B at a rational
-  parameter, G_i = t·(linear). That boundary-contact system is zero-dimensional and has **no solutions even over C**
-  (`boundary_cubic_cover.py`, 800 complex and 1500 real starts). V3' has no real members; the per-seed counts
-  "near-real 0" were this theorem showing up as data. Lane closed.
+* Cubic covers V3' (u^3 = K M^3): CORRECTION (morning) — N = G6^3 - K M^3 has degree 6, not 9, so no real root is
+  forced; V3' does have real generic members (local dim 8, 46 of 122 real starts). The boundary-contact sub-system
+  is empty (`boundary_cubic_cover.py`), which only says no member passes through B. The "near-real 0" through
+  Y2 seeds is a statement about which real points of Y2 carry real curves (see 1.11). Lane reopened.
 * Quadratic covers V3 (w^2 = F): N = G6^2 - F is a quartic, no forced root; real members exist. Live, needs Y(Q)
   seeds (structured search to x6 ≤ 360 running: `y_points_structured_N360.log`).
 * Z-quotient conics (τ-symmetric genus-1 curves, w^2 = e1^2 - 4e2 quartic): 3-dimensional with real members

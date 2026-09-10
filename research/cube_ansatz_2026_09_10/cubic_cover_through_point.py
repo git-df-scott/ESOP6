@@ -18,7 +18,7 @@ def pad(a,n=13):
 class Sys:
     def __init__(s,x,x6,S):
         s.x=[complex(v) for v in x]; s.x6=complex(x6); s.s0=complex(S)
-        assert sum(v**6 for v in s.x)+s.s0**2==s.x6**6
+        assert abs(sum(v**6 for v in s.x)+s.s0**2-s.x6**6)<1e-9*abs(s.x6)**6
     def forms(s,v):
         g=v[:8]; k=v[8:11]; m1=v[11]
         G=[np.array([s.x[0],1.0,g[0]]),np.array([s.x[1],g[1],g[2]]),np.array([s.x[2],g[3],g[4]]),np.array([s.x[3],g[5],g[6]])]
@@ -45,11 +45,12 @@ class Sys:
             v=v+lam*dv
             if np.abs(v).max()>1e7: return v,1.0
         return v,np.linalg.norm(s.res(v))/s.scale(v)
-    def solve_all(s,starts,seed=0):
+    def solve_all(s,starts,seed=0,real=False):
         rng=np.random.default_rng(seed); sols=[]
         base=max(abs(s.x6),1.0)
         for k in range(starts):
-            v=base*10**rng.uniform(-1.5,1.5)*(rng.standard_normal(12)+1j*rng.standard_normal(12))
+            v=base*10**rng.uniform(-1.5,1.5)*(rng.standard_normal(12)+(0 if real else 1j*rng.standard_normal(12)))
+            v=v.astype(complex)
             v,nr=s.newton(v)
             if nr<1e-13:
                 J=s.jac(v); sv=np.linalg.svd(J,compute_uv=False)
@@ -69,14 +70,14 @@ def exact_check(x,x6,S,fr):
     expr=sp.expand(sum(Gi**6 for Gi in G)+K**2*M**6-G6**6)
     return expr==0, [str(Gi) for Gi in G], str(G6), str(K), str(M)
 if __name__=="__main__":
-    pts=json.load(open(sys.argv[1])); starts=int(sys.argv[2]) if len(sys.argv)>2 else 600
+    pts=json.load(open(sys.argv[1])); starts=int(sys.argv[2]) if len(sys.argv)>2 else 600; tag=sys.argv[3] if len(sys.argv)>3 and not sys.argv[3].startswith('--') else 'x'
     seen=set(); out=[]
     for p in pts:
         key=(tuple(sorted(p['x'])),p['x6'])
         if key in seen: continue
         seen.add(key)
         S=Sys(p['x'],p['x6'],p['S'])
-        sols=S.solve_all(starts)
+        sols=S.solve_all(starts,real=('--real' in sys.argv))
         rat=0
         for v in sols:
             fr=[ratrec_float(z) for z in v]
@@ -88,4 +89,4 @@ if __name__=="__main__":
                     out.append(dict(point=p,G=G,G6=G6,K=K,M=M))
         nearreal=sum(1 for v in sols if np.abs(v.imag).max()<1e-6)
         print("seed",key,"S=",p['S'],": distinct curves found",len(sols)," real",nearreal," rational",rat,flush=True)
-    json.dump(out,open("research/cube_ansatz_2026_09_10/cubic_cover_rational_hits.json","w"),indent=1)
+    json.dump(out,open("research/cube_ansatz_2026_09_10/cubic_cover_rational_hits_%s.json"%tag,"w"),indent=1)

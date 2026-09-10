@@ -10,7 +10,7 @@ def ratrec(z,maxden=10**6):
 pts=json.load(open(sys.argv[1])); starts=int(sys.argv[2]) if len(sys.argv)>2 else 1500
 for p in pts:
     y0=list(p['x'])+[p['x6'],p['T']]
-    S=System(y0); sols=S.solve_all(starts=starts,scale_range=(0,3))
+    S=System(y0); sols=S.solve_all(starts=starts,scale_range=(0,3),real=True)
     nreal=sum(1 for v in sols if np.abs(v.imag).max()<1e-6)
     rat=[v for v in sols if all(ratrec(z) is not None for z in v)]
     print("Y-point",y0,": curves found",len(sols),"near-real",nreal,"rational-looking",len(rat),flush=True)

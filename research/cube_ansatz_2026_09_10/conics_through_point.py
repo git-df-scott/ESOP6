@@ -41,10 +41,11 @@ class System:
             v=v+lam*dv
             if np.abs(v).max()>1e8: return v,1.0
         return v,np.linalg.norm(s.res(v))/(1+np.abs(v).max()**6)
-    def solve_all(s,starts=2000,seed=0,scale_range=(-1,2)):
+    def solve_all(s,starts=2000,seed=0,scale_range=(-1,2),real=False):
         rng=np.random.default_rng(seed); sols=[]
         for k in range(starts):
-            v=10**rng.uniform(*scale_range)*(rng.standard_normal(12)+1j*rng.standard_normal(12))
+            v=10**rng.uniform(*scale_range)*(rng.standard_normal(12)+(0 if real else 1j*rng.standard_normal(12)))
+            v=v.astype(complex)
             v,nr=s.newton(v)
             if nr<1e-12:
                 J=s.jac(v); sv=np.linalg.svd(J,compute_uv=False)

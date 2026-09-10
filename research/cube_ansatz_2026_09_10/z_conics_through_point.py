@@ -45,10 +45,11 @@ class Sys:
             v=v+lam*dv
             if np.abs(v).max()>1e4*max(1,abs(s.x6)): return v,1.0
         return v,np.linalg.norm(s.res(v))/s.scale(v)
-    def solve_all(s,starts,seed=0):
+    def solve_all(s,starts,seed=0,real=True):
         rng=np.random.default_rng(seed); sols=[]; base=max(abs(s.x6),1.0)
         for k in range(starts):
-            v=base*10**rng.uniform(-1.5,1.5)*(rng.standard_normal(12)+1j*rng.standard_normal(12))
+            v=base*10**rng.uniform(-1.5,1.5)*(rng.standard_normal(12)+(0 if real else 1j*rng.standard_normal(12)))
+            v=v.astype(complex)
             v,nr=s.newton(v)
             if nr<1e-13:
                 J=s.jac(v); sv=np.linalg.svd(J,compute_uv=False)
