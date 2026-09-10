@@ -1,0 +1,7 @@
+{
+  "four_form_identity_residual": "0",
+  "pythagorean_identity_verified": true,
+  "normalization_verified": true,
+  "rational_counterexample": false,
+  "rationality_obstruction": "x3+x4=sqrt(2)*x1 and x3-x4=sqrt(2)*x2 force first four rational homogeneous coordinates zero; x5=W/2 then forces W=0."
+}
