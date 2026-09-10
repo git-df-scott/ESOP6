@@ -289,3 +289,4 @@ seed ((45, 93, 141, 279), 286) S= 8191090 : distinct curves found 55  real 55  r
 seed ((34, 82, 108, 140), 287) S= 23439775 : distinct curves found 28  real 28  rational 0
 seed ((187, 201, 219, 227), 288) S= 14655398 : distinct curves found 51  real 51  rational 0
 seed ((8, 34, 38, 54), 289) S= 24136961 : distinct curves found 0  real 0  rational 0
+seed ((24, 36, 228, 276), 289) S= 329887 : distinct curves found 32  real 32  rational 0
