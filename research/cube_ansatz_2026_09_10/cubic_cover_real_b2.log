@@ -41,3 +41,4 @@ seed ((136, 214, 254, 276), 317) S= 14205595 : distinct curves found 53  real 53
   sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
 seed ((77, 105, 187, 315), 318) S= 3586226 : distinct curves found 53  real 53  rational 0
 seed ((12, 74, 215, 304), 319) S= 12865900 : distinct curves found 46  real 46  rational 0
+seed ((48, 142, 228, 255), 319) S= 25102488 : distinct curves found 57  real 57  rational 0

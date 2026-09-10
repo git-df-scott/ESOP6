@@ -1,8 +1,7 @@
 """Genus-1 tau-symmetric quartic curves on Z = X/tau through a rational point of Z.
-Z coordinates: e1 = x1+x2 (weight 1), e2 = x1 x2 (weight 2), x3,x4,x5,x6.  Curve: e1,x3..x6 quartic in (E1,E2),
-e2 = (e1^2 - R^2 Q4)/4 with R quadratic, Q4 quartic (so disc = e1^2-4e2 = R^2 Q4 and x1,x2 = (e1 ± R w)/2, w^2 = Q4: genus 1).
-Point z0 = (e1,e2,x3,x4,x5,x6) at E=[1:0].  Normalizations: R(1,0)=1 (R,Q scaling), Q4(1,0) = e1^2-4e2 at z0,
-x6's E1^3E2 coefficient = 0 (shear), x5's E1^3E2 coefficient = 1 (E2-scaling).  24 unknowns, 24 equations."""
+e1,x3..x6 quartic in (E1,E2); e2 = (e1^2 - R^2 Q4)/4, R quadratic, Q4 quartic; x1,x2 = (e1 ± R w)/2, w^2 = Q4.
+Point z0 at E=[1:0]. Normalizations: R(1,0)=1, Q4(1,0)=e1^2-4e2 at z0, x6's E1^3E2 coeff = 0, x5's E1^3E2 coeff = 1.
+24 unknowns, 24 equations."""
 import numpy as np, sys, json
 from fractions import Fraction
 def pm(a,b): return np.convolve(a,b)
@@ -12,12 +11,11 @@ def pw(a,k):
     return r
 def pad(a,n=25):
     r=np.zeros(n,dtype=complex); r[:len(a)]=a; return r
-def Pform(e1,e2):  # x1^6+x2^6 in terms of e1,e2 (as polynomials in E): e1^6-6e1^4e2+9e1^2e2^2-2e2^3
+def Pform(e1,e2):
     return pad(pw(e1,6))-6*pad(pm(pw(e1,4),e2))+9*pad(pm(pw(e1,2),pw(e2,2)))-2*pad(pw(e2,3))
 class Sys:
     def __init__(s,z0):
-        s.e1,s.e2,s.x3,s.x4,s.x5,s.x6=[complex(v) for v in z0]
-        s.q0=s.e1**2-4*s.e2
+        s.e1,s.e2,s.x3,s.x4,s.x5,s.x6=[complex(v) for v in z0]; s.q0=s.e1**2-4*s.e2
     def forms(s,v):
         a=v
         E1=np.array([s.e1,a[0],a[1],a[2],a[3]]); X3=np.array([s.x3,a[4],a[5],a[6],a[7]]); X4=np.array([s.x4,a[8],a[9],a[10],a[11]])
@@ -27,8 +25,7 @@ class Sys:
         return E1,E2,X3,X4,X5,X6,R,Q
     def res(s,v):
         E1,E2,X3,X4,X5,X6,R,Q=s.forms(v)
-        r=Pform(E1,E2)+pad(pw(X3,6))+pad(pw(X4,6))+pad(pw(X5,6))-pad(pw(X6,6))
-        return r[1:]
+        return (Pform(E1,E2)+pad(pw(X3,6))+pad(pw(X4,6))+pad(pw(X5,6))-pad(pw(X6,6)))[1:]
     def jac(s,v,h=1e-7):
         r0=s.res(v); J=np.zeros((24,24),dtype=complex)
         for i in range(24):

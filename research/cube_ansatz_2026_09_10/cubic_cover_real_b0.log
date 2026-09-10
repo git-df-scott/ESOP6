@@ -40,3 +40,4 @@ seed ((132, 192, 234, 262), 317) S= 21719451 : distinct curves found 60  real 60
 seed ((150, 162, 264, 290), 317) S= 7204293 : distinct curves found 58  real 58  rational 0
 seed ((6, 30, 164, 255), 319) S= 27556608 : distinct curves found 44  real 44  rational 0
 seed ((32, 146, 246, 302), 319) S= 7987999 : distinct curves found 56  real 56  rational 0
+seed ((62, 137, 174, 316), 319) S= 4864036 : distinct curves found 57  real 57  rational 0
