@@ -32,20 +32,35 @@ def residual_and_jac(x, d, real):
             J[j:j + len(F5), i * n + j] += 6 * SIGNS[i] * F5
     return r, J
 
+def normalize(x, d):
+    """Use the two scaling symmetries (overall scale, t -> lam*t) to balance x."""
+    n = d + 1
+    F = x.reshape(6, n).copy()
+    a0 = np.linalg.norm(F[:, 0]); ad = np.linalg.norm(F[:, d])
+    if a0 > 0 and ad > 0:
+        lam = (a0 / ad) ** (1.0 / d)
+        F = F * (lam ** np.arange(n))
+    F /= np.abs(F).max()
+    return F.ravel()
+
+def rel_residual(x, d, real):
+    r, J = residual_and_jac(x, d, real)
+    n = d + 1
+    F = x.reshape(6, n)
+    scale = sum(np.linalg.norm(powers(F[i], 6)) for i in range(6))
+    return np.linalg.norm(r) / scale, r, J
+
 def newton(x, d, real, iters=60, tol=1e-13):
     for it in range(iters):
-        r, J = residual_and_jac(x, d, real)
-        nr = np.linalg.norm(r) / max(1.0, np.linalg.norm(x) ** 6)
+        x = normalize(x, d)
+        nr, r, J = rel_residual(x, d, real)
         if nr < tol:
             return x, nr, it
         dx = np.linalg.lstsq(J, -r, rcond=None)[0]
         x = x + dx
-        # keep scale sane (projective + parameter rescale freedom)
-        s = np.linalg.norm(x)
-        if s > 10 or s < 0.1:
-            x = x / s
-    r, _ = residual_and_jac(x, d, real)
-    return x, np.linalg.norm(r) / max(1.0, np.linalg.norm(x) ** 6), iters
+    x = normalize(x, d)
+    nr, r, J = rel_residual(x, d, real)
+    return x, nr, iters
 
 def classify(x, d, eps=1e-8):
     n = d + 1
@@ -80,10 +95,14 @@ def main():
         else:
             x0 = rng.standard_normal(6 * n) + 1j * rng.standard_normal(6 * n)
         x, nr, it = newton(x0, a.degree, a.real)
-        if nr < 1e-10:
+        if nr < 1e-11:
             c = classify(x, a.degree)
             tally[c] = tally.get(c, 0) + 1
             if c == "NONDEGENERATE":
+                _, _, J = rel_residual(x, a.degree, a.real)
+                sv = np.linalg.svd(J, compute_uv=False)
+                rank = int((sv > 1e-9 * sv[0]).sum())
+                tally["localdim=%d" % (6 * n - rank)] = tally.get("localdim=%d" % (6 * n - rank), 0) + 1
                 found.append(x)
         else:
             tally["no-convergence"] = tally.get("no-convergence", 0) + 1
