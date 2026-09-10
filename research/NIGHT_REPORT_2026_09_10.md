@@ -1,5 +1,29 @@
 # ESOP6 night report — 2026-09-10
 
+## Morning briefing (read this first)
+
+Tonight produced two explicit algebraic solutions of Euler's equation over quadratic fields, a structural principle
+that explains every previous failure and rules out most low-degree constructions at once, and a ranked list of the
+constructions that survive it, with solvers and seed generators ready.
+
+1. **Two exact algebraic Euler solutions**
+   * `(7+11i)^6 + (7-11i)^6 + 8^6 + 12^6 + 15^6 = 17^6` over Q(i), all coordinates nonzero (1.7).
+   * `(9+√-249)^6 + (9-√-249)^6 + 14^6 + 18^6 = 22^6` on the slice x5 = 0 (1.1).
+   Both are unique primitive points of their shape up to height 62 and 80 respectively.
+2. **Slice-contact principle** (1.2): every coordinate form of a Q-curve on X must be irreducible, and degree 6 is the
+   first degree where slice contact is free. **Odd-factor principle** (1.9): an odd-degree real factor of x6^6 - x5^6
+   along the curve forces passage through [0:0:0:0:1:1]. Together these closed, with proofs checked numerically:
+   plane cubics u^3 = ±S, cubic covers u^3 = K M^3, Family 0, genus-0 cubic covers, Klein-symmetric conics, and
+   Family I through generic seeds.
+3. **Live materials, ranked**: (a) quadratic covers V3, w^2 = F(t) quartic, 3-dim, real, seeded by points of the
+   Fano fourfold Y (search to x6 ≤ 360 running); (b) τ-symmetric genus-1 curves on the quotient Z = X/τ, 3-dim, real,
+   seeded by quadratic points of X with a conjugate pair (two known); (c) sextic rational curves (1-dim generic
+   component, real members exist). All solvers are in `research/cube_ansatz_2026_09_10/`.
+4. **Heuristics**: 3.2e-5·log N expected solutions; Y has about 1e-4·N points, Y2 about N^2 (298 up to 150).
+
+Counterexample status: none claimed. Nothing is running that can produce one without a rational seed on Y or Z.
+
+
 Everything below is scaffolding and discovery for the counterexample hunt. Read this first;
 tomorrow's plan is at the end. All scripts referenced live under `research/`.
 
@@ -162,6 +186,12 @@ rational (a quadratic t1 would make all four coordinate forms proportional). Con
   and (9±√-249,14,18,0,22), neither carrying a rational curve of this family (14 and 16 complex curves each).
 * Sextic rational curves: N = x6 - x5 has even degree; real nondegenerate sextics exist (two with generic local
   dimension 5). Live; no seed mechanism (through a point is overdetermined).
+
+### 1.10 Z/2-symmetric sextics
+
+x1,x2 = A ± R·w on the conic w^2 = ω(E1,E2) (A cubic, R quadratic), x3..x6 cubic in E: a 2-dimensional family over C
+(`sym_sextics.py`, local dim 7). Real Newton starts land only on special loci (local dims 13–22), so whether the
+generic component has real members is open. Parked.
 
 ## 2. Lanes closed tonight
 
