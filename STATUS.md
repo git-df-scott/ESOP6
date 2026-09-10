@@ -1,4 +1,17 @@
-# ESOP6 status — 2026-09-04
+# ESOP6 status — 2026-09-10
+
+## 2026-09-10 current continuation
+
+No counterexample. The normalized fibre pilot has **573 certified exclusions
+and 54 unresolved fibres**; exclusions are global on their specified fibres,
+not an unrestricted integer-height frontier. See
+[REPORT.md](research/twisted_fibres_2026_09_10/REPORT.md),
+[the complete ledger](research/twisted_fibres_2026_09_10/FIBRE_LEDGER.md), and
+[the next arithmetic task](research/twisted_fibres_2026_09_10/QC_HANDOFF.md).
+The final shortlist has **38** genus-two rank-(1,1) fibres (39 was an interim
+count before the last gate closed one). All new jobs completed. Historical
+remote jobs were not controlled or restarted. Read the explicit corrections
+before importing the night report's conjectural or numerical closure claims.
 
 ## Latest: second strike after 80a2d9f
 

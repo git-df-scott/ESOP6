@@ -24,6 +24,14 @@ numerical batches.
    certificate.** The retained N500 fast generator uses floating arithmetic
    before exact validation. Its points can be checked exactly, but its
    lack of missed candidates requires a separate error/completeness proof.
+   The retained N500 list contains **31 exact equation failures** among
+   2,924 entries, from comparing against `int(float(x6**6))`. The verified
+   replacement has 2,893 distinct valid seeds. `seed_validation.json`
+   retains each bad entry and its nonzero integer residual. The original
+   lists remain unchanged; the generator's final check and the consumer's
+   initial guard now use the actual exact equation. The N40 and N70 lists
+   also contain duplicate representations: respectively 19 and 68 unique
+   `(sorted fourtuple,x6)` keys, rather than 50 and 187 distinct points.
 6. **Local insolvability cannot reject the twisted fibres.** The smooth
    rational boundary has nearby all-nonzero points at every local place.
    A missing unit-denominator chart is not a missing Q_p point.

@@ -19,12 +19,14 @@ import time
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
-KINDS = ('minus_cubed', 'plus_cubed', 'plus', 'minus', 'square', 'difference')
+KINDS = ('minus_cubed', 'plus_cubed', 'plus', 'minus', 'square', 'difference',
+         'plus_four', 'minus_four', 'four_fourth')
 
 
 def source_coefficient(c, kind):
     return {'plus':c, 'minus':-c, 'square':c*c, 'difference':-432*c*c,
-            'minus_cubed':-c**3, 'plus_cubed':c**3}[kind]
+            'minus_cubed':-c**3, 'plus_cubed':c**3,
+            'plus_four':4*c, 'minus_four':-4*c, 'four_fourth':4*c**4}[kind]
 
 
 def factor(n):
@@ -76,9 +78,12 @@ def rational_root(q, k):
 def models(c, fac):
     specs = {}
     for kind in KINDS:
-        power = 3 if kind.endswith('_cubed') else (1 if kind in ('plus','minus') else 2)
+        power = 4 if kind == 'four_fourth' else (3 if kind.endswith('_cubed') else
+                (1 if kind in ('plus','minus','plus_four','minus_four') else 2))
         ff = {p:power*e for p,e in fac.items()}
-        sign = -1 if kind in ('minus', 'difference', 'minus_cubed') else 1
+        sign = -1 if kind in ('minus', 'difference', 'minus_cubed', 'minus_four') else 1
+        if kind in ('plus_four','minus_four','four_fourth'):
+            ff[2] = ff.get(2,0)+2
         if kind == 'difference':
             ff[2] = ff.get(2, 0)+4
             ff[3] = ff.get(3, 0)+3
@@ -107,6 +112,24 @@ def decode(c, kind, point, scale=1):
         B,S,A = rational_root(x/c,2), rational_root(y/c**2,3), Q(1)
     elif kind == 'plus_cubed':
         A,S,B = rational_root(-x/c,2), rational_root(y/c**2,3), Q(1)
+    elif kind in ('plus_four','minus_four','four_fourth'):
+        r=rational_root(x,2)
+        if r is None or r<=0:
+            return None,'power_class_failure'
+        if kind in ('plus_four','four_fourth') and y<=0:
+            return None,'wrong_real_component'
+        if kind == 'plus_four':
+            B=rational_root((y+r**3)/2,3)
+            A=rational_root(r*B,2) if B is not None else None
+            S=Q(1)
+        elif kind == 'minus_four':
+            A=rational_root((r**3-y)/2,3)
+            B=rational_root(r*A,2) if A is not None else None
+            S=Q(1)
+        else:
+            B=rational_root((y+r**3)/(2*c*c),3)
+            S=rational_root(r*B/c,2) if B is not None else None
+            A=Q(1)
     else:
         if x == 0:
             return None, 'zero_denominator'
@@ -225,7 +248,9 @@ def selftest():
     # Generic diagonal-sextic positive control, not an ESOP6 certificate.
     c = 63
     points = {'plus':(1,8),'minus':(4,1),'square':(63,504),'difference':(252,3780),
-              'minus_cubed':(252,3969),'plus_cubed':(Q(-63,4),Q(3969,8))}
+              'minus_cubed':(252,3969),'plus_cubed':(Q(-63,4),Q(3969,8)),
+              'plus_four':(Q(1,4),Q(127,8)), 'minus_four':(16,62),
+              'four_fourth':(Q(3969,4),Q(257985,8))}
     for kind,p in points.items():
         triple, why = decode(c,kind,p)
         A,S,B = triple
@@ -245,7 +270,7 @@ def selftest():
         assert decode(1,'difference',p)[0] is None
     # c=2: nonboundary cubic point u=1,v=-1 is not a square lift.
     assert decode(2,'difference',(12,0))[0] is None
-    print(json.dumps({'result':'PASS','maps':6,'generic_fibre_positive_control':63,
+    print(json.dumps({'result':'PASS','maps':len(KINDS),'generic_fibre_positive_control':63,
                       'positive_ESOP6_fixture':False}))
 
 
@@ -254,10 +279,13 @@ if __name__ == '__main__':
     ap.add_argument('--height',type=int,default=10)
     ap.add_argument('--output',default=str(HERE/'ledger.json'))
     ap.add_argument('--selftest',action='store_true')
+    ap.add_argument('--replace-ledger',action='store_true',help='explicitly replace an existing enumeration ledger')
     args = ap.parse_args()
     if args.selftest:
         selftest()
     else:
+        if Path(args.output).exists() and not args.replace_ledger:
+            raise SystemExit('Ledger exists; resume run_arithmetic.py, choose a new --output, or explicitly --replace-ledger.')
         start=time.time()
         ledger,counts=enumerate_fibres(args.height)
         out={'schema':1,'height':args.height,'counts':counts,'fibres':list(ledger.values()),

@@ -74,6 +74,9 @@ if __name__=="__main__":
     pts=json.load(open(sys.argv[1])); starts=int(sys.argv[2]) if len(sys.argv)>2 else 600; tag=sys.argv[3] if len(sys.argv)>3 and not sys.argv[3].startswith('--') else 'x'
     seen=set(); out=[]
     for p in pts:
+        if sum(int(v)**6 for v in p['x'])+int(p['S'])**2 != int(p['x6'])**6:
+            print('INVALID EXACT Y2 SEED; skipped',p,flush=True)
+            continue
         key=(tuple(sorted(p['x'])),p['x6'])
         if key in seen: continue
         seen.add(key)

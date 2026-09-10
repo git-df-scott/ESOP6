@@ -78,6 +78,29 @@ and fail every exact lift. Torsion alone is not a survivor; for example
 a finite subgroup box remains only a bounded search, even if the rank
 bounds coincide. Known independent points need not form a saturated basis.
 
+Three further **degree-twelve** maps, derived from product genus-two
+quotients, add the coefficients `4c,-4c,4c^4`. Their exact maps and inverse
+square/cube tests are in Section 10 of INDEPENDENT_AUDIT.md and in the
+independently checked decoder. The final executable therefore uses **nine
+distinct coefficient formulas**, rather than only the original six.
+
+Ten explicit maps (including a second map to the c^2 coefficient) pull
+back to the ten independent plane-sextic differentials. This proves
+
+```
+Jac(C_c) ~ E_c * E_(-c) * E_(c^2)^2 * E_(-c^3) * E_(c^3)
+             * E_(-432c^2) * E_(4c) * E_(-4c) * E_(4c^4),
+```
+
+where here `E_b` denotes `y^2=x^3+b`. The rank is the sum of the nine
+elliptic ranks, counting the c^2 factor twice. The rational Neron–Severi
+rank is at least eleven, so certified Jacobian rank upper bound at most
+nineteen meets the quadratic-Chabauty finiteness inequality. More practical
+are the five genus-two quotients whose two elliptic ranks are both one.
+These are applicability statements; no quadratic-Chabauty height computation
+or complete rational-point classification is claimed. The independent
+audit supplies proofs and the precise primary-literature hypotheses.
+
 ## Normalization, descent, and the executed DAG
 
 First divide each integer fourtuple by its gcd and sort it. For its sum
@@ -98,7 +121,7 @@ choice justified by exact quotient identities, not a change in target.
 flowchart TD
   V["Exact checker controls"] --> N["Normalized fibres and scales"]
   N --> L["Local valuation charts"]
-  N --> R["Six cached elliptic rank tests"]
+  N --> R["Nine cached elliptic rank tests"]
   R --> T["Full torsion lift check"]
   T --> J["Certified fibre rejection"]
   R --> P["Exact rational point search"]

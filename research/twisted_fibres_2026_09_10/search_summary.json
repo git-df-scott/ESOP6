@@ -1,0 +1,40 @@
+{
+  "bounded_point_search": {
+    "counts": {
+      "coefficient_torsion_tuples": 2850,
+      "distinct_exact_elliptic_points": 54,
+      "modular_rejected": 2796,
+      "modular_survivors": 54
+    },
+    "elapsed_seconds": 0.103,
+    "skipped": 8,
+    "tasks": 48,
+    "verified_counterexamples": 0
+  },
+  "box_height": 10,
+  "certified_excluded": 573,
+  "complete_nine_rank_intervals": 35,
+  "counterexample": false,
+  "fibres": 627,
+  "genus10_qc_eligible": 35,
+  "model_status": {
+    "certified": 1984,
+    "timeout": 95
+  },
+  "primitive_box_rays": 626,
+  "rank_one_genus2_fibres": 38,
+  "representations": 628,
+  "stage_rejections": {
+    "difference": 61,
+    "four_fourth": 6,
+    "minus": 35,
+    "minus_cubed": 267,
+    "minus_four": 5,
+    "plus": 62,
+    "plus_cubed": 58,
+    "plus_four": 17,
+    "square": 62,
+    "unresolved": 54
+  },
+  "unresolved": 54
+}
