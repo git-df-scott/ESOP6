@@ -16,7 +16,8 @@ constructions that survive it, with solvers and seed generators ready.
    plane cubics u^3 = ±S, cubic covers u^3 = K M^3, Family 0, genus-0 cubic covers, Klein-symmetric conics, and
    Family I through generic seeds.
 3. **Live materials, ranked**: (a) quadratic covers V3, w^2 = F(t) quartic, 3-dim, real, seeded by points of the
-   Fano fourfold Y (search to x6 ≤ 360 running); (b) τ-symmetric genus-1 curves on the quotient Z = X/τ, 3-dim, real,
+   Fano fourfold Y: two found at height 353 and 355 (`y_points_structured_N360.json`), 1297 genus-1 curves through
+   each, none real or rational (`v3_lottery_N360.log`); (b) τ-symmetric genus-1 curves on the quotient Z = X/τ, 3-dim, real,
    seeded by quadratic points of X with a conjugate pair (two known); (c) sextic rational curves (1-dim generic
    component, real members exist). All solvers are in `research/cube_ansatz_2026_09_10/`.
 4. **Heuristics**: 3.2e-5·log N expected solutions; Y has about 1e-4·N points, Y2 about N^2 (298 up to 150).
@@ -101,8 +102,8 @@ Through a point of the Fano fourfold Y there are finitely many V3 curves (≥ 98
 lottery tickets: each gives a zero-dimensional Galois set of genus-1 curves; a rational member is an elliptic
 curve over Q on X, and any rational point on it with w ≠ 0 is a counterexample.
 
-Seeds: Y(Q) is sparse at small height (none with x6 ≤ 45, `y_points.py`; heuristically c·N with c ~ 1e-4 because
-of the 7-adic density). Y2(Q) is rich: 50 primitive points with x6 ≤ 40 (`y2_points_N40.json`), e.g.
+Seeds: Y(Q) is sparse at small height (none with x6 ≤ 150; exactly two with x6 ≤ 360: 353^6 − (75^6+119^6+273^6+279^6) = 101517^3
+and 355^6 − (48^6+175^6+228^6+350^6) = (−18082)^3; heuristically c·N with c ~ 1e-4 because of the 7-adic density). Y2(Q) is rich: 50 primitive points with x6 ≤ 40 (`y2_points_N40.json`), e.g.
 6^6+15^6+12^6+18^6 + 9980^2 = 23^6.
 
 ### 1.5 Heuristic counts (why search was never going to work)
@@ -224,6 +225,8 @@ generic component has real members is open. Parked.
    repo's C pair-sum engine to targets of that shape.
 4. Sextic rational curves: run `fourfold_curve_search.py --degree 6` (complex, then real), classify
    components, and test irreducibility of coordinate forms. This is the "natural material" of 1.2.
-5. Integrate the 7-adic verdicts on Families I/II when `symmetric_conics_2026_09_10/LOCAL_OBSTRUCTIONS.md` lands.
+5. The 7-adic agent on Families I/II had not reported by morning; its brief is in the session log. Rerun it if needed.
+7. Real members of V3 through real Y-points: none found numerically for either seed — check whether the real locus
+   of V3 sweeps only part of Y(R) before spending more Y-search compute.
 6. Literature to obtain: Bremner 1981 (PLMS 43), Kuwata 2007 (RMJM 37), Letac 1942 — the only published
    elliptic-curve attacks on sixth powers.
