@@ -89,6 +89,27 @@ Archimedean constant J = Γ(7/6)^5/Γ(5/6) ≈ 0.6088. Expected unordered primit
 log N ≈ 31,000. Only structure (a rational or positive-rank elliptic curve over Q) can produce a findable
 counterexample. Every lane tonight is a structure lane.
 
+
+### 1.6 Plane cubics on X (lines on Y2) — the cleanest material
+
+A weighted line on Y2 (x1..x4, x6 linear in (p0,p1), S cubic) exists iff the binary sextic
+
+```
+L6^6 - L1^6 - L2^6 - L3^6 - L4^6  =  S(p0,p1)^2
+```
+
+is a perfect square. The plane Π spanned by the five linear forms then meets X in two plane cubics u^3 = ±S,
+each a genus-1 curve over Q on X (u = x5). Slice contacts are degree-3 points (allowed). The family is
+3-dimensional over C; through a rational point of Y2 there are finitely many such lines, and the system is
+6 unknowns / 6 equations with one linear equation, so the exact pipeline (mod p → Hensel → rational
+reconstruction → sympy check) decides it completely per seed. Observed mod-p counts are 0–4, i.e. the Galois sets
+are tiny. `plane_cubics_through_seed.py` runs it over every Y2 seed; `plane_cubic_points.py` turns a rational
+line into integer ESOP6 solutions by searching rational points on u^3 = S. Klein-symmetric sub-families are dead
+(they force 2X^6+2Y^6 = Z^6). Overnight log: `plane_cubics_lottery_N70.log`.
+
+Parallel lottery: `cubic_cover_lottery_N40.log` (genus-1 cubic covers u^3 = K(t), K cubic, through Y2 seeds,
+numerical + rational recognition; 40–85 curves per seed found, none rational so far).
+
 ## 2. Lanes closed tonight
 
 * Family 0 and genus-0 cubic covers: rational root of x5 (1.2).
@@ -112,6 +133,7 @@ counterexample. Every lane tonight is a structure lane.
 
 ## 4. Tomorrow
 
+0. Read `plane_cubics_lottery_N70.log` and `plane_cubic_hits.json` first; any hit → `plane_cubic_points.py` → verifiers.
 1. Read `cubic_cover_lottery_N40.log` and `cubic_cover_rational_hits.json`. Any hit: find rational points on the
    elliptic curve u^3 = K(t) (search t, then 2-descent if needed), specialize, run both verifiers.
 2. Extend Y2 seeds to x6 ≤ 70 (`y2_points_N70.log`) and rerun; raise starts until the per-seed count saturates.
