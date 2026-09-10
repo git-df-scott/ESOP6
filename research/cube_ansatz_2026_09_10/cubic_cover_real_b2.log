@@ -33,3 +33,10 @@ seed ((10, 197, 240, 292), 317) S= 12054964 : distinct curves found 58  real 58 
 seed ((22, 74, 123, 290), 317) S= 20403220 : distinct curves found 45  real 45  rational 0
 seed ((36, 48, 163, 264), 317) S= 25640232 : distinct curves found 46  real 46  rational 0
 seed ((60, 99, 262, 270), 317) S= 17403528 : distinct curves found 57  real 57  rational 0
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((106, 114, 118, 227), 317) S= 29522992 : distinct curves found 37  real 37  rational 0
+seed ((136, 214, 254, 276), 317) S= 14205595 : distinct curves found 53  real 53  rational 0
+/usr/local/lib/python3.11/dist-packages/numpy/linalg/_linalg.py:2766: RuntimeWarning: overflow encountered in dot
+  sqnorm = x_real.dot(x_real) + x_imag.dot(x_imag)
+seed ((77, 105, 187, 315), 318) S= 3586226 : distinct curves found 53  real 53  rational 0
