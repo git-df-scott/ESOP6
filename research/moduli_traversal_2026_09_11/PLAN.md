@@ -32,5 +32,9 @@ are certified dead, survivors are as hard as the original problem on that fibre.
   S3-invariant; x5 sign character), a 2-dimensional family with scaling as the only gauge. Its exact search
   (`s3_fast.py`, structured p^5 enumeration + Hensel + reconstruction) finds nothing, and the reason is structural:
   the sign-character sextic is st(s−t)·(cubic), so x5 vanishes at the rational S3-orbit {0,1,∞}; by the slice-contact
-  principle every Q-curve in the family carries rational (6,1,4) points. Lane closed.
-* Height-300 cubic-cover search complete (1239 seeds, no rational curve); height-500 running.
+  argument every Q-curve in the family carries rational (6,1,4) contacts. Declaring these contacts impossible
+  invokes the LPS conjecture; this argument alone does **not** close the lane unconditionally. See the
+  [continuation corrections](../twisted_fibres_2026_09_10/CORRECTIONS.md). Independently proved special-family
+  obstructions, if supplied, should be recorded separately from this conditional argument.
+* Height-300 per-seed numerical batch complete (1239 seeds, no exact rational curve found); height-500 running
+  according to this worker's snapshot. Completion of the seed list is not complete algebraic curve enumeration.
