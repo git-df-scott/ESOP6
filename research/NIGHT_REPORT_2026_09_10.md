@@ -9,7 +9,7 @@ constructions that survive it, with solvers and seed generators ready.
 1. **Two exact algebraic Euler solutions**
    * `(7+11i)^6 + (7-11i)^6 + 8^6 + 12^6 + 15^6 = 17^6` over Q(i), all coordinates nonzero (1.7).
    * `(9+√-249)^6 + (9-√-249)^6 + 14^6 + 18^6 = 22^6` on the slice x5 = 0 (1.1).
-   Both are unique primitive points of their shape up to height 62 and 80 respectively.
+   Both are unique primitive points of their shape up to height 62 and 220 respectively (121M cubic checks for the second).
 2. **Slice-contact principle** (1.2): every coordinate form of a Q-curve on X must be irreducible, and degree 6 is the
    first degree where slice contact is free. **Odd-factor principle** (1.9): an odd-degree real factor of x6^6 - x5^6
    along the curve forces passage through [0:0:0:0:1:1]. Together these closed, with proofs checked numerically:
@@ -40,7 +40,7 @@ On the slice `x5 = 0` of the fourfold X: x1^6+x2^6+x3^6+x4^6+x5^6 = x6^6, there 
 Exactly: 2*Phi(9,-249) = 71,838,144 with Phi(A,Om) = A^6+15A^4 Om+15A^2 Om^2+Om^3, and
 71,838,144 + 7,529,536 + 34,012,224 = 113,379,904 = 22^6. It is the unique primitive solution of
 `2 Phi(A,Om) + r3^6 + r4^6 = r6^6` with Om not a square and r6 <= 80 (`cube_ansatz_2026_09_10/slice_quadratic_points.py`;
-an N = 220 run is in `slice_quadratic_points_N220.txt`). This is the first concrete "seed": a conjugate pair
+the N = 220 run (`slice_quadratic_points_N220.txt`) finds only its multiples). This is the first concrete "seed": a conjugate pair
 of coordinates plus three rational ones, which is exactly the shape a symmetric conic produces where an even
 coordinate vanishes. LPS predicts no *rational* (6,1,4) point; this is the nearest algebraic thing.
 
