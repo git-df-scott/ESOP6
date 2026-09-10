@@ -110,6 +110,37 @@ line into integer ESOP6 solutions by searching rational points on u^3 = S. Klein
 Parallel lottery: `cubic_cover_lottery_N40.log` (genus-1 cubic covers u^3 = K(t), K cubic, through Y2 seeds,
 numerical + rational recognition; 40–85 curves per seed found, none rational so far).
 
+### 1.7 A Gaussian-integer solution of Euler's equation, and the quotient Z = X/τ
+
+```
+(7+11i)^6 + (7-11i)^6 + 8^6 + 12^6 + 15^6 = 17^6        (2Φ(7,-121) = 9,498,816; 17^6 = 24,137,569)
+```
+
+All six coordinates nonzero: a point of X over Q(i) of height 17 (`quadratic_points_X.py`; the only such point
+with a conjugate pair and r6 ≤ 45, besides its multiples). Its secant with the conjugate point has no rational
+residual. It is a rational point of the Fano fourfold Z = X/τ (τ: x1<->x2; coordinates e1 = x1+x2, e2 = x1x2,
+K_Z = O(-1)), at (e1,e2,x3,x4,x5,x6) = (14,170,8,12,15,17); X → Z is the double cover branched along x1 = x2,
+and X(Q) = {z ∈ Z(Q): e1^2 - 4e2 is a square}. Family I = weighted lines on Z; weighted conics on Z (e2 quartic)
+pull back to genus-1 curves w^2 = e1^2 - 4e2 on X, a 3-dimensional family, finitely many through each Z-point
+(`z_conics_through_point.py`: 14 and 16 found through the two known points, none rational).
+
+### 1.8 Periodic table of genus ≤ 1 families (via u^6 = f on P^4)
+
+Take x1..x4, x6 of degree d in t, f = x6^6 - Σ x_i^6 (degree 6d), and the μ6-cover u^6 = f (u = x5). Root
+multiplicities of f decide the genus; the slice principle decides which are admissible over Q.
+
+| d | pattern of f | cover | genus | status |
+|---|---|---|---|---|
+| 1 | f = S^2, S cubic | u^3 = S | 1 | plane cubics on X; exact per-seed solver; no rational line with two points ≤ 150 |
+| 1 | f = T^3, T quadratic | u^2 = T | 0 | Astra's design conics, dead 7-adically |
+| 2 | f = T^3, T irreducible quartic | w^2 = T | 1 | V3, 3-dim; needs Y(Q) seeds (none ≤ 150) |
+| 2 | f = K^2 M^6, K irreducible cubic | u^3 = K | 1 | V3', 3-dim; numerical lottery running |
+| 2 | f = (L1 L2^2 M^3)^2 | genus 0 sextic | 0 | dead: x5 = 0 at a rational root |
+| 3 | f = (Q^2 R)^3, Q,R quadratics | w^2 = R | 0 | sextic rational curves, 2-dim; two quadratic slice points each |
+
+Collinearity test (`y2_collinear_pairs.py`): no two of the 298 Y2 points with x6 ≤ 150 lie on a common plane
+cubic of X (4.2M pair/permutation/sign tests, exact).
+
 ## 2. Lanes closed tonight
 
 * Family 0 and genus-0 cubic covers: rational root of x5 (1.2).

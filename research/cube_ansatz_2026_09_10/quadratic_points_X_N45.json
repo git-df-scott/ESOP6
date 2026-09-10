@@ -1,0 +1,26 @@
+[
+{
+"A": 7,
+"Om": -121,
+"r": [
+8,
+12,
+15
+],
+"r6": 17,
+"square": false,
+"rational_residual_nu": []
+},
+{
+"A": 14,
+"Om": -484,
+"r": [
+16,
+24,
+30
+],
+"r6": 34,
+"square": false,
+"rational_residual_nu": []
+}
+]
