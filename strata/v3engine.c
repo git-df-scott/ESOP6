@@ -25,7 +25,7 @@
  *
  * LEAF: is_two_sum(R, bound) -- is R = b1^6 + b2^6 with 1 <= b1,b2 <= bound?
  *   Step 0  two composite 2-sum residue masks, Q1 = 64*27*49 = 84672 and
- *           Q2 = 13*19*31*37*43 = 12190001, applied incrementally in the DFS
+ *           Q2 = 13*19*31*37*43 = 12182287, applied incrementally in the DFS
  *           (tables PQ1[b], PQ2[b]); two bitmap lookups per leaf, no division.
  *   Step 1  for every prime p <= 700, with k_p minimal such that p^k_p > Bmax:
  *           (i)  DETERMINATION.  r = R mod p^k_p (incremental from T_p[b]).  If
@@ -110,9 +110,9 @@ static int pow6_ovf(u64 x,u128 *out){
 }
 static u64 iroot6(u128 R){
     if(R==0) return 0;
-    long double e=powl((long double)R,1.0L/6.0L);
+    double e=pow((double)R,1.0/6.0);
     if(!(e>=0)) e=0;
-    if(e>(long double)IR6MAX) e=(long double)IR6MAX;
+    if(e>(double)IR6MAX) e=(double)IR6MAX;
     u64 r=(u64)e; if(r>IR6MAX) r=IR6MAX;
     while(r>0 && ipow6(r)>R) r--;
     while(r<IR6MAX && ipow6(r+1)<=R) r++;
@@ -189,13 +189,14 @@ static void init_sieves(void){
 
 /* --------------------------- composite 2-sum masks Q1, Q2 (spec step 0) ----- */
 #define Q1 84672u          /* 64*27*49   */
-#define Q2 12190001u       /* 13*19*31*37*43 */
+#define Q2 12182287u       /* 13*19*31*37*43  (SPEC_V3.md prints 12190001, which is not that product) */
 static u64 *TWO1=NULL,*TWO2=NULL;      /* bitmaps of {x^6+y^6 mod Q} */
 static u32 *PQ1=NULL,*PQ2=NULL;        /* b^6 mod Q1 / Q2 for b <= Bmax */
 static u64 MAGQ1,MAGQ2;
+static u64 *SIXQ1=NULL;    /* bitmap of sixth-power residues mod Q1 (288 of 84672) */
 static double mask1_frac=0,mask2_frac=0;
 
-static void build_two_sum_mask(u32 Q,u64 **bm,double *frac){
+static void build_two_sum_mask(u32 Q,u64 **bm,double *frac,u64 **sixthout){
     u64 nw=(Q+63)/64;
     u64 *sixth=calloc(nw,8); u64 *bits=calloc(nw,8);
     if(!sixth||!bits) DIE("alloc two-sum mask");
@@ -210,13 +211,15 @@ static void build_two_sum_mask(u32 Q,u64 **bm,double *frac){
     }
     u64 cnt=0; for(u32 r=0;r<Q;r++) if(bits[r>>6]>>(r&63)&1) cnt++;
     *frac=(double)cnt/(double)Q;
-    free(sixth); free(vals);
+    free(vals);
+    if(sixthout) *sixthout=sixth; else free(sixth);
     *bm=bits;
 }
 
 /* ----------------------------- primes <= 700 and their determination data --- */
-#define PCUT 700
 #define NPMAX 130
+static u32 PCUT=700;   /* least prime with PCUT^2 > Bmax: guarantees every base <= Bmax
+                          has at most one prime factor > PCUT (see COMPLETENESS) */
 static int NP=0;
 static u32 PR[NPMAX];        /* p */
 static u32 PKS[NPMAX];       /* p^k_p > Bmax */
@@ -241,8 +244,6 @@ static u128 *P6=NULL;                  /* x^6 for x <= Bmax */
 static u32 *TP=NULL;                   /* TP[b*NP+i] = b^6 mod PKS[i] */
 static int use_tp=1;
 
-static u32 POW6_4032[4032];
-static u64 SIX4032[(4032+63)/64];
 
 static u64 modinv_small(u64 a,u64 m){
     long long t=0,nt=1; long long r=(long long)m,nr=(long long)(a%m);
@@ -253,17 +254,25 @@ static u64 modinv_small(u64 a,u64 m){
 }
 
 static void build_primes(u64 Bmax){
+    /* cutoff: least prime whose square exceeds Bmax (never above 700 for FMAX<=2e7) */
+    {   u32 c=2;
+        for(;;){ int isp=1;
+                 for(u32 d=2;d*d<=c;d++) if(c%d==0){isp=0;break;}
+                 if(isp&&(u64)c*c>Bmax) break;
+                 c++; }
+        PCUT=c;
+        ASSERT((u64)PCUT*PCUT>Bmax,"PCUT^2 <= Bmax");
+        ASSERT(PCUT<=700,"PCUT=%u > 700 (FMAX too large)",PCUT); }
     char *sv=calloc(PCUT+1,1);
-    for(int i=2;i<=PCUT;i++) sv[i]=1;
-    for(int i=2;(long)i*i<=PCUT;i++) if(sv[i]) for(int j=i*i;j<=PCUT;j+=i) sv[j]=0;
+    for(u32 i=2;i<=PCUT;i++) sv[i]=1;
+    for(u32 i=2;(u64)i*i<=PCUT;i++) if(sv[i]) for(u32 j=i*i;j<=PCUT;j+=i) sv[j]=0;
     NP=0;
-    for(int p=2;p<=PCUT;p++) if(sv[p]){
+    for(u32 p=2;p<=PCUT;p++) if(sv[p]){
         u64 pk=p; int k=1;
         while(pk<=Bmax){ pk*=p; k++; }
         ASSERT(pk<(1ULL<<32),"p^k_p too large: p=%d k=%d",p,k);
         PR[NP]=(u32)p; PKS[NP]=(u32)pk; PKE[NP]=k;
-        PKMAG[NP]=(u64)((~(u128)0)/pk);          /* floor((2^128-1)/pk) low word == floor(2^64/pk) */
-        PKMAG[NP]=(u64)(((u128)1<<64)/pk);
+        PKMAG[NP]=(u64)(((u128)1<<64)/pk);       /* floor(2^64/p^k_p) */
         u64 p6=1; for(int i=0;i<6;i++) p6*=(u64)p;
         P6V[NP]=p6;
         if(p==2){ IDX2=NP; } else if(p==3){ IDX3=NP; }
@@ -311,9 +320,6 @@ static void build_primes(u64 Bmax){
         for(u32 x=1;x<pk;x++){ if(x%3==0) continue; u32 r=(u32)pow6m(x,pk); if(ROOT3[r]==0xffffffffu) ROOT3[r]=x; }
         NU3=0; for(u32 x=1;x<pk;x++){ if(x%3==0) continue; if(pow6m(x,pk)==1){ ASSERT(NU3<8,"too many sixth roots of unity mod 3^k"); U3[NU3++]=x; } }
     }
-    /* sixth-power residues mod 4032 = 64*9*7 (cheap pre-filter before iroot6) */
-    memset(SIX4032,0,sizeof SIX4032);
-    for(u32 x=0;x<4032;x++){ u32 r=(u32)pow6m(x,4032); POW6_4032[x]=r; SIX4032[r>>6]|=1ULL<<(r&63); }
 }
 
 /* Hensel lift of a root mod p to a root mod p^k (p >= 5, p does not divide 6) */
@@ -391,7 +397,6 @@ static void build_V(u64 Bmax){
     u64 cap=1024; Vlist=malloc(cap*8); nV=0;
     for(u64 i=0;i<nt;i++){
         u64 e=tmp[i];
-        u64 add[2]; (void)add;
         if(nV==cap){cap*=2;Vlist=realloc(Vlist,cap*8);}
         Vlist[nV++]=e;                                 /* q = 1 */
         for(u64 q=PCUT+1;q<=Bmax/e;q++) if(sv[q]){
@@ -429,6 +434,7 @@ typedef struct {
 static Ctr *ctrs=NULL; static int nthreads=1;
 static int opt_nostep1=0, opt_notable=0;
 
+static inline u32 modu128(u128 R,u32 md,u64 mag);
 /* ------------------------------------------------- exact V x V verification */
 static int verify_V(u128 R,u64 bound,u64 *ox,u64 *oy,Ctr *C){
     u64 xhi=iroot6(R); if(xhi>bound) xhi=bound;
@@ -438,12 +444,12 @@ static int verify_V(u128 R,u64 bound,u64 *ox,u64 *oy,Ctr *C){
     /* lower_bound in V */
     u64 lo=0,hi=nV;
     while(lo<hi){ u64 mid=(lo+hi)/2; if(Vlist[mid]<xlo) lo=mid+1; else hi=mid; }
-    u32 r4032=(u32)(R%4032);
+    u32 rq1=modu128(R,Q1,MAGQ1);
     for(u64 i=lo;i<nV&&Vlist[i]<=xhi;i++){
         C->tblscan++;
         u64 x=Vlist[i];
-        u32 s=submod32(r4032,POW6_4032[x%4032],4032);
-        if(!((SIX4032[s>>6]>>(s&63))&1)) continue;
+        u32 s=submod32(rq1,PQ1[x],Q1);
+        if(!((SIXQ1[s>>6]>>(s&63))&1)) continue;
         u128 S=R-P6[x];
         if(S==0) continue;
         u64 y=iroot6(S);
@@ -478,7 +484,7 @@ static int is_two_sum(u128 R,u64 bound,const u32 *res,u64 *ox,u64 *oy,Ctr *C,int
         if(!((TWO2[r2>>6]>>(r2&63))&1)) return 0;
     }
     C->step1++;
-    u32 r4032=(u32)(R%4032);
+    u32 rq1=modu128(R,Q1,MAGQ1);
 
     u32 resbuf[NPMAX];
     if(res==NULL){ for(int i=0;i<NP;i++) resbuf[i]=modu128(R,PKS[i],PKMAG[i]); res=resbuf; }
@@ -505,8 +511,8 @@ static int is_two_sum(u128 R,u64 bound,const u32 *res,u64 *ox,u64 *oy,Ctr *C,int
                 u64 b2=cand[t];
                 if(b2<1||b2>bound) continue;
                 C->primecand++;
-                u32 s=submod32(r4032,POW6_4032[b2%4032],4032);
-                if(!((SIX4032[s>>6]>>(s&63))&1)) continue;
+                u32 s=submod32(rq1,PQ1[b2],Q1);
+                if(!((SIXQ1[s>>6]>>(s&63))&1)) continue;
                 u128 P=P6[b2];
                 if(P>=R) continue;
                 u128 S=R-P;
@@ -617,8 +623,8 @@ static void build_tables(u64 Bmax){
     P6=malloc(sizeof(u128)*(Bmax+2)); if(!P6) DIE("alloc P6");
     for(u64 x=0;x<=Bmax+1;x++) P6[x]=ipow6(x);
     MAGQ1=(u64)(((u128)1<<64)/Q1); MAGQ2=(u64)(((u128)1<<64)/Q2);
-    build_two_sum_mask(Q1,&TWO1,&mask1_frac);
-    build_two_sum_mask(Q2,&TWO2,&mask2_frac);
+    build_two_sum_mask(Q1,&TWO1,&mask1_frac,&SIXQ1);
+    build_two_sum_mask(Q2,&TWO2,&mask2_frac,NULL);
     PQ1=malloc(sizeof(u32)*(Bmax+2)); PQ2=malloc(sizeof(u32)*(Bmax+2));
     if(!PQ1||!PQ2) DIE("alloc PQ");
     for(u64 x=0;x<=Bmax+1;x++){ PQ1[x]=(u32)pow6m(x,Q1); PQ2[x]=(u32)pow6m(x,Q2); }
@@ -652,8 +658,8 @@ static void build_tables(u64 Bmax){
     fprintf(stderr,"memory: P6=%.1fMB T_p=%.1fMB PQ=%.1fMB masks=%.1fMB root2,3=%.1fMB V=%.1fMB pairfilter=%.1fMB TOTAL=%.2fGB\n",
         m_p6/mb,m_tp/mb,m_pq/mb,m_masks/mb,m_roots/mb,m_v/mb,m_bl/mb,
         (m_p6+m_tp+m_pq+m_masks+m_roots+m_v+m_bl)/1e9);
-    fprintf(stderr,"masks: Q1 pass=%.4f Q2 pass=%.4f combined=%.5f ; primes=%d lim=%llu |E|=%llu\n",
-        mask1_frac,mask2_frac,mask1_frac*mask2_frac,NP,(unsigned long long)(nEset?Eset[nEset-1]:0),(unsigned long long)nEset);
+    fprintf(stderr,"masks: Q1 pass=%.4f Q2 pass=%.4f combined=%.5f ; pcut=%u primes=%d |E|=%llu maxE=%llu\n",
+        mask1_frac,mask2_frac,mask1_frac*mask2_frac,PCUT,NP,(unsigned long long)nEset,(unsigned long long)(nEset?Eset[nEset-1]:0));
 }
 
 /* --------------------------------------------------------------- self test */
