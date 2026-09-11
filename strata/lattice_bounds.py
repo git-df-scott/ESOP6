@@ -93,39 +93,46 @@ def floor_div(a, b):
 def ceil_div(a, b):
     return -((-a) // b)
 
-def triangle_points(b1, b2, A):
-    """All lattice points (f,t) = x*b1 + y*b2 with 0 < t < f <= A.  Exact."""
+def _x_interval(b1, b2, A, y):
+    """Integer x-interval for which x*b1 + y*b2 lies in {0 < t < f <= A}."""
+    cons = ((b1[1],         b2[1],         1),      # t >= 1
+            (b1[0] - b1[1], b2[0] - b2[1], 1),      # f - t >= 1
+            (-b1[0],        -b2[0],        -A))     # f <= A
+    lo = hi = None
+    for (c, d, e) in cons:
+        rhs = e - d * y
+        if c == 0:
+            if rhs > 0:
+                return None
+        elif c > 0:
+            v = ceil_div(rhs, c)
+            lo = v if lo is None else max(lo, v)
+        else:
+            v = floor_div(rhs, c)
+            hi = v if hi is None else min(hi, v)
+    if lo is None or hi is None or lo > hi:
+        return None
+    return lo, hi
+
+def _y_range(b1, b2, A):
     det = b1[0] * b2[1] - b1[1] * b2[0]
     assert det != 0
-    # y as a rational function of (f,t):  y = (t*b1[0] - f*b1[1]) / det
-    ys = []
-    for (f, t) in ((0, 0), (A, 0), (A, A)):
-        ys.append((t * b1[0] - f * b1[1]) / det)
+    ys = [(t * b1[0] - f * b1[1]) / det for (f, t) in ((0, 0), (A, 0), (A, A))]
     ymin, ymax = math.floor(min(ys)) - 1, math.ceil(max(ys)) + 1
-    assert ymax - ymin < 10**7, "y range too wide (%d); basis not reduced?" % (ymax - ymin)
+    assert ymax - ymin < 10**6, "y range too wide (%d)" % (ymax - ymin)
+    return ymin, ymax
+
+def triangle_points(b1, b2, A, cap=10**6):
+    """ALL lattice points (f,t) = x*b1 + y*b2 with 0 < t < f <= A.  Exact.
+    Used by the self-test; the production search uses least_f_in_triangle."""
     out = []
-    # three half-planes, each of the form  c*x + d*y >= e
-    cons = ((b1[1],              b2[1],              1),                 # t >= 1
-            (b1[0] - b1[1],      b2[0] - b2[1],      1),                 # f - t >= 1
-            (-b1[0],             -b2[0],             -A))                # f <= A
+    ymin, ymax = _y_range(b1, b2, A)
     for y in range(ymin, ymax + 1):
-        lo, hi = None, None
-        feasible = True
-        for (c, d, e) in cons:
-            rhs = e - d * y
-            if c == 0:
-                if 0 < rhs:
-                    feasible = False
-                    break
-            elif c > 0:
-                v = ceil_div(rhs, c)
-                lo = v if lo is None else max(lo, v)
-            else:
-                v = floor_div(rhs, c)
-                hi = v if hi is None else min(hi, v)
-        if not feasible or lo is None or hi is None or lo > hi:
+        iv = _x_interval(b1, b2, A, y)
+        if iv is None:
             continue
-        assert hi - lo < 10**7, "x range too wide"
+        lo, hi = iv
+        assert len(out) + (hi - lo + 1) <= cap, "too many points"
         for x in range(lo, hi + 1):
             f = x * b1[0] + y * b2[0]
             t = x * b1[1] + y * b2[1]
@@ -133,20 +140,74 @@ def triangle_points(b1, b2, A):
             out.append((f, t))
     return out
 
-def least_f(z, N, need_coprime=True):
+def least_f_in_triangle(b1, b2, A):
+    """Least f with 0 < t < f <= A, gcd(f,42)=gcd(t,42)=1, over the lattice.
+
+    Within one y-layer f is linear in x and the coprimality predicate depends
+    only on x mod 42, so at most 42 x-values from the f-minimising end of the
+    interval have to be inspected.  That keeps the cost O(42 * #layers) even
+    when the triangle holds astronomically many lattice points."""
+    best = None
+    ymin, ymax = _y_range(b1, b2, A)
+    for y in range(ymin, ymax + 1):
+        iv = _x_interval(b1, b2, A, y)
+        if iv is None:
+            continue
+        lo, hi = iv
+        step = 1 if b1[0] >= 0 else -1
+        start = lo if step == 1 else hi
+        n = min(42, hi - lo + 1)
+        for k in range(n):
+            x = start + step * k
+            f = x * b1[0] + y * b2[0]
+            t = x * b1[1] + y * b2[1]
+            assert 0 < t < f <= A
+            if gcd(f, 42) == 1 and gcd(t, 42) == 1:
+                if best is None or f < best[0]:
+                    best = (f, t)
+                break
+    return best
+
+def least_f(z, N):
     """Least f > 0 with some 0 < t < f, t == z*f (mod N), gcd(f,42)=gcd(t,42)=1."""
     b1, b2 = gauss_reduce((1, z), (0, N))
     A = isqrt(N) + 1
     while True:
-        pts = triangle_points(b1, b2, A)
-        good = [(f, t) for (f, t) in pts
-                if (not need_coprime) or (gcd(f, 42) == 1 and gcd(t, 42) == 1)]
-        if good:
-            f, t = min(good)
-            assert (t - z * f) % N == 0
+        got = least_f_in_triangle(b1, b2, A)
+        if got is not None:
+            f, t = got
+            assert (t - z * f) % N == 0 and 0 < t < f
             return f, t
         A *= 2
-        assert A < 1 << 80, "no admissible point found"
+        assert A < 1 << 90, "no admissible point found"
+
+def selftest():
+    """triangle_points and least_f_in_triangle vs direct brute force."""
+    import random
+    random.seed(1)
+    n = 0
+    for _ in range(400):
+        N = random.randrange(50, 4000)
+        z = random.randrange(1, N)
+        if gcd(z, N) != 1:
+            continue
+        A = random.randrange(5, 900)
+        bf = []
+        for f in range(1, A + 1):
+            t = (z * f) % N
+            if t == 0:
+                t = N
+            while t < f:
+                bf.append((f, t))
+                t += N
+        bf.sort()
+        b1, b2 = gauss_reduce((1, z), (0, N))
+        assert bf == sorted(triangle_points(b1, b2, A)), (N, z, A)
+        cop = [(f, t) for (f, t) in bf if gcd(f, 42) == 1 and gcd(t, 42) == 1]
+        want = min(cop) if cop else None
+        assert least_f_in_triangle(b1, b2, A) == want, (N, z, A)
+        n += 1
+    print("selftest: triangle enumeration and least-f agree with brute force on %d random lattices" % n)
 
 # ----------------------------------------------------------------------- driver
 CASES = [
@@ -157,6 +218,7 @@ CASES = [
 ]
 
 def main():
+    selftest()
     results = {}
     for label, nname, factors in CASES:
         zs, N = all_sixth_roots(factors)
@@ -184,5 +246,55 @@ def main():
         print("  %-30s N=%-22d  f >= %d" % (label, N, rows[0][0]))
     return results
 
+def verify_7_by_scan(claimed=None):
+    """Independent double-check of the N = 42^6 * 7^6 bound by a DIFFERENT route:
+    scan every f up to the claimed bound and test all 144 roots directly.
+
+    No lattice, no reduction, no enumeration -- just t = zeta*f mod N.  Since
+    N = 6.458e14 is far larger than the claimed bound, the residue in [0,N) is the
+    only t that can possibly satisfy t < f.  gcd(t,42) = gcd(f,42) automatically
+    (42 | N and zeta is a unit mod 42), so only gcd(f,42)=1 has to be imposed.
+    Vectorised with numpy in chunks small enough that zeta*k stays below 2^63."""
+    import numpy as np
+    zs, N = all_sixth_roots([(2, 6), (3, 6), (7, 12)])
+    if claimed is None:
+        claimed = min(least_f(z, N)[0] for z in zs if z != 1)
+    print("verify_7_by_scan: scanning f = 1 .. %d against all %d roots" % (claimed, len(zs)))
+    C = 10000
+    assert C * N < (1 << 63), "chunk too large for int64"
+    hits = []
+    f0 = 1
+    while f0 <= claimed:
+        c = min(C, claimed - f0 + 1)
+        fs = np.arange(f0, f0 + c, dtype=np.int64)
+        good_f = (fs % 2 != 0) & (fs % 3 != 0) & (fs % 7 != 0)
+        if good_f.any():
+            k = np.arange(c, dtype=np.int64)
+            for z in zs:
+                if z == 1:
+                    continue
+                t0 = (z % N) * (f0 % N) % N
+                t = (t0 + k * (z % N)) % N
+                m = good_f & (t > 0) & (t < fs)
+                if m.any():
+                    for idx in np.nonzero(m)[0]:
+                        hits.append((int(fs[idx]), int(t[idx]), z))
+        f0 += c
+    hits.sort()
+    if hits:
+        f, t, z = hits[0]
+        print("  scan found least f = %d (t = %d, zeta = %d); %d hits at or below the bound"
+              % (f, t, z, len(hits)))
+        okk = (f == claimed)
+    else:
+        print("  scan found NO admissible (f,t) with f <= %d" % claimed)
+        okk = False
+    print(("PASS  " if okk else "FAIL  ") +
+          "independent scan reproduces the 42^6*7^6 bound f >= %d" % claimed)
+    return okk
+
 if __name__ == "__main__":
-    main()
+    res = main()
+    if "--verify7" in sys.argv:
+        print()
+        verify_7_by_scan()
