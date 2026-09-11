@@ -1,4 +1,34 @@
-# ESOP6 status — 2026-09-04
+# ESOP6 status — 2026-09-11
+
+## Latest: heuristic constant and third strike after 36e03d4
+
+No ESOP6 solution, positive rational surface point, rational curve, or
+elliptic residual was found. Two documents were added.
+
+**[HEURISTIC_CONSTANT.md](HEURISTIC_CONSTANT.md).** The Hardy–Littlewood
+constant for five sixth powers is `C = 3.7e-5` per e-fold of height
+(exact p-adic densities to 20,000, tail bounded within 1.3%). Expected
+primitive solutions below 730,000 are about 5e-4 and below 10^100 about 9e-3;
+the expectation reaches one near height 10^11,660. The same program
+predicts the known minimum height 1,141 for seven sixth powers to within
+16%. Consequence: a reachable counterexample must be structural. The
+repeated-coordinate surface is of general type, so its rational-curve
+lane contradicts Bombieri–Lang at every degree; the Elkies-style K3 lifts
+of planes in the Fermat cubic fourfold are empty by Degtyarev–Itenberg–Ottem;
+lifts of lines and non-planar surfaces in either descent are general type
+or genus at least five. The one open lane is stated there. Integer sweeps
+of any class should not be run.
+
+**[ASTRA_THIRD_STRIKE.md](ASTRA_THIRD_STRIKE.md).** The designated
+degree-eight family (RATIONAL_CURVE_ATTEMPT.md eq. (5)) was set up exactly
+and is neither solved nor closed. Its main branch (`deg N = 8`) has a top
+equation that is the surface equation itself, so that branch is not a
+reduction. Its 3-integral case is impossible (modulus 3). The degree-six
+3-adic certificate strategy provably cannot transplant, because the
+unperturbed congruence has exact rational solutions on `X = Y`. The
+unequal-slope degree-six sibling is settled in its constant-midpoint
+branch for every rational slope; its degree-six midpoint branch is open.
+New gate: `make third-checks`. The historical frontier is unchanged.
 
 ## Latest: second strike after 80a2d9f
 
