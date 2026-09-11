@@ -11,6 +11,16 @@
  * verifier caps d at c, which is the only place where the boundary c >= d is
  * enforced exactly (the window only guarantees R3 <= 3 c^7).
  *
+ * Residue passes (--q Q): pass r in [0,Q) builds the Bloom only over 3-sums
+ * with (d^7+e^7+g^7) mod Q == r, and the innermost enumerated base c is
+ * restricted to the residue classes mod Q with c^7 == (R2 - r) (mod Q), so
+ * that R3 = R2 - c^7 == r (mod Q).  The c-loop therefore shrinks by a factor
+ * ~Q instead of the leaves being generated and thrown away: total leaves over
+ * all Q passes equal a single-pass run, and only the (f,a,b) loops repeat.
+ * The per-pass table is ~F^3/(6Q) entries.  The table build is likewise
+ * restricted (g runs over the matching residue classes only), so the Q builds
+ * together cost one full build.
+ *
  * Bucket passes (--nb NB): bucket(v) is a deterministic function of the full
  * 128-bit value v.  Pass k inserts only 3-sums with bucket k and evaluates
  * only leaves whose R3 has bucket k.  Each leaf is therefore evaluated in
@@ -36,6 +46,8 @@
 typedef unsigned __int128 u128;
 typedef uint64_t u64;
 typedef uint32_t u32;
+typedef uint16_t u16;
+typedef uint8_t  u8;
 typedef long long i64;
 
 #define DIE(...) do{ fprintf(stderr,"FATAL " __VA_ARGS__); fputc('\n',stderr); exit(1);}while(0)
@@ -175,6 +187,34 @@ static inline u64 bucket_of(u128 s,u64 nb){
     return (u64)(((u128)h*(u128)nb)>>64);
 }
 
+/* ------------------------------------------------- residue-class buckets */
+static u64 QMOD=1;            /* modulus Q; pass r keeps 3-sums == r (mod Q) */
+static u64 R64Q=0;            /* 2^64 mod Q */
+static u32 PW7Q[1024];        /* PW7Q[t] = t^7 mod Q */
+static u16 PRE[1024][1024];   /* PRE[v] = residue classes t with t^7 == v */
+static u16 PRECNT[1024];
+static void init_qmod(void){
+    if(QMOD<1) QMOD=1;
+    if(QMOD>1024) DIE("Q too large (max 1024)");
+    R64Q=(u64)(((u128)1<<64)%QMOD);
+    memset(PRECNT,0,sizeof PRECNT);
+    for(u64 t=0;t<QMOD;t++){
+        u64 v=1; for(int i=0;i<7;i++) v=v*t%QMOD;
+        PW7Q[t]=(u32)v;
+        PRE[v][PRECNT[v]++]=(u16)t;
+    }
+}
+static inline u32 modq(u128 v){
+    if(QMOD==1) return 0;
+    u64 hi=(u64)(v>>64), lo=(u64)v;
+    return (u32)(((hi%QMOD)*R64Q + lo%QMOD)%QMOD);
+}
+
+static inline int in_pass(u128 s,u64 nb,u64 pass){
+    if(QMOD>1) return modq(s)==(u32)pass;
+    return bucket_of(s,nb)==pass;
+}
+
 /* ------------------------------------------------------------ counters */
 typedef struct { i64 leaves,masked,bqueries,positives,pairq,verified,sols; char pad[128-7*8]; } Ctr;
 static Ctr *ctrs=NULL; static int nthreads=1;
@@ -235,24 +275,40 @@ static void enumerate(u128 F7,u64 fval,u64 amax,u64 nb,u64 pass,Ctr *C){
             if(R2<4) continue;
             u64 chi=iroot7(R2); if(chi>b) chi=b;
             u64 clo=ceil_root7_div(R2,4);
-            for(u64 c=chi;c>=clo && c>=1;c--){
-                u128 R3=R2-P7[c];
-                if(R3<3) continue;
-                if(R3>3*P7[c]) continue;          /* d <= c must be possible */
-                if(bucket_of(R3,nb)!=pass) continue;
-                C->leaves++;
-                if(!mask3_ok(R3)) continue;
-                C->masked++;
-                C->bqueries++;
-                if(!filt_query(&F3,R3)) continue;
-                C->positives++;
-                u64 d,e,g;
-                if(verify3(R3,c,C,&d,&e,&g)){
-                    C->sols++;
-                    if(__sync_bool_compare_and_swap(&sol_found,0,1)){
-                        sol_f=fval; sol_a=a; sol_b=b; sol_c=c; sol_d=d; sol_e=e; sol_g=g;
+            if(chi<clo) continue;
+            /* c must satisfy c^7 == R2 - r (mod Q) so that R3 == r (mod Q) */
+            u32 want=(QMOD==1)?0:(u32)((modq(R2)+QMOD-pass)%QMOD);
+            int ncls=(QMOD==1)?1:PRECNT[want];
+            for(int ci=0;ci<ncls;ci++){
+                long long cstart;
+                if(QMOD==1) cstart=(long long)chi;
+                else{
+                    u64 t=PRE[want][ci];
+                    u64 delta=((chi%QMOD)+QMOD-t)%QMOD;
+                    if(delta>chi) continue;
+                    cstart=(long long)(chi-delta);
+                }
+                long long step=(QMOD==1)?1:(long long)QMOD;
+                for(long long cc=cstart;cc>=(long long)clo && cc>=1;cc-=step){
+                    u64 c=(u64)cc;
+                    u128 R3=R2-P7[c];
+                    if(R3<3) continue;
+                    if(R3>3*P7[c]) continue;      /* d <= c must be possible */
+                    if(nb>1 && bucket_of(R3,nb)!=pass) continue;
+                    C->leaves++;
+                    if(!mask3_ok(R3)) continue;
+                    C->masked++;
+                    C->bqueries++;
+                    if(!filt_query(&F3,R3)) continue;
+                    C->positives++;
+                    u64 d,e,g;
+                    if(verify3(R3,c,C,&d,&e,&g)){
+                        C->sols++;
+                        if(__sync_bool_compare_and_swap(&sol_found,0,1)){
+                            sol_f=fval; sol_a=a; sol_b=b; sol_c=c; sol_d=d; sol_e=e; sol_g=g;
+                        }
+                        return;
                     }
-                    return;
                 }
             }
         }
@@ -265,12 +321,23 @@ static void build_table(u64 nb,u64 pass,u64 *n_inserted){
 #pragma omp parallel for schedule(dynamic,8) reduction(+:cnt)
     for(u64 d=1;d<=TB;d++){
         u128 pd=P7[d];
+        u32 rd=(QMOD==1)?0:PW7Q[d%QMOD];
         for(u64 e=1;e<=d;e++){
             u128 pde=pd+P7[e];
-            for(u64 g=1;g<=e;g++){
-                u128 s=pde+P7[g];
-                if(bucket_of(s,nb)!=pass) continue;
-                filt_add(&F3,s); cnt++;
+            if(QMOD==1){
+                for(u64 g=1;g<=e;g++){
+                    u128 s=pde+P7[g];
+                    if(nb>1 && bucket_of(s,nb)!=pass) continue;
+                    filt_add(&F3,s); cnt++;
+                }
+            }else{
+                u32 rde=(u32)((rd+PW7Q[e%QMOD])%QMOD);
+                u32 want=(u32)((pass+QMOD-rde)%QMOD);
+                for(int gi=0;gi<PRECNT[want];gi++){
+                    u64 t=PRE[want][gi];
+                    u64 g0=t?t:QMOD;
+                    for(u64 g=g0;g<=e;g+=QMOD){ filt_add(&F3,pde+P7[g]); cnt++; }
+                }
             }
         }
     }
@@ -324,11 +391,12 @@ static void selftest(void){
 }
 
 int main(int argc,char **argv){
-    if(argc<3){ fprintf(stderr,"usage: %s FMIN FMAX [--nb NB] [--plant S] [--bpp N] [--query3 V] [--bloomtest N] [--bloomstat N] [--threads T]\n",argv[0]); return 1; }
+    if(argc<3){ fprintf(stderr,"usage: %s FMIN FMAX [--q Q] [--nb NB] [--plant S] [--bpp N] [--query3 V] [--bloomtest N] [--bloomstat N] [--threads T]\n",argv[0]); return 1; }
     FMIN=strtoull(argv[1],0,10); FMAX=strtoull(argv[2],0,10);
     u64 nb=1,bpp=16,bloomtest=0,bloomstat=0; int plant=0,do_query=0; u128 plantS=0,queryV=0; int thr=0;
     for(int i=3;i<argc;i++){
         if(!strcmp(argv[i],"--nb")&&i+1<argc) nb=strtoull(argv[++i],0,10);
+        else if(!strcmp(argv[i],"--q")&&i+1<argc) QMOD=strtoull(argv[++i],0,10);
         else if(!strcmp(argv[i],"--bpp")&&i+1<argc) bpp=strtoull(argv[++i],0,10);
         else if(!strcmp(argv[i],"--plant")&&i+1<argc){ plant=1; plantS=str_to_u128(argv[++i]); }
         else if(!strcmp(argv[i],"--query3")&&i+1<argc){ do_query=1; queryV=str_to_u128(argv[++i]); }
@@ -340,6 +408,9 @@ int main(int argc,char **argv){
     if(FMAX<=FMIN&&!plant&&!do_query&&!bloomtest&&!bloomstat) DIE("need FMAX > FMIN");
     if(FMAX>200000) DIE("FMAX too large for 128-bit headroom");
     if(nb<1) nb=1;
+    if(QMOD<1) QMOD=1;
+    if(QMOD>1&&nb>1) DIE("--q and --nb are alternative bucketings; use one");
+    init_qmod();
 #ifdef _OPENMP
     if(thr>0) omp_set_num_threads(thr);
 #pragma omp parallel
@@ -368,13 +439,30 @@ int main(int argc,char **argv){
 
     /* filters */
     u128 ntri=(u128)TB*(TB+1)*(TB+2)/6;
-    u64 per=(u64)(ntri/nb)+1;
+    u64 npasses=(QMOD>1)?QMOD:nb;
+    u64 per;
+    if(QMOD>1){
+        /* per-residue-class table size: convolve the counts of bases by x^7 mod Q */
+        static double cnt[1024],c2[1024],c3[1024];
+        for(u64 v=0;v<QMOD;v++){ cnt[v]=0; c2[v]=0; c3[v]=0; }
+        for(u64 t=0;t<QMOD;t++){
+            u64 n=(TB>=t)?((TB-t)/QMOD+((t>=1)?1:0)):0;   /* x in [1,TB], x==t (mod Q) */
+            if(t==0) n=TB/QMOD;
+            cnt[PW7Q[t]]+=(double)n;
+        }
+        for(u64 i=0;i<QMOD;i++) for(u64 j=0;j<QMOD;j++) c2[(i+j)%QMOD]+=cnt[i]*cnt[j];
+        for(u64 i=0;i<QMOD;i++) for(u64 j=0;j<QMOD;j++) c3[(i+j)%QMOD]+=c2[i]*cnt[j];
+        double mx=0; for(u64 v=0;v<QMOD;v++) if(c3[v]>mx) mx=c3[v];
+        per=(u64)(mx/6.0*1.03)+1024;
+        fprintf(stderr,"Q=%llu residue bucketing: largest class holds %.4g of the table\n",
+            (unsigned long long)QMOD,mx/6.0/(double)ntri);
+    } else per=(u64)(ntri/nb)+1;
     F3.k=(int)(bpp*0.693+0.5); if(F3.k<4) F3.k=4; if(F3.k>12) F3.k=12; F3.seed=0x716a5ULL;
     F3.nlines=(u64)(((u128)per*bpp*103/100+511)/512); if(F3.nlines<1) F3.nlines=1;
     F2.k=8; F2.seed=0xb2b2b2ULL;
     { u128 npair=(u128)TB*(TB+1)/2; F2.nlines=(u64)(((u128)npair*32+511)/512); if(F2.nlines<1) F2.nlines=1; }
-    fprintf(stderr,"table bound TB=%llu triples=%.4g nb=%llu per-pass=%.4g bpp=%llu probes=%d bloom=%.3f GB; pair bloom %.3f GB\n",
-        (unsigned long long)TB,(double)ntri,(unsigned long long)nb,(double)per,(unsigned long long)bpp,F3.k,
+    fprintf(stderr,"table bound TB=%llu triples=%.4g passes=%llu per-pass=%.4g bpp=%llu probes=%d bloom=%.3f GB; pair bloom %.3f GB\n",
+        (unsigned long long)TB,(double)ntri,(unsigned long long)npasses,(double)per,(unsigned long long)bpp,F3.k,
         F3.nlines*64.0/1e9,F2.nlines*64.0/1e9);
     F3.w=alloc_big((size_t)F3.nlines*64); if(!F3.w) DIE("bloom alloc failed (%.2f GB)",F3.nlines*64.0/1e9);
     F2.w=alloc_big((size_t)F2.nlines*64); if(!F2.w) DIE("pair bloom alloc failed");
@@ -385,17 +473,17 @@ int main(int argc,char **argv){
 
     ctrs=calloc(nthreads?nthreads:1,sizeof(Ctr)); if(!ctrs) DIE("alloc ctrs");
 
-    for(u64 pass=0;pass<nb;pass++){
+    for(u64 pass=0;pass<npasses;pass++){
         if(pass>0) memset(F3.w,0,(size_t)F3.nlines*64);
         u64 nins=0; double tb0=now();
         build_table(nb,pass,&nins);
         fprintf(stderr,"pass %llu/%llu: inserted %llu 3-sums in %.1f s (load %.3f bits/entry)\n",
-            (unsigned long long)pass+1,(unsigned long long)nb,(unsigned long long)nins,now()-tb0,
+            (unsigned long long)pass+1,(unsigned long long)npasses,(unsigned long long)nins,now()-tb0,
             nins?F3.nlines*512.0/nins:0.0);
         /* self-test: a few inserted values must query positive */
         for(u64 d=1;d<=TB && d<=97;d+=17) for(u64 e=1;e<=d;e+=13) for(u64 g=1;g<=e;g+=11){
             u128 s=P7[d]+P7[e]+P7[g];
-            if(bucket_of(s,nb)==pass) ASSERT(filt_query(&F3,s),"BLOOM FALSE NEGATIVE %llu %llu %llu",
+            if(in_pass(s,nb,pass)) ASSERT(filt_query(&F3,s),"BLOOM FALSE NEGATIVE %llu %llu %llu",
                 (unsigned long long)d,(unsigned long long)e,(unsigned long long)g);
         }
 
@@ -406,7 +494,7 @@ int main(int argc,char **argv){
                 u64 e=1+(u64)(rand_r(&seed)%(unsigned)d);
                 u64 g=1+(u64)(rand_r(&seed)%(unsigned)e);
                 u128 s=P7[d]+P7[e]+P7[g];
-                if(bucket_of(s,nb)!=pass) continue;
+                if(!in_pass(s,nb,pass)) continue;
                 if(!filt_query(&F3,s)) fn++;
             }
             printf("BLOOMTEST n=%llu false_negatives=%llu\n",(unsigned long long)bloomtest,(unsigned long long)fn);
@@ -416,7 +504,7 @@ int main(int argc,char **argv){
             u64 fp=0,q=0; unsigned seed=999; u128 base=P7[TB]*3;
             for(u64 i=0;i<bloomstat;i++){
                 u128 v=base+(u128)rand_r(&seed)*1000003u+i*7919u;  /* far above any table value */
-                if(bucket_of(v,nb)!=pass) continue;
+                if(!in_pass(v,nb,pass)) continue;
                 q++; if(filt_query(&F3,v)) fp++;
             }
             printf("BLOOMSTAT queries=%llu positives=%llu fp_rate=%.3g\n",
@@ -429,7 +517,7 @@ int main(int argc,char **argv){
             int ex=verify3(queryV,TB,&C,&d,&e,&g);
             char buf[48]; u128_to_str(queryV,buf);
             printf("QUERY3 %s bucket=%llu pass=%llu bloom=%d exact=%d %llu %llu %llu\n",buf,
-                (unsigned long long)bucket_of(queryV,nb),(unsigned long long)pass,bq,ex,
+                (unsigned long long)(QMOD>1?modq(queryV):bucket_of(queryV,nb)),(unsigned long long)pass,bq,ex,
                 (unsigned long long)d,(unsigned long long)e,(unsigned long long)g);
             fflush(stdout);
         }
