@@ -55,7 +55,11 @@ $(BIN)/boundary_contact_verify: tools/verify_boundary_contact.cpp | $(BIN)
 boundary-checks: $(BIN)/boundary_contact_verify
 	@python3 tests/boundary_contact.py
 
+third-checks:
+	@python3 tools/unequal_slope_six.py > /dev/null
+	@python3 tests/third_strike.py
+
 clean:
 	rm -rf $(BIN)
 
-.PHONY: all validate control equiv differential prototypes frontier-audit direct-checks boundary-checks clean
+.PHONY: all validate control equiv differential prototypes frontier-audit direct-checks boundary-checks third-checks clean
