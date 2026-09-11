@@ -166,6 +166,13 @@ static inline int filt_query(const Filt *F,u128 s){
     return 1;
 }
 static Filt F3, F2;
+/* --nobloom: bypass the 3-sum Bloom (every masked leaf goes straight to the
+ * exact verifier).  Makes leaves/masked/bqueries/positives/verified all exact
+ * functions of the leaf set alone -- no filter geometry enters -- so the Q=1
+ * vs Q=Q pass-sum comparison becomes an exact identity on ALL five counters.
+ * The 2-sum filter F2 is pass-independent (build_pairs ignores the pass), so
+ * it may stay on and `verified` is still deterministic. */
+static int NOBLOOM=0;
 
 /* big zero-filled allocation, backed by transparent huge pages when possible:
  * the 3-sum filter is many GB and every query is a random access, so 4 KB
@@ -299,7 +306,7 @@ static void enumerate(u128 F7,u64 fval,u64 amax,u64 nb,u64 pass,Ctr *C){
                     if(!mask3_ok(R3)) continue;
                     C->masked++;
                     C->bqueries++;
-                    if(!filt_query(&F3,R3)) continue;
+                    if(!NOBLOOM && !filt_query(&F3,R3)) continue;
                     C->positives++;
                     u64 d,e,g;
                     if(verify3(R3,c,C,&d,&e,&g)){
@@ -391,7 +398,7 @@ static void selftest(void){
 }
 
 int main(int argc,char **argv){
-    if(argc<3){ fprintf(stderr,"usage: %s FMIN FMAX [--q Q] [--nb NB] [--plant S] [--bpp N] [--query3 V] [--bloomtest N] [--bloomstat N] [--threads T]\n",argv[0]); return 1; }
+    if(argc<3){ fprintf(stderr,"usage: %s FMIN FMAX [--q Q] [--nb NB] [--plant S] [--bpp N] [--query3 V] [--bloomtest N] [--bloomstat N] [--nobloom] [--threads T]\n",argv[0]); return 1; }
     FMIN=strtoull(argv[1],0,10); FMAX=strtoull(argv[2],0,10);
     u64 nb=1,bpp=16,bloomtest=0,bloomstat=0; int plant=0,do_query=0; u128 plantS=0,queryV=0; int thr=0;
     for(int i=3;i<argc;i++){
@@ -402,6 +409,7 @@ int main(int argc,char **argv){
         else if(!strcmp(argv[i],"--query3")&&i+1<argc){ do_query=1; queryV=str_to_u128(argv[++i]); }
         else if(!strcmp(argv[i],"--bloomtest")&&i+1<argc) bloomtest=strtoull(argv[++i],0,10);
         else if(!strcmp(argv[i],"--bloomstat")&&i+1<argc) bloomstat=strtoull(argv[++i],0,10);
+        else if(!strcmp(argv[i],"--nobloom")) NOBLOOM=1;
         else if(!strcmp(argv[i],"--threads")&&i+1<argc) thr=atoi(argv[++i]);
         else DIE("unknown argument %s",argv[i]);
     }
@@ -464,6 +472,7 @@ int main(int argc,char **argv){
     fprintf(stderr,"table bound TB=%llu triples=%.4g passes=%llu per-pass=%.4g bpp=%llu probes=%d bloom=%.3f GB; pair bloom %.3f GB\n",
         (unsigned long long)TB,(double)ntri,(unsigned long long)npasses,(double)per,(unsigned long long)bpp,F3.k,
         F3.nlines*64.0/1e9,F2.nlines*64.0/1e9);
+    if(NOBLOOM){ F3.nlines=1; fprintf(stderr,"--nobloom: 3-sum filter disabled, every masked leaf is verified exactly\n"); }
     F3.w=alloc_big((size_t)F3.nlines*64); if(!F3.w) DIE("bloom alloc failed (%.2f GB)",F3.nlines*64.0/1e9);
     F2.w=alloc_big((size_t)F2.nlines*64); if(!F2.w) DIE("pair bloom alloc failed");
     build_pairs();
@@ -474,17 +483,19 @@ int main(int argc,char **argv){
     ctrs=calloc(nthreads?nthreads:1,sizeof(Ctr)); if(!ctrs) DIE("alloc ctrs");
 
     for(u64 pass=0;pass<npasses;pass++){
-        if(pass>0) memset(F3.w,0,(size_t)F3.nlines*64);
-        u64 nins=0; double tb0=now();
-        build_table(nb,pass,&nins);
-        fprintf(stderr,"pass %llu/%llu: inserted %llu 3-sums in %.1f s (load %.3f bits/entry)\n",
-            (unsigned long long)pass+1,(unsigned long long)npasses,(unsigned long long)nins,now()-tb0,
-            nins?F3.nlines*512.0/nins:0.0);
-        /* self-test: a few inserted values must query positive */
-        for(u64 d=1;d<=TB && d<=97;d+=17) for(u64 e=1;e<=d;e+=13) for(u64 g=1;g<=e;g+=11){
-            u128 s=P7[d]+P7[e]+P7[g];
-            if(in_pass(s,nb,pass)) ASSERT(filt_query(&F3,s),"BLOOM FALSE NEGATIVE %llu %llu %llu",
-                (unsigned long long)d,(unsigned long long)e,(unsigned long long)g);
+        if(!NOBLOOM){
+            if(pass>0) memset(F3.w,0,(size_t)F3.nlines*64);
+            u64 nins=0; double tb0=now();
+            build_table(nb,pass,&nins);
+            fprintf(stderr,"pass %llu/%llu: inserted %llu 3-sums in %.1f s (load %.3f bits/entry)\n",
+                (unsigned long long)pass+1,(unsigned long long)npasses,(unsigned long long)nins,now()-tb0,
+                nins?F3.nlines*512.0/nins:0.0);
+            /* self-test: a few inserted values must query positive */
+            for(u64 d=1;d<=TB && d<=97;d+=17) for(u64 e=1;e<=d;e+=13) for(u64 g=1;g<=e;g+=11){
+                u128 s=P7[d]+P7[e]+P7[g];
+                if(in_pass(s,nb,pass)) ASSERT(filt_query(&F3,s),"BLOOM FALSE NEGATIVE %llu %llu %llu",
+                    (unsigned long long)d,(unsigned long long)e,(unsigned long long)g);
+            }
         }
 
         if(bloomtest){

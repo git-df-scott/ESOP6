@@ -158,5 +158,25 @@ else
 fi
 
 echo
+echo "== T7: residue bucketing, EXACT pass-sum identity on all five counters =="
+# T6 compares leaves/masked/queries/solutions only, because `positives` and
+# `verified` depend on the Bloom's geometry and the Q=16 per-pass filter is a
+# different random object from the Q=1 filter (sized for the largest residue
+# class, and holding 1/Q of the entries).  --nobloom removes that dependence
+# entirely: every masked leaf is passed to the exact verifier, so all five
+# counters become exact functions of the leaf set alone.  The pass sums must
+# then match Q=1 digit for digit, for every Q.
+REFN=$($E 2 600 --q 1 --nobloom --threads 4 2>/dev/null | tail -1 | awk '{print $4,$5,$6,$7,$8,$9}')
+echo "      Q=1 (exact): leaves masked queries positives verified solutions = $REFN"
+for q in 2 7 16 42; do
+  GOTN=$($E 2 600 --q $q --nobloom --threads 4 2>/dev/null | tail -1 | awk '{print $4,$5,$6,$7,$8,$9}')
+  if [ "$GOTN" = "$REFN" ]; then
+    pass "Q=$q pass sums equal Q=1 exactly on all five counters"
+  else
+    fail "Q=$q exact pass-sum mismatch: $GOTN vs $REFN"
+  fi
+done
+
+echo
 if [ $FAIL -eq 0 ]; then echo "ALL TESTS PASS"; else echo "$FAIL TEST(S) FAILED"; fi
 exit $FAIL
