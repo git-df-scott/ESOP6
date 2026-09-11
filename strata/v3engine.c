@@ -188,30 +188,54 @@ static void init_sieves(void){
 }
 
 /* --------------------------- composite 2-sum masks Q1, Q2 (spec step 0) ----- */
-#define Q1 84672u          /* 64*27*49   */
-#define Q2 12182287u       /* 13*19*31*37*43  (SPEC_V3.md prints 12190001, which is not that product) */
-static u64 *TWO1=NULL,*TWO2=NULL;      /* bitmaps of {x^6+y^6 mod Q} */
-static u32 *PQ1=NULL,*PQ2=NULL;        /* b^6 mod Q1 / Q2 for b <= Bmax */
-static u64 MAGQ1,MAGQ2;
-static u64 *SIXQ1=NULL;    /* bitmap of sixth-power residues mod Q1 (288 of 84672) */
-static double mask1_frac=0,mask2_frac=0;
+/* Three composite 2-sum masks.  SPEC_V3.md prescribes Q1 = 64*27*49 and
+ * Q2 = 13*19*31*37*43 (it prints 12190001 for the latter, which is not that
+ * product -- the product is 12182287).  Measured residue densities of
+ * {x^6+y^6 mod q}: 2^6 0.2656, 3^3 0.2593, 3^6 0.2236, 7^2 0.3061, 13 0.3846,
+ * 19 0.5263, 31 0.5161, 37 0.5135, 43 0.6744, 61 0.8361, 67 0.8358, 73 0.8356,
+ * 79 0.8354, and 1.0000 for 97,103,127,151,...  So 3^6 replaces 3^3 in Q1 (free)
+ * and a third mask Q3 = 61*67*73*79 is added; it halves the number of leaves
+ * that reach the prime loop.  Combined residue density 0.00767. */
+#define Q1 2286144u        /* 64*729*49        */
+#define Q2 12182287u       /* 13*19*31*37*43   */
+#define Q3 23569729u       /* 61*67*73*79      */
+static u64 *TWO1=NULL,*TWO2=NULL,*TWO3=NULL;   /* bitmaps of {x^6+y^6 mod Q} */
+static u32 *PQ1=NULL,*PQ2=NULL,*PQ3=NULL;      /* b^6 mod Q for b <= Bmax */
+static u64 MAGQ1,MAGQ2,MAGQ3;
+static u64 *SIXQ1=NULL;    /* bitmap of sixth-power residues mod Q1 */
+static double mask1_frac=0,mask2_frac=0,mask3_frac=0;
 
-static void build_two_sum_mask(u32 Q,u64 **bm,double *frac,u64 **sixthout){
+static void build_two_sum_mask(u32 Q,const u32 *fac,int nf,u64 **bm,double *frac,u64 **sixthout){
+    /* The sixth powers mod Q are the CRT product of the sixth powers mod each
+     * prime-power factor, and so are the two-sums; build the composite bitmaps
+     * factor-wise so no loop ever runs over Q sixth powers. */
     u64 nw=(Q+63)/64;
-    u64 *sixth=calloc(nw,8); u64 *bits=calloc(nw,8);
-    if(!sixth||!bits) DIE("alloc two-sum mask");
-    u32 *vals=malloc(sizeof(u32)*Q); u32 nv=0;
-    for(u32 x=0;x<Q;x++){
-        u32 r=(u32)pow6m(x,Q);
-        if(!(sixth[r>>6]>>(r&63)&1)){ sixth[r>>6]|=1ULL<<(r&63); vals[nv++]=r; }
+    u64 *bits=calloc(nw,8), *sixth=calloc(nw,8);
+    if(!bits||!sixth) DIE("alloc two-sum mask");
+    u64 *fs[8],*fp[8];
+    for(int i=0;i<nf;i++){
+        u32 q=fac[i]; u64 w=(q+63)/64;
+        fp[i]=calloc(w,8); fs[i]=calloc(w,8);
+        if(!fp[i]||!fs[i]) DIE("alloc factor mask");
+        u32 *v=malloc(sizeof(u32)*q); u32 nv=0;
+        for(u32 x=0;x<q;x++){ u32 r=(u32)pow6m(x,q);
+            if(!(fp[i][r>>6]>>(r&63)&1)){ fp[i][r>>6]|=1ULL<<(r&63); v[nv++]=r; } }
+        for(u32 a=0;a<nv;a++) for(u32 b=0;b<nv;b++){ u32 t=v[a]+v[b]; if(t>=q) t-=q;
+            fs[i][t>>6]|=1ULL<<(t&63); }
+        free(v);
     }
-    for(u32 i=0;i<nv;i++) for(u32 j=0;j<nv;j++){
-        u64 s=(u64)vals[i]+vals[j]; if(s>=Q) s-=Q;
-        bits[s>>6]|=1ULL<<(s&63);
+    u64 cnt=0,cnt6=0;
+    for(u32 r=0;r<Q;r++){
+        int ok=1,ok6=1;
+        for(int i=0;i<nf;i++){ u32 z=r%fac[i];
+            if(!((fs[i][z>>6]>>(z&63))&1)) ok=0;
+            if(!((fp[i][z>>6]>>(z&63))&1)) ok6=0;
+            if(!ok&&!ok6) break; }
+        if(ok){ bits[r>>6]|=1ULL<<(r&63); cnt++; }
+        if(ok6){ sixth[r>>6]|=1ULL<<(r&63); cnt6++; }
     }
-    u64 cnt=0; for(u32 r=0;r<Q;r++) if(bits[r>>6]>>(r&63)&1) cnt++;
+    for(int i=0;i<nf;i++){ free(fp[i]); free(fs[i]); }
     *frac=(double)cnt/(double)Q;
-    free(vals);
     if(sixthout) *sixthout=sixth; else free(sixth);
     *bm=bits;
 }
@@ -479,9 +503,10 @@ static int is_two_sum(u128 R,u64 bound,const u32 *res,u64 *ox,u64 *oy,Ctr *C,int
       u32 m9=(u32)((((hi%9)*7u)+(lo%9))%9); if(m9>2) return 0;
       u32 m7=(u32)((((hi%7)*2u)+(lo%7))%7); if(m7>2) return 0; }
     if(res==NULL){                         /* recursion level: apply masks here */
-        u32 r1=modu128(R,Q1,MAGQ1), r2=modu128(R,Q2,MAGQ2);
+        u32 r1=modu128(R,Q1,MAGQ1), r2=modu128(R,Q2,MAGQ2), r3=modu128(R,Q3,MAGQ3);
         if(!((TWO1[r1>>6]>>(r1&63))&1)) return 0;
         if(!((TWO2[r2>>6]>>(r2&63))&1)) return 0;
+        if(!((TWO3[r3>>6]>>(r3&63))&1)) return 0;
     }
     C->step1++;
     u32 rq1=modu128(R,Q1,MAGQ1);
@@ -547,7 +572,7 @@ static const u32 *MRES_tls=NULL;   /* set per candidate (thread-private) */
 #pragma omp threadprivate(MRES_tls)
 
 static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
-               u32 r27,u32 r49,u32 r13,u32 r43,u32 rq1,u32 rq2,
+               u32 r27,u32 r49,u32 r13,u32 r43,u32 rq1,u32 rq2,u32 rq3,
                u64 *out,u64 *base,Ctr *C){
     if(o2>j||o3>j||o7>j) return 0;
     if(!(sumres64[j]>>((u32)R&63)&1)) return 0;
@@ -559,6 +584,7 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
         C->leaves++;                       /* exactly caseA2_timed.c's j2_nodes */
         if(!((TWO1[rq1>>6]>>(rq1&63))&1)) return 0;
         if(!((TWO2[rq2>>6]>>(rq2&63))&1)) return 0;
+        if(!((TWO3[rq3>>6]>>(rq3&63))&1)) return 0;
         u32 resbuf[NPMAX]; const u32 *res=NULL;
         if(use_tp){
             u64 b4=base[0],b3=base[1];
@@ -589,11 +615,11 @@ static int dfs(u128 R,int j,u64 maxv,int o2,int o3,int o7,
         if(o7==0&&x7) continue;
         out[0]=x;
         u32 p27=powmod6[0][x%27],p49=powmod6[1][x%49],p13=powmod6[2][x%13],p43=powmod6[3][x%43];
-        u32 q1=PQ1[x],q2=PQ2[x];
+        u32 q1=PQ1[x],q2=PQ2[x],q3=PQ3[x];
         if(dfs(R-P6[x],j-1,x,o2-x2,o3-x3,o7-x7,
                r27+((r27<p27)?27:0)-p27,r49+((r49<p49)?49:0)-p49,
                r13+((r13<p13)?13:0)-p13,r43+((r43<p43)?43:0)-p43,
-               rq1+((rq1<q1)?Q1:0)-q1, rq2+((rq2<q2)?Q2:0)-q2,
+               rq1+((rq1<q1)?Q1:0)-q1, rq2+((rq2<q2)?Q2:0)-q2, rq3+((rq3<q3)?Q3:0)-q3,
                out+1,base,C)) return 1;
         if(x<(u64)stride) break;
     }
@@ -606,7 +632,7 @@ static int decompose4(u128 m,u64 maxb,const u32 *mres,u64 *out,Ctr *C){
     if(k2>4||k3>4||k7>4) return 0;
     MRES_tls=mres;
     return dfs(m,4,maxb,k2,k3,k7,(u32)(m%27),(u32)(m%49),(u32)(m%13),(u32)(m%43),
-               (u32)(m%Q1),(u32)(m%Q2),out,out,C);
+               (u32)(m%Q1),(u32)(m%Q2),(u32)(m%Q3),out,out,C);
 }
 
 /* ------------------------------------------------------- table construction */
@@ -622,12 +648,14 @@ static void build_tables(u64 Bmax){
            (unsigned long long)Bmax);
     P6=malloc(sizeof(u128)*(Bmax+2)); if(!P6) DIE("alloc P6");
     for(u64 x=0;x<=Bmax+1;x++) P6[x]=ipow6(x);
-    MAGQ1=(u64)(((u128)1<<64)/Q1); MAGQ2=(u64)(((u128)1<<64)/Q2);
-    build_two_sum_mask(Q1,&TWO1,&mask1_frac,&SIXQ1);
-    build_two_sum_mask(Q2,&TWO2,&mask2_frac,NULL);
-    PQ1=malloc(sizeof(u32)*(Bmax+2)); PQ2=malloc(sizeof(u32)*(Bmax+2));
-    if(!PQ1||!PQ2) DIE("alloc PQ");
-    for(u64 x=0;x<=Bmax+1;x++){ PQ1[x]=(u32)pow6m(x,Q1); PQ2[x]=(u32)pow6m(x,Q2); }
+    MAGQ1=(u64)(((u128)1<<64)/Q1); MAGQ2=(u64)(((u128)1<<64)/Q2); MAGQ3=(u64)(((u128)1<<64)/Q3);
+    { static const u32 f1[3]={64,729,49}, f2[5]={13,19,31,37,43}, f3[4]={61,67,73,79};
+      build_two_sum_mask(Q1,f1,3,&TWO1,&mask1_frac,&SIXQ1);
+      build_two_sum_mask(Q2,f2,5,&TWO2,&mask2_frac,NULL);
+      build_two_sum_mask(Q3,f3,4,&TWO3,&mask3_frac,NULL); }
+    PQ1=malloc(sizeof(u32)*(Bmax+2)); PQ2=malloc(sizeof(u32)*(Bmax+2)); PQ3=malloc(sizeof(u32)*(Bmax+2));
+    if(!PQ1||!PQ2||!PQ3) DIE("alloc PQ");
+    for(u64 x=0;x<=Bmax+1;x++){ PQ1[x]=(u32)pow6m(x,Q1); PQ2[x]=(u32)pow6m(x,Q2); PQ3[x]=(u32)pow6m(x,Q3); }
     build_primes(Bmax);
     if(use_tp){
         size_t nbytes=(size_t)(Bmax+2)*NP*4;
@@ -652,14 +680,14 @@ static void build_tables(u64 Bmax){
     /* memory report */
     double mb=1e6;
     double m_p6=(double)(Bmax+2)*16, m_tp=use_tp?(double)(Bmax+2)*NP*4:0,
-           m_pq=(double)(Bmax+2)*8, m_masks=(double)(Q1+Q2)/8,
+           m_pq=(double)(Bmax+2)*12, m_masks=(double)(Q1+Q2+Q3)/8,
            m_roots=(double)((IDX2>=0?PKS[IDX2]:0)+(IDX3>=0?PKS[IDX3]:0))*4,
            m_v=(double)nV*8+(double)Bmax/8, m_bl=(double)nlines*64;
     fprintf(stderr,"memory: P6=%.1fMB T_p=%.1fMB PQ=%.1fMB masks=%.1fMB root2,3=%.1fMB V=%.1fMB pairfilter=%.1fMB TOTAL=%.2fGB\n",
         m_p6/mb,m_tp/mb,m_pq/mb,m_masks/mb,m_roots/mb,m_v/mb,m_bl/mb,
         (m_p6+m_tp+m_pq+m_masks+m_roots+m_v+m_bl)/1e9);
-    fprintf(stderr,"masks: Q1 pass=%.4f Q2 pass=%.4f combined=%.5f ; pcut=%u primes=%d |E|=%llu maxE=%llu\n",
-        mask1_frac,mask2_frac,mask1_frac*mask2_frac,PCUT,NP,(unsigned long long)nEset,(unsigned long long)(nEset?Eset[nEset-1]:0));
+    fprintf(stderr,"masks: Q1 pass=%.4f Q2 pass=%.4f Q3 pass=%.4f combined=%.5f ; pcut=%u primes=%d |E|=%llu maxE=%llu\n",
+        mask1_frac,mask2_frac,mask3_frac,mask1_frac*mask2_frac*mask3_frac,PCUT,NP,(unsigned long long)nEset,(unsigned long long)(nEset?Eset[nEset-1]:0));
 }
 
 /* --------------------------------------------------------------- self test */
@@ -713,6 +741,16 @@ static void self_test(void){
         ASSERT(modu128(v,PKS[i],PKMAG[i])==(u32)(v%PKS[i]),"modu128 wrong for p=%u",PR[i]);
     }
     ASSERT(modu128((u128)12345,Q1,MAGQ1)==12345%Q1,"modu128 Q1");
+    ASSERT(modu128((u128)123456789,Q3,MAGQ3)==123456789%Q3,"modu128 Q3");
+    /* the composite masks must never reject a genuine two-sum */
+    for(u64 x=1;x<200;x++) for(u64 y=1;y<=x;y++){
+        u128 v=ipow6(x)+ipow6(y);
+        u32 a=modu128(v,Q1,MAGQ1),b=modu128(v,Q2,MAGQ2),c=modu128(v,Q3,MAGQ3);
+        ASSERT((TWO1[a>>6]>>(a&63))&1,"Q1 mask false negative");
+        ASSERT((TWO2[b>>6]>>(b&63))&1,"Q2 mask false negative");
+        ASSERT((TWO3[c>>6]>>(c&63))&1,"Q3 mask false negative");
+        u32 d=modu128(ipow6(x),Q1,MAGQ1);
+        ASSERT((SIXQ1[d>>6]>>(d&63))&1,"SIXQ1 false negative"); }
     /* is_two_sum on a handful of hand-made cases */
     if(Bmax_global>=200){
         u64 x,y;
