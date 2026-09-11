@@ -51,6 +51,7 @@ while [ "$lo" -lt "$FMAX" ]; do
   lv=$(echo "$band" | awk '{print $4}')
   sl=$(echo "$band" | awk '{print $9}')
   echo "COVERED $lo $hi leaves=$lv solutions=$sl wall=$((t1-t0))s Q=$Q $(date -u +%FT%TZ)" | tee -a "$COV" | tee -a "$LOG"
+  python3 ./covlog.py || echo "covlog.py failed" | tee -a "$LOG"
   lo=$hi
 done
 echo "DONE ($FMIN,$FMAX]" | tee -a "$LOG"
