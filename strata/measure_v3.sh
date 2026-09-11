@@ -8,8 +8,7 @@ export OMP_NUM_THREADS=$T
 run(){ # $1 = label, rest = args
     local lab="$1"; shift
     echo "### $lab : ./v3engine $*"
-    /usr/bin/time -f "TIME real=%e user=%U maxrssKB=%M" ./v3engine "$@" 2>&1 | \
-        grep -E "^(BAND|TIME|vtable|memory|masks)"
+    ./v3engine "$@" 2>&1 | grep -E "^(BAND|vtable|memory|masks)"
 }
 echo "== threads = $T =="
 run "timing band, full engine"        4300000 4400000 --k7 3,4
