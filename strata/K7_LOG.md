@@ -499,3 +499,15 @@ They say nothing about `k7 in {1,2,3,4}`, which is where the mass is.
 6. The single-`f` run at 11,936,848..11,936,849 spends 67 s building a 1.65 GB
    Bloom filter it never queries.  Harmless, but the filter should be built
    lazily on the first query if narrow bands ever matter.
+
+## 9. Production run (auditor-launched, 2026-09-11)
+
+Command: `OMP_NUM_THREADS=4 ./k7engine 2 20000000 --candidates runs/cand_2_20M.txt`
+
+Result line (verbatim):
+
+    BAND fmin=2 fmax=20000000 convention=(fmin,fmax] candidates=1248387 k7_0=172656 k7_1=179300 k7_2=179288 k7_3=179299 k7_4=179297 k7_5=179297 k7_6=179250 elim_k2k3=815123 elim_k7=124630 notcovered_k7_3_4=124706 processed_k7_0=59124 processed_k7_1=62434 processed_k7_2=62370 val_elim_k7_0=59123 leaves=21826977286 bloom_queries=798369244 bloom_positives=708635 exact_verifications=708635 dfs_nodes=740527733 solutions=0 bloom_build_s=235.410 search_s=1689.968 elapsed_s=1925.378 threads=4
+
+Coverage statement: class 1, k7 in {0,1,2}, 2 < f <= 20,000,000: 1,248,387
+candidates, 183,928 searched, **0 solutions**, 32.1 min wall on 4 cores.
+The 124,706 candidates with k7 in {3,4} are NOT covered by this run.
