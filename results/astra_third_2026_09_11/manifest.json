@@ -1,0 +1,61 @@
+{
+  "repository": "ESOP6",
+  "branch": "claude/great-dirac-nd86f4",
+  "base_commit": "605940509a8cbb1fb5b5d63197abb583ba88e5b5",
+  "created_utc": "2026-09-11T14:35:12.752459+00:00",
+  "status": {
+    "esop6_solution_found": false,
+    "positive_rational_surface_point": false,
+    "degree_eight_identity_found": false,
+    "degree_eight_obstruction_obtained": false,
+    "degree_eight_top_equation_equivalent_to_esop6": true,
+    "degree_eight_3_integral_case": "IMPOSSIBLE",
+    "degree_eight_remaining_branch": "LIVE: deg N = 2",
+    "unequal_slope_six_degM0": "IMPOSSIBLE for every rational rho>0",
+    "unequal_slope_six_degM6": "OPEN (3-integral case impossible)",
+    "new_integer_search_run": false
+  },
+  "scope": "RATIONAL_CURVE_ATTEMPT.md equation (5); and the unequal leading-slope degree-six sibling",
+  "files": {
+    "ASTRA_THIRD_STRIKE.md": {
+      "bytes": 15300,
+      "sha256": "c57d0dc5cabe8bd16be2f28973449741f75d8edf9ab1f78c7bcd7ce3fba8be48"
+    },
+    "results/astra_third_2026_09_11/degree_eight.json": {
+      "bytes": 3961,
+      "sha256": "51c5585a2ea8dc274ef0636cfaf60c7297f949a4ef90e70f7f9e952a5e99ff82"
+    },
+    "results/astra_third_2026_09_11/inherited_gates.log": {
+      "bytes": 1849,
+      "sha256": "db5830c8f759d669a2291a28f99a34c67869a98be7d794f06ee45a6f0820de91"
+    },
+    "results/astra_third_2026_09_11/mod3_shapes.json": {
+      "bytes": 20970,
+      "sha256": "8c124a31cf17ed86edc604212be29a098be0151946a682b671355694e0a4d56b"
+    },
+    "results/astra_third_2026_09_11/third_gates.json": {
+      "bytes": 532,
+      "sha256": "675d9cbce38a39ffc4840267cac97d58aa6a19ce0df56eb2aeda737371fb3dd7"
+    },
+    "results/astra_third_2026_09_11/unequal_slope_six.json": {
+      "bytes": 2100,
+      "sha256": "72abcccafa6d5f2ac128f86eec1c020a1f137e1f222040a61db38994252ad830"
+    },
+    "tests/third_strike.py": {
+      "bytes": 6183,
+      "sha256": "41a1a7fcc7d36a6ca348950aa6f3f821cdf8523ac2843ab6b18755e58266a01e"
+    },
+    "tools/degree_eight_strike.py": {
+      "bytes": 23346,
+      "sha256": "70435acffc0f8cd679cf87d2787c09fd14a571920bd554fd13243dceb84dfe6d"
+    },
+    "tools/third_manifest.py": {
+      "bytes": 2385,
+      "sha256": "cea97ed7145435160d5befe3bc5bbe424e8a7a361eab299e0f487ff1a672502c"
+    },
+    "tools/unequal_slope_six.py": {
+      "bytes": 7901,
+      "sha256": "bb0e61e3847f9843a307eb948918930405f65b3f98303477e01d2c41caf02ecb"
+    }
+  }
+}

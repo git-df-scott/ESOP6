@@ -1,0 +1,246 @@
+{
+ "branch_degN2": {
+  "equations": 36,
+  "mu": "s^2+n1 s+n2",
+  "q~": "s^2+q",
+  "reduced_identity": "(81/2)(x^6+y^6) = mu*q~*(3 s^12 mu^2+q~^2)(27 s^12 mu^2+q~^2)",
+  "top_equation": "(p6^6+r6^6)/2 = q^5 n2/81 (solvable over Q)",
+  "unknowns": 15,
+  "x,y": "monic degree 6"
+ },
+ "degree_branches": {
+  "admissible_(degN,rho)": [
+   [
+    2,
+    6
+   ],
+   [
+    8,
+    7
+   ]
+  ],
+  "rhs_degree_by_degN": {
+   "0": 34,
+   "1": 35,
+   "2": 36,
+   "3": 37,
+   "4": 38,
+   "5": 39,
+   "6": 40,
+   "7": 41,
+   "8": 42
+  }
+ },
+ "grading": {
+  "equation_weighted_homogeneous_for_orders": "1..11",
+  "from_order_12": "splits into weighted degrees d, d-12, d-24",
+  "grading": "p_i,r_i,n_i -> i ; q -> 2",
+  "weighted_homogeneous_pieces_checked": 38
+ },
+ "leading_equation_local": {
+  "admissible_v2_differences": [
+   -24,
+   -23,
+   -18,
+   -17,
+   -12,
+   -11,
+   -6,
+   -5,
+   5,
+   6,
+   11,
+   12,
+   17,
+   18,
+   23,
+   24
+  ],
+  "admissible_v3_differences": [
+   -22,
+   -16,
+   -10,
+   -4,
+   1,
+   6,
+   12,
+   18,
+   24
+  ],
+  "conclusion": "the top equation is not obstructed at 2 or at 3",
+  "v2_equal_valuations_excluded": true
+ },
+ "leading_equation_search": {
+  "box": {
+   "n,q<=": 150,
+   "p,r<=": 250
+  },
+  "hits": [],
+  "pairs_tested": 22500
+ },
+ "leading_equations": {
+  "degN2_top": "(p6^6+r6^6)/2 = q^5*n2/81",
+  "degN8_top": "(p7^6+r7^6)/2 = n8*q*(27*n8^2+q^2)*(3*n8^2+q^2)/81",
+  "degN8_top_is_surface": "X=p7, Y=r7, Z=n8-q/3, W=n8+q/3 turns the top equation into 2X^6+2Y^6+Z^6=W^6"
+ },
+ "mod3": {
+  "enumeration_counts": {
+   "cube_admissible": 27,
+   "nq_pairs": 19683,
+   "x_tested": 59049
+  },
+  "residue_shapes": 95,
+  "shapes_sha256": "d6925bc0c0c1731d5c6ec544ccf68977a3ba22a00dbb84411ae3b5e7d61dc446",
+  "statement": "complete list of (x,y,n,Q0) mod 3 solving (x^6+y^6)/2 = n^5 q~ in F3[s]"
+ },
+ "mod9": {
+  "children_per_state_next_level": {
+   "12": 177147,
+   "8": 14348907
+  },
+  "full_jacobian_rank_histogram_of_survivors": {
+   "8": 9,
+   "12": 18
+  },
+  "ranks_mod9": [
+   8
+  ],
+  "shapes_in": 95,
+  "shapes_surviving_mod9": 27,
+  "states_mod9": 81,
+  "states_sha256": "efa3be98e394d1818ecd159ee72a774bb54b2ff22a5c75f6b7fc7bf37d96cd8b"
+ },
+ "rescaling": {
+  "rescaled_form": "n*q~*(3n^2+L^12 q~^2)(27n^2+L^12 q~^2) = 81n^5q~+30L^12n^3q~^3+L^24 n q~^5"
+ },
+ "result": "PASS",
+ "reversed_normal_form": "(81/2)(x^6+y^6) = n*q~*(3n^2+q~^2)*(27n^2+q~^2), x,y monic deg 7, n monic deg 8, q~=s^2+q",
+ "scope": "RATIONAL_CURVE_ATTEMPT.md equation (5), degree eight, equal leading slopes, Q=1+q t^2 centered",
+ "surface_identity": "2X^6+2Y^6+Z^6-W^6 = 4 t^6 (D - RHS)/Q^6",
+ "system": {
+  "after_eliminating_N": {
+   "note": "orders 1..8 solve n1..n8 linearly (dF/dN(0)=5)",
+   "residual_equations": 34,
+   "residual_orders": [
+    9,
+    42
+   ],
+   "unknowns": 15
+  },
+  "equation_count": 42,
+  "equation_orders": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20,
+   21,
+   22,
+   23,
+   24,
+   25,
+   26,
+   27,
+   28,
+   29,
+   30,
+   31,
+   32,
+   33,
+   34,
+   35,
+   36,
+   37,
+   38,
+   39,
+   40,
+   41,
+   42
+  ],
+  "max_total_degree_reversed": 6,
+  "unknowns": 23
+ },
+ "unperturbed_exact_solutions": {
+  "corresponds_to": "x=y, i.e. P7=R7, i.e. X=Y (diagonal)",
+  "family": "(x,y,n,q~) = (s^5*q~, s^5*q~, s^6*q~, q~)",
+  "holds_for_every_Q0": true
+ },
+ "valuation": {
+  "admissible_(a,b,c)_in_[-20,0]x[-12,0]^2": {
+   "R1_c<=b": 12,
+   "R2_c=b+1": 12,
+   "R3_c>=b+2": 8
+  },
+  "integral_case_balance": 4,
+  "integral_case_possible": false,
+  "sample_R2": [
+   [
+    -12,
+    -12,
+    -11
+   ],
+   [
+    -11,
+    -11,
+    -10
+   ],
+   [
+    -10,
+    -10,
+    -9
+   ],
+   [
+    -9,
+    -9,
+    -8
+   ],
+   [
+    -8,
+    -8,
+    -7
+   ]
+  ],
+  "sample_R3": [
+   [
+    -11,
+    -12,
+    -6
+   ],
+   [
+    -10,
+    -12,
+    0
+   ],
+   [
+    -10,
+    -11,
+    -5
+   ],
+   [
+    -9,
+    -10,
+    -4
+   ],
+   [
+    -8,
+    -9,
+    -3
+   ]
+  ]
+ }
+}

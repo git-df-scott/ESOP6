@@ -1,0 +1,15 @@
+{
+  "inherited_gates_rerun": {
+    "make boundary-checks": "PASS",
+    "make direct-checks": "PASS",
+    "log": "results/astra_third_2026_09_11/inherited_gates.log"
+  },
+  "new_gate": {
+    "make third-checks": "PASS"
+  },
+  "not_run": [
+    "make clean/all/validate/control/equiv/prototypes/frontier-audit/differential (not re-run in this strike; they were confirmed on this tree beforehand)",
+    "caseA2/caseA3 integer sweeps beyond the existing 700k-730k control (declined)"
+  ],
+  "esop6_verifiers_run_on_a_candidate": false
+}
