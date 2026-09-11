@@ -2,3 +2,4 @@ k7engine
 *.o
 *.bin
 cand_*.txt
+__pycache__/
