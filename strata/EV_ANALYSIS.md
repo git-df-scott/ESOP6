@@ -1,104 +1,102 @@
-# Where a counterexample would live, and what a CPU-hour buys
+# Expected value of a counterexample search — CORRECTED 2026-09-12
 
-Auditor's analysis, 2026-09-11. Everything here is heuristic except the two
-lattice bounds at the end.
+**This file replaces an earlier version whose numbers were wrong. The errors and
+their sizes are documented in section 5, because the earlier numbers were quoted
+in `SESSION_2026_09_11.md` and in PR #3.**
 
-## 1. The heuristic count
+## 1. Method (the part that was previously wrong)
 
-For a^6+b^6+c^6+d^6+e^6 = f^6, model the left side as a random integer near
-f^6.  Solutions with f in [F, 2F] are then expected to number about
+For `x1^k + ... + xn^k = y^k` the Hardy--Littlewood heuristic gives, for the
+number of solutions with `y` in a range,
 
-    N([F,2F]) ~ sigma * V * (5/6) * log 2,
+    N  ~  (1/n!) * S * A * log(range ratio),        A = Gamma(1+1/k)^n / Gamma(n/k),
 
-where V = Gamma(7/6)^5 / Gamma(11/6) = 0.7306 is the volume factor and sigma
-is the singular series (product of local densities).  Computed exactly by
-convolution of the sixth-power residue distributions:
+where `S = prod_p sigma_p` is the singular series and the `1/n!` converts
+ordered tuples to distinct (unordered) solutions.
 
-| modulus | local density |
-|---|---|
-| 8 | 0.750 |
-| 9 | 0.259 |
-| 7 | 0.0108 |
-| 13 | 2.830 |
-| 19 | 0.853 |
-| 31 | 0.739 |
-| 37 | 1.641 |
-| 43 | 0.824 |
-| 61..127 (p = 1 mod 6) | 0.97..1.15 |
-| p = 5 mod 6 | 1 + O(1/p^2) |
+**The trap.** The naive local density
 
-Product over the listed moduli: sigma ~ 0.0070.  The 7-adic factor alone
-(0.0108) is why the conjecture has held so long at k = 6: exactly one of the
-five terms may be coprime to 7.
+    sigma_p(e) = #{(x,y) mod p^e : sum xi^k = y^k} / p^(e*n)
 
-Consequences:
-- expected solutions with f <= 4.3e6 (all classes): about 0.065
-- expected solutions with 4.3e6 < f <= 1e8 (all classes): about 0.013
-- per e-fold of height, all classes: 0.0042
-- the count is LOG-distributed in f: doubling the frontier is worth the same
-  everywhere.  There is no "sweet spot" in height.
-- Compare k = 5: known (5,1,4) solutions at f = 144, 14132, 85359 are spaced
-  roughly log-uniformly, as this model predicts.
+**does not converge.** Every solution has all its scalar multiples in the
+solution set, and that family grows with `e`. Measured directly:
 
-## 2. Mass of the sub-searches
-
-Class 1 (all three exemptions on one term) is 1/25 of the mass.  Inside class 1,
-the count k7 = m mod 7 of small bases coprime to 7 splits it further:
-
-| k7 | mass within class 1 | cost per candidate |
-|---|---|---|
-| 0 | 1/2401 | trivial (7^6 divides m; provably f >= 11,936,849) |
-| 1 | 24/2401 ~ 1% | O(B^2/7^6) |
-| 2 | 216/2401 ~ 9% | O(B^2/7^6) |
-| 3 | 864/2401 ~ 36% | O(B^2/1300) leaves, table-free (SPEC_V3) |
-| 4 | 1296/2401 ~ 54% | O(B^2/1300) leaves, table-free (SPEC_V3) |
-
-(B = (f-1)/42.  Masses use independent divisibility; the exact binomial
-weights are C(4,k)(6/7)^k(1/7)^(4-k).)
-
-## 3. Expected value per plan, from the frontier of 4.3e6
-
-EV = 0.0042 * (mass fraction) * ln(F_new / F_old).
-
-| plan | mass | reach | EV | cost on this box |
+| k=6, p=7 | p^1 | p^2 | p^3 | p^4 |
 |---|---|---|---|---|
-| class 1, k7 <= 2 (k7engine) | 0.04 * 0.10 | 2.0e7 | 6e-6 | 0.5 h |
-| class 1, all k7, old engine to 4.6e6 | 0.04 | 4.6e6 | 1.1e-5 | 4-8 h, RAM-capped |
-| class 1, all k7, table-free v3 to 8e6 | 0.04 | 8e6 | 1.0e-4 | ~6 h (model) |
-| class 1, all k7, v3 to 1e7 | 0.04 | 1e7 | 1.4e-4 | ~14 h (model) |
-| class 4 from 3e6 to 3.5e6 | 0.16 | 3.5e6 | 1.0e-4 | ~4 days |
-| class 5 beyond 5e6 | 0.48 | -- | -- | GPU territory |
+| naive | 0.01077 | 0.01113 | 0.01363 | 0.03112 |
+| **primitive** | **0.01071** | **0.01071** | **0.01071** | **0.01071** |
 
-Reading: every plan available in a session is worth about one chance in ten
-thousand.  The table-free engine is the best of them because it removes the RAM
-wall and is ~10x cheaper per leaf, not because it changes the odds by much.
+The same divergence appears at `p=2` and `p=3` for k=6 (naive 2-adic runs
+0.75, 0.75, 0.875, 1.125, 1.625, ...). The quantity that converges is the
+density of **primitive** solutions — those not having every coordinate
+divisible by `p`:
 
-## 4. Why "cheap deep slivers" do not help
+    sigma_p = lim_e [ N_total(p^e) - N_all-divisible(p^e) ] / p^(e*n).
 
-A stratum where all four small bases share an extra prime p has mass 1/p^4 but
-reach only grows by a factor p (the congruence modulus grows by p^6, the bound
-shrinks by p).  Mass shrinks faster than log(reach) grows, so the EV of such a
-sliver is ~ ln(p)/p^4 -- negligible.  The lattice bounds below make the extreme
-case rigorous: all four bases divisible by 42 forces f >= 1,698,000,953.
+All numbers below use that. Convergence was verified per prime by computing
+successive `e` until the value repeated to 12 decimals.
 
-## 5. Why there is no algebraic shortcut
+## 2. Converged local densities
 
-Any rational curve on x1^6+...+x5^6 = x6^6 yields rational points, so finding
-one is at least as hard as finding a point: specialising the curve at a
-parameter value already gives a solution (for a conic, the u^6 coefficient
-equation is itself Sum a_i^6 = e^6).  Linear parametrisations are impossible
-outright (at a real zero of the sixth-power side every term vanishes).  The
-repeated-coordinate surface 2X^6+2Y^6+Z^6 = W^6 is of general type with no
-genus-one fibration (repo, GEOMETRIC_STRIKE.md).  Sub-loci not previously
-considered: 3X^6+Y^6+Z^6 = W^6 (general type, locally solvable) and the curve
-W^6-E^6 = 5A^6 (genus 10, finitely many points).  3X^6+2Y^6 = W^6 has no
-primitive solution (mod 7).
+k=6, n=5 (stable exponents 2^3, 3^2, 7^1, rest p^1):
 
-## 6. Rigorous lower bounds (strata/lattice_bounds.py, verified three ways)
+| p | 2 | 3 | **7** | 5 | 11 | 13 | 19 | 31 | 37 | 43 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| sigma_p | 0.6250 | 0.2469 | **0.01071** | 1.0317 | 1.0075 | 2.8302 | 0.8534 | 0.7392 | 1.6408 | 0.8242 |
 
-| extra prime dividing all four small bases | f >= |
+k=7, n=6 (stable exponents 7^2, rest p^1):
+
+| p | 2 | 3 | **7** | 5 | 29 | 43 | 71 | 113 |
+|---|---|---|---|---|---|---|---|---|
+| sigma_p | 0.9844 | 0.9986 | **2.1191** | 0.9999 | 0.6752 | 1.6058 | 0.9610 | 0.9448 |
+
+The single factor `sigma_7 = 0.0107` for k=6 versus `2.119` for k=7 is the whole
+story: at k=6 exactly one of the five left terms may be coprime to 7, and that
+costs a factor of ~100. At k=7 the prime 7 *helps*.
+
+## 3. Converged totals (stable over primes <= 200, 500, 1000)
+
+| | S (primes<=1000) | A | **distinct solutions per e-fold of f** |
+|---|---|---|---|
+| (6,1,5) | 0.00715 | 0.60879 | **3.63e-05** |
+| (7,1,6) | 2.06837 | 0.60593 | **1.74e-03** |
+
+**k=7 advantage: 48x** (successive prime bounds give 54, 49.1, 48.0 — converged).
+The count is log-uniform in `f`: no height is a sweet spot.
+
+## 4. What the searches were actually worth
+
+| search | expected distinct solutions |
 |---|---|
-| 2 | 235,283 |
-| 3 | 395,243 |
-| 7 | 11,936,849 |
-| 42 | 1,698,000,953 |
+| (6,1,5), all classes, f <= 4.3e6 (the pre-existing frontier) | 5.5e-04 |
+| (6,1,5), all classes, 4.3e6 < f <= 2e7 | 5.6e-05 |
+| **this session's k=6 sliver** (class 1 ~1/25, k7<=2 ~10%, to 2e7) | **2.2e-07** |
+| **this session's k=7 run**, 1500 < f <= 6500 | **2.6e-03** |
+| **(7,1,6) cumulative, 2 < f <= 6500** | **1.5e-02** |
+
+So the k=6 sliver was worth about **one chance in 4.5 million**, and the k=7
+work about **one in 65** cumulatively (one in 390 for the increment added this
+session). The pivot to k=7 was correct — more strongly than the original,
+badly-derived argument claimed — but no run here had a good chance of success.
+
+## 5. Errors in the previous version, and their sizes
+
+1. **Divergent method.** The old local densities were the naive ones. They only
+   looked stable because they were evaluated at low exponents (8, 9, 7, 13, ...)
+   where naive and primitive nearly agree. At higher exponents they diverge.
+   Corrected S: 0.0070 -> 0.00715 (k=6), 2.19 -> 2.068 (k=7). By luck the old
+   totals were close; the *method* was unsound and could not be relied on.
+2. **Mismatched prime sets.** The old "70x" compared a k=6 product over
+   {8,9,7,13,19,31,37,43} with a k=7 product over {8,9,49,29,43,71,113,127,197,211}.
+   Corrected, converged ratio: **48x**, not 70x.
+3. **Ordered vs unordered mixed.** The old EV table used the **ordered** k=6
+   density (0.0042 per e-fold) without dividing by 5! = 120, while the k=7
+   figure had been divided by 6!. Every k=6 EV in that table, and the
+   "one chance in ten thousand" summary, is therefore **overstated by ~120x**.
+   The true figure for the k=6 plans is about **one in a million**.
+
+## 6. Unaffected by all of this
+
+The search results themselves. Coverage, leaf counts and zero-solution verdicts
+are exact machine facts; the four lattice lower bounds in `lattice_bounds.py`
+are proved arithmetic. Only the *motivating estimates* were wrong.
