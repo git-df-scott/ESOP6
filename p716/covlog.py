@@ -18,7 +18,7 @@ rows.sort()
 out = ["<!--COVERAGE-->", "## COVERAGE (auto-generated from runs/coverage.txt; do not hand-edit)", ""]
 out.append("Prior session, single pass, same engine and same host:")
 out.append("")
-out.append("    (7,1,6): 2 < f <= 1500, 2849012361 leaves, 0 solutions, 4-core host, 238 s")
+pass  # (2,1500] now has a real COVERED line in runs/coverage.txt; no hard-coding
 out.append("")
 if rows:
     out.append("This session, Q=7 residue-class bucketing, chunked so that each line below")

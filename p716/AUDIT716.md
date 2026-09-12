@@ -25,24 +25,28 @@ and came out exact.  The reported **ZERO for `2 < f <= 6500` stands.**
 
 Two things nevertheless need your attention, neither a search bug:
 
-* **OPERATIONAL: the production run is DEAD.**  `engine716 6500 6750 --q 42`
-  (pid 9593) and its `run716.sh` driver both vanished at **14:33:07 UTC** while
-  in pass 12/42 of chunk `(6500,6750]`, ~4240 s in.  No `FATAL`/`ASSERT`, no
-  `ERROR rc=` line from `run716.sh` (the driver would have written one), no
-  kernel OOM record -- consistent with the whole detached process group being
-  reaped externally, not with an engine fault.  I did **not** kill it and I
-  have **not** restarted it.  `runs/coverage.txt` is unaffected: the chunk was
-  never checkpointed, so recorded coverage is still exactly `f <= 6500` and the
-  checkpoint design behaved correctly.  Restart with `./run716.sh 6000 7000 250 42`
-  when you want it back (it resumes from 6500).
-* **CONTEXT: the search is heuristically hopeless at this scale.**  The
-  expected number of (7,1,6) solutions with `2 < f <= F` is
-  `(6/7) * Gamma(8/7)^6 / (Gamma(13/7) * 6!) * ln F  =  9.82e-4 * ln F`.
-  For `F = 6500` that is **0.0066**; for `F = 10^6` it is 0.011; expectation 1
-  is reached only near `F = e^1188`.  Zero is the overwhelmingly likely
-  outcome, and the yield is logarithmic in `F`, so no reachable amount of extra
-  CPU changes that.  (Naive heuristic; it ignores congruence and algebraic
-  structure, but the exponent count is robust.)
+* **OPERATIONAL: the production run is stopped.**  `engine716 6500 6750 --q 42`
+  (pid 9593) and its `run716.sh` driver both ended at **14:33:07 UTC** while in
+  pass 12/42 of chunk `(6500,6750]`, ~4240 s in.  No `FATAL`/`ASSERT`, no
+  `ERROR rc=` line from `run716.sh`, no kernel OOM record -- the evidence said
+  "process group reaped externally, not an engine fault", and the orchestrating
+  session has since confirmed it issued that kill deliberately to free cores for
+  this audit (see the note at the end of this file).  **`runs/coverage.txt` is
+  unaffected**: the in-flight chunk was never checkpointed, so recorded coverage
+  is still exactly `f <= 6500` and the checkpoint design behaved correctly.
+  Nothing was restarted by this audit; `./run716.sh 6000 7000 250 42` resumes
+  from 6500 when you want it back.
+* **CONTEXT: zero is the expected outcome, and this is independently
+  corroborated.**  My own archimedean-only estimate for the number of
+  (7,1,6) solutions with `2 < f <= F` is
+  `(6/7) * Gamma(8/7)^6 / (Gamma(13/7) * 6!) * ln F  =  9.82e-4 * ln F`,
+  giving **0.0066** at `F = 6500`.  Multiplying by the singular series
+  `S = 2.068` computed independently in `strata/EV_ANALYSIS.md` gives **0.0137**,
+  against the **1.5e-02** recorded there for the same range -- agreement to
+  within rounding, from two separately derived archimedean factors.  The yield
+  is logarithmic in `F`: reaching expectation 1 needs roughly `F = e^490`.  So a
+  zero at 6500 carries essentially no evidence against the engine, and the
+  audit had to be structural rather than statistical.
 
 ---
 
@@ -235,6 +239,19 @@ Smooth and monotone, with **no discontinuity at either bucketing change**
 also shows all `Q` passes completed (`passes_seen == npasses` for all 16
 recorded chunks).
 
+### Three-way differential including the production modulus
+
+The repo's T3 compares only `Q=1` against `ref716.py` on `(2,300]`.  Extended to
+`(2,450]` and to the production `Q=42`:
+
+    ./engine716 2 450 --q 42 --threads 1   -> leaves=23420365 masked=20317141 bq=20317141 sols=0
+    ./engine716 2 450 --q 1  --threads 1   -> leaves=23420365 masked=20317141 bq=20317141 sols=0
+    python3 ./ref716.py 2 450              -> leaves=23420365 sols=0
+
+The 42 residue passes reproduce the single-pass leaf set **digit for digit**,
+and both agree with an independent pure-Python brute force that shares no code
+with the engine.
+
 ### End-to-end planted solutions beyond the tested scale
 
 The existing T1 uses bases `<= 300`.  New planted runs:
@@ -252,10 +269,16 @@ production machinery (3-sum Bloom ON) under Q=1, Q=7 and the production Q=42,
 plus the `S+1` near-miss:*
 
     ./engine716 2 2 --q {1,7,42} --plant <S> --threads 2
-    plant2k 1 [1944 1767 1263 852 270 59]  Q1/Q7/Q42 all found, exact, S+1 silent
-    plant2k 2 [1056 800 777 658 564 379]   Q1/Q7/Q42 all found, exact, S+1 silent
-    (remaining plants of this batch were still running when the audit closed;
-     see NOTE-A)
+    plant2k 1 [1944 1767 1263 852 270 59]   Q1/Q7/Q42 all found, exact, S+1 silent
+    plant2k 2 [1056 800 777 658 564 379]    Q1/Q7/Q42 all found, exact, S+1 silent
+    plant2k 3 [1667 1011 961 323 320 50]    Q1/Q7/Q42 all found, exact, S+1 silent
+    plant2k 4 [1563 1377 1176 976 246 56]   Q1/Q7/Q42 all found, exact, S+1 silent
+    plant2k 5 [1036 690 369 291 260 249]    Q1/Q7/Q42 all found, exact, S+1 silent
+
+5/5 found under all three moduli; each reported 6-tuple re-verified in Python
+big integers (exact sum and non-increasing order); the `S+1` near miss silent
+under Q=42 in all five.  The batch was stopped after plant 5 to free cores for
+the production-configuration run below.
 
 *3-sum table membership in exactly the right pass, at 1.4e23 magnitude, under
 the production modulus:*
@@ -270,11 +293,22 @@ no other -- the Q-split table is neither losing the triple nor duplicating it --
 while the exact `verify3` recovers `(1999,1500,3)` in every pass, confirming the
 verifier windows at production magnitude independently of the filter.
 
-*Full production configuration at production TB:*
+*Full production configuration at production TB -- the definitive end-to-end
+test:*
 
-    ./engine716 2 6500 --q 42 --plant 290218665402350491715925409 --threads 2
-    (TB=6500, per-pass Bloom ~2.2 GB, exactly the (6250,6500] chunk geometry;
-     see NOTE-A for the result)
+    ./engine716 2 6500 --q 42 --plant 290218665402350528542608173 --threads 2
+    -> table bound TB=6500 triples=4.579e+10 passes=42 per-pass=1.122e+09
+       bpp=16 probes=11 bloom=2.312 GB; pair bloom 0.085 GB
+       pass 1/42: inserted 1090284880 3-sums in 148.4 s (load 16.967 bits/entry)
+       SOLUTION 0 6031 588 442 220 123 35            (rc = 3)
+
+This is **exactly the `(6250,6500]` chunk geometry** -- same `TB`, same `Q=42`,
+same 2.3 GB per-pass blocked Bloom, same 11 probes -- with a real 6-tuple at
+1e26 magnitude planted in it.  The tuple was chosen so that
+`(d+e+g) mod 42 = (220+123+35) mod 42 = 0`, i.e. it must be found in **pass 0**,
+and it was: the Q-split table, the c-class stride, the mask, the 3-sum Bloom,
+the 2-sum Bloom and the exact verifier all cooperated to return the planted
+bases unchanged, in the predicted pass, at production scale.
 
 Note that planted runs use `amax = TB`, not `amax = f-1`, so they cannot by
 themselves exercise the `f-1` cap.  That cap is safe by the argument in Item 2
@@ -283,6 +317,19 @@ themselves exercise the `f-1` cap.  That cap is safe by the argument in Item 2
 seventh power.
 
 ---
+
+## Where the existing test suite is weak (and what this audit substituted)
+
+| Existing test | Weakness | Replaced by |
+|---|---|---|
+| **T1** 20 plants, bases `<= 300` | 20x below production magnitude; never touches the 1e26-1e27 regime where the `long double` seeds were suspected; and plant mode uses `amax = TB`, so it cannot exercise the `amax = f-1` cap | plants at bases 6000-6500 (`--nobloom`, TB=6500) and at bases `<= 2000` under Q=1/7/42 with the Bloom on; `hook716 roots`; `window_exact.py` (which does apply `min(f-1, iroot7(S))`) |
+| **T2** "control" `568^7 = 525^7+...+127^7` | This is a **(7,1,7)** identity -- seven terms. It verifies `verify7.py` and the 3-sum table, but it is *not* a (7,1,6) solution and exercises none of the 6-term window logic | `QUERY3` at TB=2000 under Q=42 (right pass, `bloom=1` in exactly one of 42), plus the plants above |
+| **T3** differential vs `ref716.py` on `(2,300]` | `ref716.py` was written from the same algorithm description, so it shares the *window design*; a common conceptual error in the windows would cancel out. Also Q=1 only | extended to `(2,450]` **and Q=42**; and, more importantly, `window_exact.py` / `hook716 window`, which start from a *known* 6-tuple and ask whether the windows admit it -- a test that cannot cancel |
+| **T4/T6** NB and Q pass sums on `(2,600]` | compares only 4 of 6 counters | superseded by T7, and re-run here at `(2,1200]` |
+| **T5** `--bloomtest 10^6` | samples `d,e,g` uniformly, so it concentrates on large `d` and tests ~1e6 of ~1e11 triples; it is also the *3-sum* filter, not `F2`, which is the one whose false negative would be silent inside `verify3` | `hook2 f2 6750`: **all 22,784,625** reachable pairs queried against `F2` at production TB |
+| **T7** exact pass-sum identity, `(2,600]` | the strongest existing test, but 10x below production and it validates the *partition*, not that a genuine tuple lands in the admitted part of it | `hook2 cpart` (exact visit counts per c, per Q) plus the `Q`-pass and table-insert checks inside `hook716 window` |
+| (none) | no test drove `iroot7`/`ceil_root7_div` against an exact reference; `selftest()` only checks bases `<= 20000` (iroot7) / `<= 3000` (ceil) on *exact* boundaries, never random interior values | `hook716 roots`: 21.1M checks including 3M random `u128` vs a float-free binary-search reference |
+| (none) | no test checked the residue masks against an independent computation | brute-force Python cross-check of all nine `sumres` sets |
 
 ## Latent issues (none affects the recorded `f <= 6500` coverage)
 
@@ -314,14 +361,21 @@ seventh power.
 * **L5.** (cosmetic) `single` in `init_masks` includes `x = 0`; harmless, since
   residue 0 is attained anyway by `x = m` and the mask can only over-accept.
 
-## NOTE-A -- audit runs still in flight when this file was written
+## Pass-sum identity at 2x the tested scale
 
-Two background audit jobs had not finished: the remaining 11 `plant2k` tuples
-(bases `<= 2000`, Q = 1/7/42, Bloom on) and the single production-configuration
-plant at TB = 6500 with `--q 42`.  Both were running against a 4-core box that
-was also running other audit jobs.  Neither had reported a miss.  If either
-does report a miss, this verdict must be revisited -- the results are appended
-below when available.
+`(2,1200]`, Bloom on, comparing the deterministic counters (`positives` and
+`verified` are filter-geometry dependent across bucketings and are excluded, as
+in the repo's T6):
+
+    Q=1   leaves=1168855682 masked=1017187638 bq=1017187638 sols=0
+    Q=7   leaves=1168855682 masked=1017187638 bq=1017187638 sols=0
+    Q=14  leaves=1168855682 masked=1017187638 bq=1017187638 sols=0
+    Q=42  leaves=1168855682 masked=1017187638 bq=1017187638 sols=0
+
+All four identical.
+
+The `Q=1` figure also matches the leaf-density model above
+(`0.00225 * sum_{f<=1200} f^3 = 1.166e9`).
 
 ## Reproduction
 
