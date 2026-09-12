@@ -257,6 +257,19 @@ plus the `S+1` near-miss:*
     (remaining plants of this batch were still running when the audit closed;
      see NOTE-A)
 
+*3-sum table membership in exactly the right pass, at 1.4e23 magnitude, under
+the production modulus:*
+
+    V=$(python3 -c 'print(1999**7+1500**7+3**7)')   # = 144638608940279916016186
+    ./engine716 2 2000 --q 42 --query3 "$V" --threads 2
+    -> pass 16:  QUERY3 144638608940279916016186 bucket=16 pass=16 bloom=1 exact=1 1999 1500 3
+       all other 41 passes: bloom=0 exact=1 1999 1500 3
+
+`bucket=16` is `modq(V)`, and `bloom=1` occurs in **exactly** that one pass and
+no other -- the Q-split table is neither losing the triple nor duplicating it --
+while the exact `verify3` recovers `(1999,1500,3)` in every pass, confirming the
+verifier windows at production magnitude independently of the filter.
+
 *Full production configuration at production TB:*
 
     ./engine716 2 6500 --q 42 --plant 290218665402350491715925409 --threads 2
@@ -322,3 +335,33 @@ below when available.
     OMP_NUM_THREADS=1 $A/hook2 cpart
     OMP_NUM_THREADS=2 $A/hook2 f2 6750
     python3 $A/window_exact.py 101 400000
+
+---
+
+## Note from the orchestrating session, 2026-09-12
+
+Two corrections to the HEADLINE section above.
+
+1. **The production run did not die mysteriously — I killed it deliberately**
+   at 14:33 UTC (`kill -TERM 9593` plus the `run716.sh` driver), to free all
+   four cores for this audit after the user redirected from searching to
+   debugging.  The auditor's reading of the evidence was exactly right ("the
+   whole detached process group reaped externally, not an engine fault"), and
+   its conclusion that `runs/coverage.txt` is unaffected is correct: the
+   in-flight chunk `(6500,6750]` was never checkpointed, so recorded coverage
+   remains exactly `2 < f <= 6500`.
+
+2. **The heuristic in the HEADLINE omits the singular series.**  The formula
+   `(6/7)*Gamma(8/7)^6/(Gamma(13/7)*6!) * ln F` is the archimedean factor alone,
+   i.e. it implicitly sets the arithmetic local factor `S = 1`.  Computing `S`
+   from converged **primitive** local densities (see `strata/EV_ANALYSIS.md`)
+   gives `S = 2.068` for (7,1,6), so the expected count is ~2.07x the auditor's:
+
+   | | auditor (S=1) | with S=2.068 |
+   |---|---|---|
+   | expected (7,1,6) with f <= 6500 | 0.0066 | **0.0153** |
+
+   The two derivations are independent and agree to exactly the factor `S`,
+   which is a useful cross-check on both.  The qualitative conclusion is
+   unchanged and correct: zero was the overwhelmingly likely outcome, the yield
+   is logarithmic in `F`, and no reachable amount of CPU changes that.
